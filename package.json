@@ -1,7 +1,7 @@
 {
 	"name": "@cadmean-us/cadponents",
 	"license": "MIT",
-	"version": "0.0.1",
+	"version": "0.0.7",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -21,10 +21,15 @@
 			"svelte": "./dist/index.js"
 		}
 	},
+	"keywords": [
+		"svelte"
+	],
 	"files": [
-		"dist",
 		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*"
+		"!dist/**/*.spec.*",
+		"./dist/**/*.svelte",
+		"./dist/**/*.js",
+		"./dist/**/*.d.ts"
 	],
 	"peerDependencies": {
 		"svelte": "^3.54.0"
@@ -56,6 +61,12 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
+		"@fullhuman/postcss-purgecss": "^5.0.0",
+		"postcss-import": "^15.1.0",
+		"postcss-load-config": "^4.0.1",
+		"rollup-plugin-node-resolve": "^5.2.0",
+		"rollup-plugin-postcss": "^4.0.2",
+		"rollup-plugin-svelte": "^7.1.4",
 		"svelte-preprocess": "^5.0.3"
 	}
 }
