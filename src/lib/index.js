@@ -5,6 +5,7 @@ import NavMenu from '$lib/NavMenu.svelte';
 import Sheet from '$lib/Sheet.svelte';
 import Table from '$lib/table/Table.svelte';
 import Sort from '$lib/table/Sort.svelte';
+import SideMenu from '$lib/menu/SideMenu.svelte';
 
 export { Cadmean };
 export { Button };
@@ -13,3 +14,4 @@ export { NavMenu };
 export { Sheet };
 export { Table };
 export { Sort };
+export { SideMenu };
