@@ -18,40 +18,30 @@ switch (size) {
 }
 </script>
 
-
 {#if href !== ''}
-    <a {href} {target}>
-        <button
-            on:click
-            class={defaultClass}
-            {...$$props}
-        >
-            {#if prefix !== ''}
-                <img src={prefix} alt="pre">
-            {/if}
+	<a {href} {target}>
+		<button on:click {...$$restProps} class={defaultClass + ' ' + $$props.class}>
+			{#if prefix !== ''}
+				<img src={prefix} alt="pre" />
+			{/if}
 
-            <slot />
+			<slot />
 
-            {#if suffix !== ''}
-                <img src={suffix} alt="suf">
-            {/if}
-        </button>
-    </a>
+			{#if suffix !== ''}
+				<img src={suffix} alt="suf" />
+			{/if}
+		</button>
+	</a>
 {:else}
-    <button
-        on:click
-        class={defaultClass}
-        {...$$props}
-    >
-        {#if prefix !== ''}
-        <img src={prefix} alt="pre">
-        {/if}
+	<button on:click {...$$restProps} class={defaultClass + ' ' + $$props.class}>
+		{#if prefix !== ''}
+			<img src={prefix} alt="pre" />
+		{/if}
 
-        <slot />
+		<slot />
 
-        {#if suffix !== ''}
-        <img src={suffix} alt="suf">
-        {/if}
-
-    </button>
+		{#if suffix !== ''}
+			<img src={suffix} alt="suf" />
+		{/if}
+	</button>
 {/if}

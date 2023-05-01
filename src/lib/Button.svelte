@@ -32,7 +32,7 @@
 
 {#if href !== ''}
 	<a {href} {target}>
-		<button on:click class={defaultClass} {...$$props}>
+		<button on:click {...$$restProps} class={defaultClass + ' ' + $$props.class}>
 			{#if prefix !== ''}
 				<img src={prefix} alt="pre" />
 			{/if}
@@ -45,7 +45,7 @@
 		</button>
 	</a>
 {:else}
-	<button on:click class={defaultClass} {...$$props}>
+	<button on:click {...$$restProps} class={defaultClass + ' ' + $$props.class}>
 		{#if prefix !== ''}
 			<img src={prefix} alt="pre" />
 		{/if}
