@@ -1,1 +1,3 @@
-// Reexport your entry components here
+import Cadmean from "$lib/Cadmean.svelte";
+
+export { Cadmean };
