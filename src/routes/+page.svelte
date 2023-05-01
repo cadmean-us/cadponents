@@ -6,15 +6,15 @@
 	import Sheet from '$lib/Sheet.svelte';
 
 	let headers = [
-		{ key: 'big', sort: false, value: 'Find by name' },
-		{ value: 'Phone' },
-		{ value: 'Email' },
+		{ key: 'name', sort: false, value: 'Name' },
+		{ key: 'email', value: 'Email' },
+		{ key: 'phone', value: 'Phone' },
 		{ key: 'actions', sort: false, value: 'Actions' },
 	];
 
 	let rows = [
-		[{ value: 'test' }, { key: 'big', value: '3test' }],
-		[{ value: 'test' }, { type: 'big', value: '3test' }],
+		{ id: 0, name: 'name', email: '@', phone: '+111' },
+		{ id: 1, name: 'name2', phone: '+112', email: '@2' },
 	];
 
 	// console.log(Array.from({ length: 6 }).map((_, i) => ({
@@ -30,6 +30,10 @@
 	let visible = false;
 	let sheet;
 	$: console.log(sheet);
+
+	const onActionsClick = (row) => {
+		console.log(row);
+	};
 </script>
 
 <Button
@@ -43,7 +47,7 @@
 <Sheet bind:this={sheet} />
 
 <div class="p-10">
-	<Table {headers} {rows} sortable>
+	<Table {headers} on:onActionsClick={(e) => onActionsClick(e.detail)} {rows} sortable>
 		<svelte:fragment slot="panel">
 			<div class="flex">
 				<div class="flex">
