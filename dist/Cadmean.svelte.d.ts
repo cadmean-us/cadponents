@@ -2,7 +2,7 @@
 /** @typedef {typeof __propDef.events}  CadmeanEvents */
 /** @typedef {typeof __propDef.slots}  CadmeanSlots */
 export default class Cadmean extends SvelteComponentTyped<{
-    [x: string]: never;
+    [x: string]: any;
 }, {
     [evt: string]: CustomEvent<any>;
 }, {}> {
@@ -13,7 +13,7 @@ export type CadmeanSlots = typeof __propDef.slots;
 import { SvelteComponentTyped } from "svelte";
 declare const __propDef: {
     props: {
-        [x: string]: never;
+        [x: string]: any;
     };
     events: {
         [evt: string]: CustomEvent<any>;
