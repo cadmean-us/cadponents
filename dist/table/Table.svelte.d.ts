@@ -6,13 +6,20 @@ export default class Table extends SvelteComponentTyped<{
     rows: any;
     sortable?: boolean | undefined;
 }, {
+    onActionsClick: CustomEvent<any>;
+} & {
     [evt: string]: CustomEvent<any>;
 }, {
     panel: {};
     header: {
         header: any;
     };
-    cell: {};
+    cell: {
+        row: any;
+        cell: any;
+        rowIndex: any;
+        cellIndex: any;
+    };
     body: {};
 }> {
 }
@@ -27,6 +34,8 @@ declare const __propDef: {
         sortable?: boolean | undefined;
     };
     events: {
+        onActionsClick: CustomEvent<any>;
+    } & {
         [evt: string]: CustomEvent<any>;
     };
     slots: {
@@ -34,7 +43,12 @@ declare const __propDef: {
         header: {
             header: any;
         };
-        cell: {};
+        cell: {
+            row: any;
+            cell: any;
+            rowIndex: any;
+            cellIndex: any;
+        };
         body: {};
     };
 };
