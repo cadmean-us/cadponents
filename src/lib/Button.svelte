@@ -11,7 +11,8 @@
 	export let suffix = '';
 
 	let defaultClass =
-		'rounded-lg flex items-center justify-center text-white ' + (!secondary ? 'bg-[#000656]' : '');
+		'rounded-lg flex items-center justify-center text-white ' +
+		(!secondary ? 'bg-[#000656]' : '');
 
 	switch (size) {
 		case 'sm':

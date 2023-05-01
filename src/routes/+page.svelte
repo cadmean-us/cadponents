@@ -9,12 +9,12 @@
 		{ key: 'big', sort: false, value: 'Find by name' },
 		{ value: 'Phone' },
 		{ value: 'Email' },
-		{ key: 'actions', sort: false, value: 'Actions' }
+		{ key: 'actions', sort: false, value: 'Actions' },
 	];
 
 	let rows = [
 		[{ value: 'test' }, { key: 'big', value: '3test' }],
-		[{ value: 'test' }, { type: 'big', value: '3test' }]
+		[{ value: 'test' }, { type: 'big', value: '3test' }],
 	];
 
 	// console.log(Array.from({ length: 6 }).map((_, i) => ({
@@ -33,10 +33,10 @@
 </script>
 
 <Button
-	prefix="/icons/Plus.svg"
 	on:click={() => {
 		sheet.toggleVisibility();
-	}}>test</Button
+	}}
+	prefix="/icons/Plus.svg">test</Button
 >
 <Input />
 
@@ -54,7 +54,7 @@
 			</div>
 		</svelte:fragment>
 
-		<svelte:fragment slot="header" let:header>
+		<svelte:fragment let:header slot="header">
 			{#if header.key === 'big'}
 				<h2>{header.value} test</h2>
 			{:else}

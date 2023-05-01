@@ -5,7 +5,7 @@
 
 	const rotation = tweened(0, {
 		duration: 400,
-		easing: cubicOut
+		easing: cubicOut,
 	});
 
 	/**
@@ -43,7 +43,12 @@
 	}}
 >
 	{#if visible}
-		<div in:fade out:fade class="w-[7px] h-[4px]" style="transform: rotate({$rotation * 180}deg)">
+		<div
+			in:fade
+			out:fade
+			class="w-[7px] h-[4px]"
+			style="transform: rotate({$rotation * 180}deg)"
+		>
 			<img in:fade out:fade height="4" width="7" src="/icons/Chevron.svg" alt="chevron" />
 		</div>
 	{/if}
