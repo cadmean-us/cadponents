@@ -4,6 +4,9 @@
 	import Button from '$lib/Button.svelte';
 	import Input from '$lib/Input.svelte';
 	import Sheet from '$lib/Sheet.svelte';
+	import Cadmean from '$lib/Cadmean.svelte';
+	import Chip from "$lib/chips/Chip.svelte";
+	import Chips from "$lib/chips/Chips.svelte";
 
 	let headers = [
 		{ key: 'big', sort: false, value: 'Find by name' },
@@ -25,12 +28,24 @@
 	//     rule: i % 3 ? "Round robin" : "DNS delegation",
 	// })))
 
+	let data = [
+		{id:1, value:'test1'},
+		{id:2, value:'test2'},
+		{id:3, value:'test3'},
+	]
+
 	let title = 'Instructors';
 	let totalAmount = '100';
 	let visible = false;
 	let sheet;
 	$: console.log(sheet);
 </script>
+
+<div class="flex flex-col gap-10 p-10">
+
+<Cadmean class="underline"/>
+
+<Chips bind:data={data}/>
 
 <Button
 	on:click={() => {
@@ -62,4 +77,6 @@
 			{/if}
 		</svelte:fragment>
 	</Table>
+</div>
+
 </div>
