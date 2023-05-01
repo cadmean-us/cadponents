@@ -1,3 +1,3 @@
-import Cadmean from "$lib/Cadmean.svelte";
+import Cadmean from '$lib/Cadmean.svelte';
 
 export { Cadmean };
