@@ -7,6 +7,8 @@
 	import Student from '$lib/Student.svelte';
 	import Cadmean from '$lib/Cadmean.svelte';
 	import Chips from '$lib/chips/Chips.svelte';
+	import Popover from '$lib/Popover.svelte';
+	import { onMount } from 'svelte';
 
 	let headers = [
 		{ key: 'name', sort: false, value: 'Name' },
@@ -32,6 +34,10 @@
 		{ id: 1, value: 'test1' },
 		{ id: 2, value: 'test2' },
 		{ id: 3, value: 'test3' },
+		{ id: 4, value: 'test3' },
+		{ id: 5, value: 'test3' },
+		{ id: 6, value: 'test3' },
+		{ id: 7, value: 'test3' },
 	];
 
 	let title = 'Instructors';
@@ -61,6 +67,8 @@
 			icon: Student,
 		},
 	];
+
+	let poptest;
 </script>
 
 <Sheet bind:this={sheet} />
@@ -74,10 +82,15 @@
 			<div class="text-white mb-3">Need help?</div>
 		</svelte:fragment>
 	</SideMenu>
-	<div class="p-10">
+
+	<div class="p-10 flex flex-col gap-10">
 		<Cadmean class="underline" />
 
-		<Chips bind:data />
+		<div bind:this={poptest}>popover test</div>
+		<Popover target={poptest}>something</Popover>
+
+		<Chips class="w-[300px]" bind:data />
+
 		<Button
 			on:click={() => {
 				sheet.toggleVisibility();
