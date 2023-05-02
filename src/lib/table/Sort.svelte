@@ -2,6 +2,7 @@
 	import { tweened } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
 	import { fade } from 'svelte/transition';
+	import Chevron from '$lib/icons/Chevron.svelte';
 
 	const rotation = tweened(0, {
 		duration: 400,
@@ -49,7 +50,9 @@
 			class="w-[7px] h-[4px]"
 			style="transform: rotate({$rotation * 180}deg)"
 		>
-			<img in:fade out:fade height="4" width="7" src="/icons/Chevron.svg" alt="chevron" />
+			<div in:fade out:fade>
+				<Chevron />
+			</div>
 		</div>
 	{/if}
 </div>

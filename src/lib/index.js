@@ -6,6 +6,7 @@ import Sheet from '$lib/Sheet.svelte';
 import Table from '$lib/table/Table.svelte';
 import Sort from '$lib/table/Sort.svelte';
 import SideMenu from '$lib/menu/SideMenu.svelte';
+import IconButton from '$lib/IconButton.svelte';
 
 export { Cadmean };
 export { Button };
@@ -15,3 +16,4 @@ export { Sheet };
 export { Table };
 export { Sort };
 export { SideMenu };
+export { IconButton };
