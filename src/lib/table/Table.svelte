@@ -1,6 +1,5 @@
 <script>
 	import Sort from '$lib/table/Sort.svelte';
-	import Button from '$lib/Button.svelte';
 	import { createEventDispatcher } from 'svelte';
 
 	export let headers;
@@ -66,11 +65,13 @@
 			<tr class="border-t-[1px] border-[#F9F9F9]">
 				<td />
 				{#each tableCellsByRowId[row.id] as cell, j (cell.key)}
-					<td class="py-4">
+					<td class="py-4 justify-center">
 						{#if headers[j].key === 'actions'}
-							<Button on:click={() => onActionsClick(row)} class="text-zinc-700"
-								>︙</Button
-							>
+							<div on:click={() => onActionsClick(row)}>
+								<slot name="cell" {row} {cell} rowIndex={i} cellIndex={j}>
+									{cell.value}
+								</slot>
+							</div>
 						{:else}
 							<slot name="cell" {row} {cell} rowIndex={i} cellIndex={j}>
 								{cell.value}

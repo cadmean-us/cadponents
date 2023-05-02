@@ -6,4 +6,5 @@ import Sheet from './Sheet.svelte';
 import Table from './table/Table.svelte';
 import Sort from './table/Sort.svelte';
 import SideMenu from './menu/SideMenu.svelte';
-export { Cadmean, Button, Input, NavMenu, Sheet, Table, Sort, SideMenu };
+import IconButton from './IconButton.svelte';
+export { Cadmean, Button, Input, NavMenu, Sheet, Table, Sort, SideMenu, IconButton };
