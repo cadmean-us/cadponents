@@ -1,12 +1,12 @@
 <script lang="ts">
 	import Table from '$lib/table/Table.svelte';
-	import { fly, fade } from 'svelte/transition';
 	import Button from '$lib/Button.svelte';
 	import Input from '$lib/Input.svelte';
 	import Sheet from '$lib/Sheet.svelte';
+	import SideMenu from '$lib/menu/SideMenu.svelte';
+	import Student from '$lib/Student.svelte';
 	import Cadmean from '$lib/Cadmean.svelte';
-	import Chip from "$lib/chips/Chip.svelte";
-	import Chips from "$lib/chips/Chips.svelte";
+	import Chips from '$lib/chips/Chips.svelte';
 
 	let headers = [
 		{ key: 'name', sort: false, value: 'Name' },
@@ -29,10 +29,10 @@
 	// })))
 
 	let data = [
-		{id:1, value:'test1'},
-		{id:2, value:'test2'},
-		{id:3, value:'test3'},
-	]
+		{ id: 1, value: 'test1' },
+		{ id: 2, value: 'test2' },
+		{ id: 3, value: 'test3' },
+	];
 
 	let title = 'Instructors';
 	let totalAmount = '100';
@@ -43,44 +43,67 @@
 	const onActionsClick = (row) => {
 		console.log(row);
 	};
+
+	let tabs = [
+		{
+			name: 'Schedule',
+			href: '/dashboard/schedule',
+			icon: Student,
+		},
+		{
+			name: 'Lessons',
+			href: '/dashboard/lessons',
+			icon: Student,
+		},
+		{
+			name: 'Students',
+			href: '/dashboard/students',
+			icon: Student,
+		},
+	];
 </script>
-
-<div class="flex flex-col gap-10 p-10">
-
-<Cadmean class="underline"/>
-
-<Chips bind:data={data}/>
-
-<Button
-	on:click={() => {
-		sheet.toggleVisibility();
-	}}
-	prefix="/icons/Plus.svg">test</Button
->
-<Input />
 
 <Sheet bind:this={sheet} />
 
-<div class="p-10">
-	<Table {headers} on:onActionsClick={(e) => onActionsClick(e.detail)} {rows} sortable>
-		<svelte:fragment slot="panel">
-			<div class="flex">
+<div class="flex">
+	<SideMenu {tabs}>
+		<svelte:fragment slot="title">
+			<div class="text-white mb-3">Cadponents</div>
+		</svelte:fragment>
+		<svelte:fragment slot="footer">
+			<div class="text-white mb-3">Need help?</div>
+		</svelte:fragment>
+	</SideMenu>
+	<div class="p-10">
+		<Cadmean class="underline" />
+
+		<Chips bind:data />
+		<Button
+			on:click={() => {
+				sheet.toggleVisibility();
+			}}
+			prefix="/icons/Plus.svg">test</Button
+		>
+		<Input />
+		<Table {headers} on:onActionsClick={(e) => onActionsClick(e.detail)} {rows} sortable>
+			<svelte:fragment slot="panel">
 				<div class="flex">
-					<div class="mr-4">{title}</div>
-					<div class="">{totalAmount}</div>
+					<div class="flex">
+						<div class="mr-4">{title}</div>
+						<div class="">{totalAmount}</div>
+					</div>
+					<div class="flex-1" />
 				</div>
-				<div class="flex-1" />
-			</div>
-		</svelte:fragment>
+			</svelte:fragment>
 
-		<svelte:fragment let:header slot="header">
-			{#if header.key === 'big'}
-				<h2>{header.value} test</h2>
-			{:else}
-				{header.value}
-			{/if}
-		</svelte:fragment>
-	</Table>
-</div>
-
+			<svelte:fragment let:header slot="header">
+				{#if header.key === 'big'}
+					<h2>{header.value} test</h2>
+				{:else}
+					{header.value}
+				{/if}
+			</svelte:fragment>
+		</Table>
+		<div class="h-[1200px]">long content</div>
+	</div>
 </div>
