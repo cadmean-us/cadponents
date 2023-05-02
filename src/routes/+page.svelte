@@ -9,6 +9,7 @@
 	import Chips from '$lib/chips/Chips.svelte';
 	import Popover from '$lib/Popover.svelte';
 	import { onMount } from 'svelte';
+	import Dropdown from '$lib/Dropdown.svelte';
 
 	let headers = [
 		{ key: 'name', sort: false, value: 'Name' },
@@ -68,6 +69,8 @@
 		},
 	];
 
+	let dropValues = ['test1', 'test3', 'test2'];
+
 	let poptest;
 </script>
 
@@ -86,10 +89,9 @@
 	<div class="p-10 flex flex-col gap-10">
 		<Cadmean class="underline" />
 
-		<div bind:this={poptest}>popover test</div>
-		<Popover target={poptest}>something</Popover>
+		<Dropdown values={dropValues} />
 
-		<Chips class="w-[300px]" bind:data />
+		<Chips class="w-[300px] " bind:data />
 
 		<Button
 			on:click={() => {

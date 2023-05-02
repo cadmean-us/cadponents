@@ -1,13 +1,41 @@
 <script>
-	import { afterUpdate } from 'svelte';
+	import { clickOutside } from '$lib/scripts/clickOutside.ts';
 
-	export let target;
+	export let yOffset = 10;
+	export let xOffset = 0;
+	export let visible;
 
-	$: if (target) {
-		afterUpdate(() => {
-			console.log('inside', target.getBoundingClientRect());
-		});
+	let popover;
+	let targetRect;
+	let top;
+	let left;
+
+	export function show(t) {
+		event.stopPropagation();
+
+		visible = true;
+
+		if (t) {
+			targetRect = t.target.getBoundingClientRect();
+
+			left = `${targetRect.left + xOffset}px`;
+			top = `${targetRect.bottom + yOffset}px`;
+		}
+	}
+
+	export function hide() {
+		visible = false;
 	}
 </script>
 
-<div><slot /></div>
+{#if visible}
+	<div
+		use:clickOutside
+		on:click_outside={hide}
+		class={$$props.class ?? ''}
+		style="position: absolute; top:{top}; left:{left}"
+		bind:this={popover}
+	>
+		<slot />
+	</div>
+{/if}

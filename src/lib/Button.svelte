@@ -12,7 +12,7 @@
 
 	let defaultClass =
 		'rounded-lg flex items-center justify-center text-white ' +
-		(!secondary ? 'bg-[#000656]' : '');
+		(!secondary ? 'bg-primary' : 'bg-secondary');
 
 	switch (size) {
 		case 'sm':
