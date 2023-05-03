@@ -16,8 +16,10 @@
 		visible = true;
 
 		if (t) {
-			targetRect = t.target.getBoundingClientRect();
+			if (t.target) targetRect = t.target.getBoundingClientRect();
+			else targetRect = t.getBoundingClientRect();
 
+			console.log(targetRect);
 			left = `${targetRect.left + xOffset}px`;
 			top = `${targetRect.bottom + yOffset}px`;
 		}
@@ -30,6 +32,7 @@
 
 {#if visible}
 	<div
+		{...$$restProps}
 		use:clickOutside
 		on:click_outside={hide}
 		class={$$props.class ?? ''}

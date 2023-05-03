@@ -69,9 +69,56 @@
 		},
 	];
 
-	let dropValues = ['test1', 'test3', 'test2'];
-
-	let poptest;
+	let dropValues = [
+		{
+			key: '1',
+			value: 'George',
+		},
+		{
+			key: '2',
+			value: 'Emma',
+		},
+		{
+			key: '3',
+			value: 'Olivia',
+		},
+		{
+			key: '4',
+			value: 'Noah',
+		},
+		{
+			key: '5',
+			value: 'Liam',
+		},
+		{
+			key: '6',
+			value: 'Sophia',
+		},
+		{
+			key: '7',
+			value: 'Mia',
+		},
+		{
+			key: '8',
+			value: 'Charlotte',
+		},
+		{
+			key: '9',
+			value: 'Amelia',
+		},
+		{
+			key: '10',
+			value: 'Harper',
+		},
+		{
+			key: '11',
+			value: 'Evelyn',
+		},
+		{
+			key: '12',
+			value: 'Abigail',
+		},
+	];
 </script>
 
 <Sheet bind:this={sheet} />
