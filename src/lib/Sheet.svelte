@@ -19,7 +19,8 @@
 
 {#if visible}
 	<div
-		class="overlay fixed top-0 left-0 h-full w-full bg-black/[.5] z-40"
+		class="overlay fixed top-0 left-0 h-full w-full z-40"
+		style="background-color: rgb(0 0 0 / .5) !important;"
 		in:fade
 		out:fade
 		on:click={toggleVisibility}
