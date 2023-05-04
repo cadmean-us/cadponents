@@ -33,7 +33,6 @@
 				visible = false;
 				break;
 		}
-		console.log(visible, sortDirection);
 	}
 </script>
 

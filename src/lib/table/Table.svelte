@@ -47,7 +47,6 @@
 							if (sortable && header.sort === undefined) {
 								sort[i].sort();
 							}
-							console.log(sortable && header.sort);
 						}}
 					>
 						<slot name="header" {header}>
