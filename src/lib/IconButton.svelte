@@ -7,7 +7,7 @@
 	export let size = 'md';
 	export let bgColor = 'transparent';
 
-	let defaultClass = `p-0 rounded-full flex items-center justify-center bg-[${bgColor}]`;
+	let defaultClass = `p-0 rounded-full flex items-center justify-center`;
 
 	switch (size) {
 		case 'sm':
@@ -27,12 +27,22 @@
 
 {#if href !== ''}
 	<a {href} {target}>
-		<button on:click {...$$restProps} class={defaultClass + ' ' + $$props.class}>
+		<button
+			on:click
+			{...$$restProps}
+			class={defaultClass + ' ' + $$props.class}
+			style="background-color: {bgColor}"
+		>
 			<slot />
 		</button>
 	</a>
 {:else}
-	<button on:click {...$$restProps} class={defaultClass + ' ' + $$props.class}>
+	<button
+		on:click
+		{...$$restProps}
+		class={defaultClass + ' ' + $$props.class}
+		style="background-color: {bgColor}"
+	>
 		<slot />
 	</button>
 {/if}

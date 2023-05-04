@@ -4,16 +4,23 @@
 
 	export let activeColor = 'white';
 	export let inactiveColor = '#66667C';
-
+	export let padding = 30;
 	export let tabs: SideMenuTabs[] = [];
+
+	let defaultClass = `h-screen sticky left-0 top-0 w-[246px] box-border`;
 </script>
 
-<div aria-label="Sidebar" class="w-64 h-screen sticky left-0 top-0" id="default-sidebar">
-	<div class="h-full px-3 py-4 overflow-y-auto bg-[#12131C]">
+<div
+	aria-label="Sidebar"
+	{...$$restProps}
+	class={defaultClass + ' ' + $$props.class ?? ''}
+	id="default-sidebar"
+>
+	<div class="h-full px-7 py-7 overflow-y-auto bg-[#12131C]" style="padding: 0 {padding}px;">
 		<slot name="title" />
-		<ul class="space-y-2 font-medium">
+		<ul class="font-medium" style="margin-top: {padding}px !important">
 			{#each tabs as tab}
-				<SideMenuTab {...tab} {inactiveColor} {activeColor} />
+				<SideMenuTab {...tab} {inactiveColor} {activeColor} {padding} />
 			{/each}
 		</ul>
 		<div class="fixed bottom-0">

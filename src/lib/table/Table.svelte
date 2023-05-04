@@ -5,6 +5,7 @@
 	export let headers;
 	export let rows;
 	export let sortable = false;
+	export let backgroundColor = '#FFFFFF';
 
 	let dispatch = createEventDispatcher();
 	let sort = [];
@@ -32,7 +33,11 @@
 	};
 </script>
 
-<div class="px-[40px] py-[30px] shadow rounded-2xl">
+<div
+	{...$$restProps}
+	class="px-[40px] py-[30px] shadow rounded-2xl {$$props.class}"
+	style="background-color: {backgroundColor}"
+>
 	<slot name="panel" />
 
 	<table class="w-full">
@@ -40,20 +45,22 @@
 		<tr>
 			<th />
 			{#each headers as header, i}
-				<th class="text-start py-4">
+				<th class="text-start py-[23px] cursor-pointer select-none">
 					<div
-						class="flex items-center gap-[5px]"
+						class="flex items-center gap-[5px] justify-start"
+						style="justify-content: {header.align ?? 'start'}"
 						on:click={() => {
-							if (sortable && header.sort === undefined) {
+							if (sortable && (header.sort || header.sort === undefined)) {
 								sort[i].sort();
 							}
-							console.log(sortable && header.sort);
 						}}
 					>
 						<slot name="header" {header}>
 							{header.value}
 						</slot>
-						<Sort bind:this={sort[i]} />
+						{#if sortable && (header.sort || header.sort === undefined)}
+							<Sort bind:this={sort[i]} />
+						{/if}
 					</div>
 				</th>
 			{/each}
@@ -65,18 +72,20 @@
 			<tr class="border-t-[1px] border-[#F9F9F9]">
 				<td />
 				{#each tableCellsByRowId[row.id] as cell, j (cell.key)}
-					<td class="py-4 justify-center">
-						{#if headers[j].key === 'actions'}
-							<div on:click={() => onActionsClick(row)}>
+					<td class="py-[16px]">
+						<div class="flex justify-start" style="justify-content: {headers[j].align}">
+							{#if headers[j].key === 'actions'}
+								<div on:click={() => onActionsClick(row)}>
+									<slot name="cell" {row} {cell} rowIndex={i} cellIndex={j}>
+										{cell.value}
+									</slot>
+								</div>
+							{:else}
 								<slot name="cell" {row} {cell} rowIndex={i} cellIndex={j}>
 									{cell.value}
 								</slot>
-							</div>
-						{:else}
-							<slot name="cell" {row} {cell} rowIndex={i} cellIndex={j}>
-								{cell.value}
-							</slot>
-						{/if}
+							{/if}
+						</div>
 					</td>
 				{/each}
 				<td />

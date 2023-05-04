@@ -30,29 +30,25 @@
 				break;
 			case 'ascending':
 				sortDirection = 'none';
+				rotation.set(0);
 				visible = false;
 				break;
 		}
-		console.log(visible, sortDirection);
 	}
 </script>
 
 <div
-	class="w-4 h-4 flex items-center justify-center pt-[3px]"
+	class="w-4 h-4 flex items-center justify-center"
 	on:click={() => {
 		sort();
 	}}
 >
-	{#if visible}
-		<div
-			in:fade
-			out:fade
-			class="w-[7px] h-[4px]"
-			style="transform: rotate({$rotation * 180}deg)"
-		>
-			<div in:fade out:fade>
-				<Chevron />
-			</div>
+	<div
+		class="w-[7px] h-[4px]"
+		style="opacity: {visible ? '1' : '0.5'}; transform: rotate({$rotation * 180}deg)"
+	>
+		<div>
+			<Chevron />
 		</div>
-	{/if}
+	</div>
 </div>
