@@ -8,6 +8,7 @@
 	export let tabs: SideMenuTabs[] = [];
 
 	let defaultClass = `h-screen sticky left-0 top-0 w-[246px] box-border`;
+	let defaultClassInside = `h-full px-7 py-7 overflow-y-auto bg-[#12131C] w-[246px]`;
 </script>
 
 <div
@@ -16,7 +17,7 @@
 	class={defaultClass + ' ' + $$props.class ?? ''}
 	id="default-sidebar"
 >
-	<div class="h-full px-7 py-7 overflow-y-auto bg-[#12131C]" style="padding: 0 {padding}px;">
+	<div class={defaultClassInside + ' ' + $$props.class ?? ''} style="padding: 0 {padding}px;">
 		<slot name="title" />
 		<ul class="font-medium" style="margin-top: {padding}px !important">
 			{#each tabs as tab}

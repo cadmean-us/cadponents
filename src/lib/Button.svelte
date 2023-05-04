@@ -15,14 +15,14 @@
 		(!secondary ? 'bg-primary' : 'bg-secondary');
 
 	switch (size) {
-		case 'sm':
+		case 'lg':
 			defaultClass += ' h-[48px] px-[20px] gap-[10px]';
 			break;
 		case 'md':
 			defaultClass += ' h-[40px] px-[16px] gap-[10px]';
 			break;
-		case 'lg':
-			defaultClass += ' h-[36px] px-[14px] gap-[8px]';
+		case 'sm':
+			defaultClass += ' h-[32px] px-[14px] gap-[8px]';
 			break;
 	}
 
