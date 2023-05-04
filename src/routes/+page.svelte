@@ -10,6 +10,7 @@
 	import Popover from '$lib/Popover.svelte';
 	import { onMount } from 'svelte';
 	import Dropdown from '$lib/Dropdown.svelte';
+	import Checkbox from '$lib/Checkbox.svelte';
 
 	let headers = [
 		{ key: 'name', sort: false, value: 'Name' },
@@ -76,7 +77,7 @@
 		},
 		{
 			key: '2',
-			value: 'Emma',
+			value: 'EmmaEmmaEmmaEmmaEmmaEmmaEmmaEmma',
 		},
 		{
 			key: '3',
@@ -119,6 +120,8 @@
 			value: 'Abigail',
 		},
 	];
+
+	let checked;
 </script>
 
 <Sheet bind:this={sheet} />
@@ -136,6 +139,11 @@
 	<div class="p-10 flex flex-col gap-10">
 		<Cadmean class="underline" />
 
+		<div>
+			<Checkbox bind:checked class="w-20" />
+			{checked}
+		</div>
+
 		<Dropdown values={dropValues} />
 
 		<Chips class="w-[300px] " bind:data />
@@ -146,7 +154,9 @@
 			}}
 			prefix="/icons/Plus.svg">test</Button
 		>
+
 		<Input />
+
 		<Table {headers} on:onActionsClick={(e) => onActionsClick(e.detail)} {rows} sortable>
 			<svelte:fragment slot="panel">
 				<div class="flex">
@@ -154,7 +164,6 @@
 						<div class="mr-4">{title}</div>
 						<div class="">{totalAmount}</div>
 					</div>
-					<div class="flex-1" />
 				</div>
 			</svelte:fragment>
 

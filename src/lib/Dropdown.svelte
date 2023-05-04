@@ -27,32 +27,32 @@
 	let panel;
 </script>
 
-<div>{label}</div>
+<div>{label ?? ''}</div>
 <div
 	bind:this={panel}
-	class="rounded-c border-gray-300 border-c w-[245px] h-[52px] py-[12px] px-[20px] flex justify-between items-center"
+	class="rounded-c border-gray-300 border-c w-[245px] h-[52px] py-[12px] px-[20px] flex justify-between items-center truncate"
 	on:click|stopPropagation={pop.show(panel)}
 >
-	<div>{selected.value}</div>
+	<div class="truncate">{selected.value}</div>
 	<div style="transform: rotate({$rotation * 180}deg)">
 		<Chevron size="10" />
 	</div>
 </div>
 
-<Popover yOffset={4} bind:visible bind:this={pop}>
+<Popover yOffset={1} bind:visible bind:this={pop}>
 	<div
 		in:fly={{ y: -10, duration: 300 }}
 		class="scrollbar w-[245px] bg-white rounded-c border-gray-300 border-c max-h-[188px] overflow-y-scroll"
 	>
 		{#each values as v}
 			<div
-				class="p-[12px] flex justify-between items-center"
+				class="p-[12px] w-[237px] flex justify-between items-center w-full truncate"
 				on:click={() => {
 					selected = v;
 					visible = false;
 				}}
 			>
-				<div>{v.value}</div>
+				<div class="w-[189px] truncate">{v.value}</div>
 				{#if v.key === selected.key}<Check height="4" width="13" />{/if}
 			</div>
 		{/each}

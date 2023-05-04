@@ -21,7 +21,7 @@
 
 			console.log(targetRect);
 			left = `${targetRect.left + xOffset}px`;
-			top = `${targetRect.bottom + yOffset}px`;
+			top = `${targetRect.bottom + yOffset + targetRect.height / 2}px`;
 		}
 	}
 
