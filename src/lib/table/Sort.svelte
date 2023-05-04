@@ -44,12 +44,10 @@
 	}}
 >
 	<div
-		in:fade
-		out:fade
 		class="w-[7px] h-[4px]"
 		style="opacity: {visible ? '1' : '0.5'}; transform: rotate({$rotation * 180}deg)"
 	>
-		<div in:fade out:fade>
+		<div>
 			<Chevron />
 		</div>
 	</div>
