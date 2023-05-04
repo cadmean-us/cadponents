@@ -23,14 +23,6 @@
 		{ id: 1, name: 'name2', phone: '+112', email: '@2' },
 	];
 
-	// console.log(Array.from({ length: 6 }).map((_, i) => ({
-	//     id: i,
-	//     name: "Load Balancer " + (i + 1),
-	//     protocol: "HTTP",
-	//     port: i % 3 ? (i % 2 ? 3000 : 80) : 443,
-	//     rule: i % 3 ? "Round robin" : "DNS delegation",
-	// })))
-
 	let data = [
 		{ id: 1, value: 'test1' },
 		{ id: 2, value: 'test2' },
@@ -45,11 +37,8 @@
 	let totalAmount = '100';
 	let visible = false;
 	let sheet;
-	$: console.log(sheet);
 
-	const onActionsClick = (row) => {
-		console.log(row);
-	};
+	const onActionsClick = (row) => {};
 
 	let tabs = [
 		{
@@ -138,7 +127,7 @@
 
 		<Dropdown values={dropValues} />
 
-		<Chips class="w-[300px] " bind:data />
+		<Chips bind:data class="w-[300px] " />
 
 		<Button
 			on:click={() => {

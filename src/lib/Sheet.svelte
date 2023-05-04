@@ -9,7 +9,6 @@
 	let visible = false;
 
 	export function toggleVisibility() {
-		console.log('test');
 		visible = !visible;
 	}
 

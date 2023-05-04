@@ -4,7 +4,6 @@
 	export let data;
 	function remove(idToRemove) {
 		data = data.filter((item) => item.id !== idToRemove);
-		console.log(data, idToRemove);
 	}
 </script>
 
