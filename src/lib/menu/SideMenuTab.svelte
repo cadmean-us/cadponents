@@ -13,16 +13,14 @@
 
 	function handleMouseOver(_) {
 		fill = activeColor;
-		this.style.color = fill;
 	}
 
 	function handleMouseOut(_) {
-		fill = inactiveColor;
-		this.style.color = fill;
+		fill = location.pathname.startsWith(href) ? activeColor : inactiveColor;
 	}
 
 	onMount(() => {
-		fill = location.pathname.includes(`/${name}`) ? activeColor : inactiveColor;
+		fill = location.pathname.startsWith(href) ? activeColor : inactiveColor;
 	});
 </script>
 

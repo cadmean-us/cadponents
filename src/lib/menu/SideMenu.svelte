@@ -16,7 +16,7 @@
 	class={defaultClass + ' ' + $$props.class ?? ''}
 	id="default-sidebar"
 >
-	<div class="h-full px-7 py-7 overflow-y-auto bg-[#12131C]" style="padding: {padding}px;">
+	<div class="h-full px-7 py-7 overflow-y-auto bg-[#12131C]" style="padding: 0 {padding}px;">
 		<slot name="title" />
 		<ul class="font-medium" style="margin-top: {padding}px !important">
 			{#each tabs as tab}
