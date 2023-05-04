@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	export let href;
 	export let name;
@@ -20,8 +21,14 @@
 	}
 
 	onMount(() => {
-		fill = location.pathname.startsWith(href) ? activeColor : inactiveColor;
+		changeColorOnLoad($page.url.pathname);
 	});
+
+	$: changeColorOnLoad($page.url.pathname);
+
+	function changeColorOnLoad(pathname) {
+		fill = pathname.startsWith(href) ? activeColor : inactiveColor;
+	}
 </script>
 
 <li style="margin-bottom: {padding}px;">
