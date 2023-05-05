@@ -6,9 +6,10 @@
 	export let placeholder = '';
 	export let type = 'text';
 	export let label = '';
+	export let labelStyle = '';
 	export let disabled = false;
-	export let width = '';
-	export let height = '';
+	export let width = '100%';
+	export let height = '100%';
 	export let style = '';
 	export let suffixSrc = '';
 	export let suffixSize = '';
@@ -32,129 +33,131 @@
 </script>
 
 <div
-	class="text-field-container {disabled ? 'disabled' : ''}"
-	style="width: {width};
-			max-width:{maxWidth}; height: {height};"
+	class={disabled ? 'disabled' : ''}
+	style="width: {width}; max-width:{maxWidth}; height: {height};"
 >
 	{#if label !== ''}
-		<div style="margin-bottom: 4px"><label for={id}>{label}</label></div>
+		<label style={labelStyle} for={id}>{label}</label>
+		<div class="h-[4px]" />
 	{/if}
-	<div class="text-field" style="width: {width}; max-width:{maxWidth}; height: {height}; {style}">
-		{#if prefixText !== ''}
-			<span style="margin-left: {iconLeftMargin};" class="prefix">{prefixText}</span>
-		{:else if prefixSrc !== ''}
-			<span style="margin-left: {iconLeftMargin};" class="prefix">
-				<img src={prefixSrc} width={prefixSize} alt="prefix" />
-			</span>
-		{/if}
-		{#if type == 'text'}
-			<input
-				bind:value
-				{disabled}
-				{id}
-				on:blur
-				on:click
-				on:copy
-				on:focus
-				on:input
-				on:keydown={(e) => {
-					handleKeyDown(e);
-				}}
-				on:paste
-				on:select
-				on:submit
-				{placeholder}
-				type="text"
-				style="padding: 14px 20px; {inputStyle}"
-			/>
-		{:else if type == 'email'}
-			<input
-				bind:value
-				{disabled}
-				{id}
-				on:blur
-				on:click
-				on:copy
-				on:focus
-				on:input
-				on:keydown={(e) => {
-					handleKeyDown(e);
-				}}
-				on:paste
-				on:select
-				on:submit
-				{placeholder}
-				type="email"
-				style="padding: 14px 20px; {inputStyle}"
-			/>
-		{:else if type == 'password'}
-			<input
-				bind:value
-				{disabled}
-				{id}
-				on:blur
-				on:click
-				on:copy
-				on:focus
-				on:input
-				on:keydown={(e) => {
-					handleKeyDown(e);
-				}}
-				on:paste
-				on:select
-				on:submit
-				{placeholder}
-				type="password"
-				style="padding: 14px 20px; {inputStyle}"
-			/>
-		{/if}
-		{#if suffixText !== ''}
-			<span style="margin-right: {iconRightMargin};" class="suffix">{suffixText}</span>
-		{:else if suffixSrc !== ''}
-			<span style="margin-right: {iconRightMargin};" class="suffix">
-				<img src={suffixSrc} width={suffixSize} alt="suffix" />
-			</span>
-		{/if}
-	</div>
+	{#if prefixText !== ''}
+		<span style="margin-left: {iconLeftMargin};" class="prefix">{prefixText}</span>
+	{:else if prefixSrc !== ''}
+		<span style="margin-left: {iconLeftMargin};" class="prefix">
+			<img src={prefixSrc} width={prefixSize} alt="prefix" />
+		</span>
+	{/if}
+	{#if type === 'text'}
+		<input
+			bind:value
+			{disabled}
+			{id}
+			on:blur
+			on:click
+			on:copy
+			on:focus
+			on:input
+			on:keydown={(e) => {
+				handleKeyDown(e);
+			}}
+			on:paste
+			on:select
+			on:submit
+			{placeholder}
+			type="text"
+			style="padding: 14px 20px; {inputStyle}"
+		/>
+	{:else if type === 'email'}
+		<input
+			bind:value
+			{disabled}
+			{id}
+			on:blur
+			on:click
+			on:copy
+			on:focus
+			on:input
+			on:keydown={(e) => {
+				handleKeyDown(e);
+			}}
+			on:paste
+			on:select
+			on:submit
+			{placeholder}
+			type="email"
+			style="padding: 14px 20px; {inputStyle}"
+		/>
+	{:else if type === 'password'}
+		<input
+			bind:value
+			{disabled}
+			{id}
+			on:blur
+			on:click
+			on:copy
+			on:focus
+			on:input
+			on:keydown={(e) => {
+				handleKeyDown(e);
+			}}
+			on:paste
+			on:select
+			on:submit
+			{placeholder}
+			type="password"
+			style="padding: 14px 20px; {inputStyle}"
+		/>
+	{/if}
+	{#if suffixText !== ''}
+		<span style="margin-right: {iconRightMargin};" class="suffix">{suffixText}</span>
+	{:else if suffixSrc !== ''}
+		<span style="margin-right: {iconRightMargin};" class="suffix">
+			<img src={suffixSrc} width={suffixSize} alt="suffix" />
+		</span>
+	{/if}
 </div>
 
 <style>
-	.text-field {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		overflow: hidden;
-		width: 213px;
-		height: 40px;
-		border: 1px solid #000000;
-		border-radius: 10px;
-		background-color: #ffffff;
-		color: #000000;
-		outline: none;
-		box-shadow: 0px 1px 2px rgba(2, 0, 82, 0.05);
-	}
-
 	input[type='text'],
 	input[type='email'],
 	input[type='password'] {
+		font-family: 'Inter';
 		flex-grow: 1;
-		width: 0;
-		border: none;
-		/*padding: 14px 20px;*/
-		font-size: 16px;
-		line-height: 24px;
-		font-weight: 400;
+		color: #000000;
 		background-color: #ffffff;
 		outline: none;
+		padding: 14px 20px;
+		border: 1px solid #f0f0f0;
+		border-radius: 8px;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 24px;
+		letter-spacing: -0.6px;
+		width: 100%;
+		height: 52px;
+		box-sizing: border-box;
+		transition: 0.3s;
 	}
 
-	.text-field:focus-within,
-	.text-field:hover {
+	input:focus-within,
+	input:hover {
 		border: 1px solid #ababab;
 	}
 
-	.disabled > .text-field {
-		border: none;
+	label {
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 12px;
+		line-height: 16px;
+		letter-spacing: 0.3px;
+		color: #717171;
+	}
+
+	.disabled > input {
+		color: #e3e3e3;
+		border: 1px solid #f2f2f2;
 	}
 
 	input::placeholder {
@@ -163,13 +166,6 @@
 
 	.disabled > label {
 		color: #e3e3e3;
-	}
-
-	label {
-		font-weight: 400;
-		font-size: 12px;
-		line-height: 16px;
-		color: #717171;
 	}
 
 	.prefix,

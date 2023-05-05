@@ -1,7 +1,7 @@
 {
 	"name": "@cadmean-us/cadponents",
 	"license": "MIT",
-	"version": "0.0.14",
+	"version": "0.0.16",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -32,7 +32,8 @@
 		"./dist/**/*.d.ts"
 	],
 	"peerDependencies": {
-		"svelte": "^3.54.0"
+		"svelte": "^3.54.0",
+		"@sveltejs/kit": "^1.5.0"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
@@ -57,8 +58,6 @@
 		"vite": "^4.3.0",
 		"vitest": "^0.25.3"
 	},
-	"svelte": "./dist/index.js",
-	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
 		"@fullhuman/postcss-purgecss": "^5.0.0",
