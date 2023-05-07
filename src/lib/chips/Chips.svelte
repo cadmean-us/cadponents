@@ -2,19 +2,18 @@
 	import Chip from '$lib/chips/Chip.svelte';
 
 	export let data;
-	function remove(idToRemove) {
-		data = data.filter((item) => item.id !== idToRemove);
+	function remove(valueToRemove) {
+		data = data.filter((item) => item !== valueToRemove.detail);
 	}
 </script>
 
 <div class="flex gap-[10px] flex-wrap {$$props.class ?? ''}">
 	{#each data as d}
 		<Chip
-			on:remove={(id) => {
-				remove(id.detail);
+			on:remove={(value) => {
+				remove(value);
 			}}
-			id={d.id}
-			value={d.value}
+			value={d}
 		/>
 	{/each}
 </div>

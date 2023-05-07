@@ -9,7 +9,7 @@
 	export let values;
 	export let selected = values[0];
 
-	export let label;
+	export let label = '';
 	let pop;
 
 	const rotation = tweened(0, {
@@ -33,13 +33,13 @@
 	class="rounded-c border-gray-300 border-c w-[245px] h-[52px] py-[12px] px-[20px] flex justify-between items-center truncate"
 	on:click|stopPropagation={pop.show(panel)}
 >
-	<div class="truncate">{selected.value}</div>
+	<div class="truncate">{selected}</div>
 	<div style="transform: rotate({$rotation * 180}deg)">
 		<Chevron size="10" />
 	</div>
 </div>
 
-<Popover yOffset={1} bind:visible bind:this={pop}>
+<Popover bind:visible bind:this={pop}>
 	<div
 		in:fly={{ y: -10, duration: 300 }}
 		class="scrollbar w-[245px] bg-white rounded-c border-gray-300 border-c max-h-[188px] overflow-y-scroll"
@@ -52,8 +52,8 @@
 					visible = false;
 				}}
 			>
-				<div class="w-[189px] truncate">{v.value}</div>
-				{#if v.key === selected.key}<Check height="4" width="13" />{/if}
+				<div class="w-[189px] truncate">{v}</div>
+				{#if v === selected}<Check height="4" width="13" />{/if}
 			</div>
 		{/each}
 	</div>

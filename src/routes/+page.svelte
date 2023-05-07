@@ -11,6 +11,7 @@
 	import { onMount } from 'svelte';
 	import Dropdown from '$lib/Dropdown.svelte';
 	import Checkbox from '$lib/Checkbox.svelte';
+	import Combobox from '$lib/Combobox.svelte';
 
 	let headers = [
 		{ key: 'name', sort: false, value: 'Name' },
@@ -24,15 +25,7 @@
 		{ id: 1, name: 'name2', phone: '+112', email: '@2' },
 	];
 
-	let data = [
-		{ id: 1, value: 'test1' },
-		{ id: 2, value: 'test2' },
-		{ id: 3, value: 'test3' },
-		{ id: 4, value: 'test3' },
-		{ id: 5, value: 'test3' },
-		{ id: 6, value: 'test3' },
-		{ id: 7, value: 'test3' },
-	];
+	let chipsData = ['test1', 'test8', 'test7', 'test2', 'test6', 'test4', 'test9'];
 
 	let title = 'Instructors';
 	let totalAmount = '100';
@@ -60,57 +53,24 @@
 	];
 
 	let dropValues = [
-		{
-			key: '1',
-			value: 'George',
-		},
-		{
-			key: '2',
-			value: 'EmmaEmmaEmmaEmmaEmmaEmmaEmmaEmma',
-		},
-		{
-			key: '3',
-			value: 'Olivia',
-		},
-		{
-			key: '4',
-			value: 'Noah',
-		},
-		{
-			key: '5',
-			value: 'Liam',
-		},
-		{
-			key: '6',
-			value: 'Sophia',
-		},
-		{
-			key: '7',
-			value: 'Mia',
-		},
-		{
-			key: '8',
-			value: 'Charlotte',
-		},
-		{
-			key: '9',
-			value: 'Amelia',
-		},
-		{
-			key: '10',
-			value: 'Harper',
-		},
-		{
-			key: '11',
-			value: 'Evelyn',
-		},
-		{
-			key: '12',
-			value: 'Abigail',
-		},
+		'George',
+		'EmmaEmmaEmmaEmmaEmmaEmmaEmmaEmma',
+		'Olivia',
+		'Noah',
+		'Liam',
+		'Sophia',
+		'Mia',
+		'Charlotte',
+		'Amelia',
+		'Harper',
+		'Evelyn',
+		'Abigail',
 	];
 
+	let groupChecked = ['George', 'Sophia'];
+
 	let checked;
+	let selectedDropdown = dropValues[0];
 </script>
 
 <Sheet bind:this={sheet} />
@@ -128,14 +88,29 @@
 	<div class="p-10 flex flex-col gap-10">
 		<Cadmean class="underline" />
 
+		{#each dropValues as v}
+			<Checkbox bind:group={groupChecked} value={v} />
+		{/each}
+		{JSON.stringify(groupChecked)}
+
+		<Combobox
+			values={dropValues}
+			label="Multi Model"
+			multiselect
+			selected={['George', 'Sophia']}
+		/>
+
+		<Combobox values={dropValues} label="Model" />
+
 		<div>
-			<Checkbox bind:checked class="w-20" />
+			<Checkbox bind:checked class="w-20">Something</Checkbox>
 			{checked}
 		</div>
 
-		<Dropdown values={dropValues} />
+		<Dropdown values={dropValues} bind:selected={selectedDropdown} />
+		{selectedDropdown}
 
-		<Chips bind:data class="w-[300px] " />
+		<Chips bind:data={chipsData} class="w-[300px] " />
 
 		<Button
 			on:click={() => {

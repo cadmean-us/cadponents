@@ -4,18 +4,22 @@
 	import { fade } from 'svelte/transition';
 
 	const dispatch = createEventDispatcher();
-	export let id;
 	export let value;
+	let visible = true;
 	function remove() {
-		dispatch('remove', id);
+		dispatch('remove', value);
 	}
+
+	//todo: add fade in and out animation, somehow it's currently weird, when fade out it suddenly moves to the last pos
 </script>
 
 <div
-	class="rounded-lg flex gap-[10px] items-center justify-center text-[#282945] bg-[#ECDEFF] w-fit px-[12px] py-[6px]"
-	in:fade={{ duration: 200 }}
-	out:fade={{ duration: 200 }}
+	class=" rounded-lg flex gap-[10px] items-center justify-center text-[#282945] bg-[#ECDEFF] w-full max-w-fit px-[12px] py-[6px]"
 >
-	<slot>{value}</slot>
-	<Close class="cursor-pointer" on:click={remove} />
+	<div class="truncate">
+		<slot>{value}</slot>
+	</div>
+	<div class="w-[20px] cursor-pointer" on:click={remove}>
+		<Close />
+	</div>
 </div>

@@ -1,7 +1,7 @@
 <script>
 	import { clickOutside } from '$lib/scripts/clickOutside.ts';
 
-	export let yOffset = 10;
+	export let yOffset = 4;
 	export let xOffset = 0;
 	export let visible;
 
@@ -18,24 +18,38 @@
 		if (t) {
 			if (t.target) targetRect = t.target.getBoundingClientRect();
 			else targetRect = t.getBoundingClientRect();
-
+			console.log(targetRect);
 			left = `${targetRect.left + xOffset}px`;
-			top = `${targetRect.bottom + yOffset + targetRect.height / 2}px`;
+			top = `${targetRect.bottom + yOffset}px`;
 		}
 	}
 
 	export function hide() {
 		visible = false;
 	}
+
+	//todo: make it move with the mousewheel
+	let prevent = false;
 </script>
+
+<svelte:window
+	on:wheel={() => {
+		if (!prevent) {
+			hide();
+		} else {
+			prevent = false;
+		}
+	}}
+/>
 
 {#if visible}
 	<div
 		{...$$restProps}
 		use:clickOutside
 		on:click_outside={hide}
-		class={$$props.class ?? ''}
-		style="position: absolute; top:{top}; left:{left}"
+		on:mousewheel={() => (prevent = true)}
+		class={'z-50 ' + $$props.class ?? ''}
+		style="position: fixed; top:{top}; left:{left}"
 		bind:this={popover}
 	>
 		<slot />
