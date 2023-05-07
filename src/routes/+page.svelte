@@ -71,6 +71,7 @@
 
 	let checked;
 	let selectedDropdown = dropValues[0];
+	let selectedCombobox = 'Sophia';
 </script>
 
 <Sheet bind:this={sheet} />
@@ -88,24 +89,26 @@
 	<div class="p-10 flex flex-col gap-10">
 		<Cadmean class="underline" />
 
+		Grouped Checkbox
 		{#each dropValues as v}
 			<Checkbox bind:group={groupChecked} value={v} />
 		{/each}
 		{JSON.stringify(groupChecked)}
 
-		<Combobox
-			values={dropValues}
-			label="Multi Model"
-			multiselect
-			selected={['George', 'Sophia']}
-		/>
-
-		<Combobox values={dropValues} label="Model" />
-
+		Single Checkbox
 		<div>
 			<Checkbox bind:checked class="w-20">Something</Checkbox>
 			{checked}
 		</div>
+
+		<Combobox
+			values={dropValues}
+			label="Multiselect Combobox"
+			multiselect
+			selected={['George', 'Sophia']}
+		/>
+
+		<Combobox values={dropValues} selected={selectedCombobox} label="Combobox" />
 
 		<Dropdown values={dropValues} bind:selected={selectedDropdown} />
 		{selectedDropdown}

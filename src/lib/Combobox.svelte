@@ -12,21 +12,6 @@
 	export let values;
 	export let selected = !multiselect ? (values && values.length > 0 ? values[0] : '') : [];
 	export let label = '';
-	let checked = new Array(values.length).fill(false);
-
-	if (multiselect) {
-		values.forEach((e, i) => {
-			if (selected.includes(e)) checked[i] = true;
-		});
-	}
-
-	$: if (selected) {
-		// console.log('selected', selected);
-		values.forEach((e, i) => {
-			// console.log(e, selected.includes(e));
-			checked[i] = selected.includes(e);
-		});
-	}
 
 	let inputValue;
 	if (multiselect) {
@@ -76,7 +61,7 @@
 	}
 
 	$: {
-		if (inputValue === '' || inputValue === (multiselect ? selected[0] : selected)) {
+		if (multiselect || inputValue === '' || inputValue === selected) {
 			filteredValues = values;
 		} else {
 			filteredValues = values.filter((v) => {
@@ -87,14 +72,16 @@
 
 	function toggleSelected(value) {
 		const index = selected.findIndex((item) => item === value);
-		console.log(index, value, selected);
 		if (index === -1) {
 			selected = [...selected, value];
-			console.log(selected);
 		} else {
 			selected = [...selected.slice(0, index), ...selected.slice(index + 1)];
 		}
 	}
+
+	$: console.log(selected);
+
+	//todo: scroll down to first selected value
 </script>
 
 <div class="w-[245px]">
@@ -140,13 +127,7 @@
 				}}
 			>
 				{#if multiselect}
-					<Checkbox
-						bind:group={selected}
-						on:click={() => {
-							console.log(v);
-							toggleSelected(v);
-						}}
-					>
+					<Checkbox bind:group={selected} value={v}>
 						<div class="w-[189px] truncate">{v}</div></Checkbox
 					>
 				{:else}

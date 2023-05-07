@@ -11,14 +11,12 @@
 		if (!group.includes(value)) {
 			group = [...group, value];
 		}
-		console.log(checked, value);
 	} else {
 		group = group.filter((v) => v !== value);
 	}
 
 	if (group.length > 0) {
 		group.forEach((v) => {
-			console.log(v === value);
 			if (v === value) checked = true;
 		});
 	}

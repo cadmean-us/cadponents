@@ -18,7 +18,6 @@
 		if (t) {
 			if (t.target) targetRect = t.target.getBoundingClientRect();
 			else targetRect = t.getBoundingClientRect();
-			console.log(targetRect);
 			left = `${targetRect.left + xOffset}px`;
 			top = `${targetRect.bottom + yOffset}px`;
 		}
