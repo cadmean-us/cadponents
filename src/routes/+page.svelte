@@ -12,6 +12,7 @@
 	import Dropdown from '$lib/Dropdown.svelte';
 	import Checkbox from '$lib/Checkbox.svelte';
 	import Combobox from '$lib/Combobox.svelte';
+	import Radio from '$lib/Radio.svelte';
 
 	let headers = [
 		{ key: 'name', sort: false, value: 'Name' },
@@ -72,6 +73,7 @@
 	let checked;
 	let selectedDropdown = dropValues[0];
 	let selectedCombobox = 'Sophia';
+	let selectedRadio = 'George';
 </script>
 
 <Sheet bind:this={sheet} />
@@ -95,7 +97,14 @@
 		{/each}
 		{JSON.stringify(groupChecked)}
 
-		Single Checkbox
+		{#each dropValues as v}
+			<Radio bind:group={selectedRadio} value={v} />
+		{/each}
+		<div>
+			{selectedRadio}
+		</div>
+
+		<div>Single Checkbox</div>
 		<div>
 			<Checkbox bind:checked class="w-20">Something</Checkbox>
 			{checked}

@@ -2,24 +2,23 @@
 	import { fade } from 'svelte/transition';
 	import CheckboxChecked from './icons/CheckboxChecked.svelte';
 	import CheckboxUnchecked from './icons/CheckboxUnchecked.svelte';
+	import RadioSelected from '$lib/icons/RadioSelected.svelte';
+	import RadioUnselected from '$lib/icons/RadioUnselected.svelte';
 
-	export let group = [];
+	export let group = '';
 	export let value = '';
-	export let checked = false;
+	export let selected = false;
 
-	$: if (checked) {
-		if (!group.includes(value)) {
-			group = [...group, value];
-		}
-	} else {
-		group = group.filter((v) => v !== value);
+	if (group === value) selected = true;
+
+	$: if (selected) assignGroup();
+
+	function assignGroup() {
+		console.log(value);
+		group = value;
 	}
 
-	if (group.length > 0) {
-		group.forEach((v) => {
-			if (v === value) checked = true;
-		});
-	}
+	$: if (group !== value) selected = false;
 
 	//todo: fadeout
 </script>
@@ -27,16 +26,16 @@
 <div on:click>
 	<div
 		class="flex items-center justify-between {$$props.class}"
-		on:click={() => (checked = !checked)}
+		on:click={() => (selected = !selected)}
 	>
 		<div class="w-[20px] h-[20px]">
-			{#if checked}
+			{#if selected}
 				<div in:fade={{ duration: 100 }}>
-					<CheckboxChecked />
+					<RadioSelected />
 				</div>
 			{:else}
 				<div in:fade={{ duration: 100 }}>
-					<CheckboxUnchecked />
+					<RadioUnselected />
 				</div>
 			{/if}
 		</div>
