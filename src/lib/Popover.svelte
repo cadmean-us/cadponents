@@ -27,7 +27,7 @@
 		visible = false;
 	}
 
-	//todo: make it move with the mousewheel
+	//todo: make it move with the mousewheel, option if target was clicked no need to close
 	let prevent = false;
 </script>
 

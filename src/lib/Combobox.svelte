@@ -61,7 +61,7 @@
 	}
 
 	$: {
-		if (multiselect || inputValue === '' || inputValue === selected) {
+		if (inputValue === '' || inputValue === selected) {
 			filteredValues = values;
 		} else {
 			filteredValues = values.filter((v) => {
@@ -69,17 +69,6 @@
 			});
 		}
 	}
-
-	function toggleSelected(value) {
-		const index = selected.findIndex((item) => item === value);
-		if (index === -1) {
-			selected = [...selected, value];
-		} else {
-			selected = [...selected.slice(0, index), ...selected.slice(index + 1)];
-		}
-	}
-
-	$: console.log(selected);
 
 	//todo: scroll down to first selected value
 </script>
@@ -89,7 +78,9 @@
 	<div
 		bind:this={panel}
 		class="rounded-c border-gray-300 border-c h-[52px] py-[12px] px-[20px] flex justify-between items-center truncate"
-		on:click|stopPropagation={pop.show(panel)}
+		on:click|stopPropagation={() => {
+			if (!visible) pop.show(panel);
+		}}
 	>
 		{#if multiselect}Selected: {selected.length}{/if}
 		<input
@@ -115,7 +106,7 @@
 		in:fly={{ y: -10, duration: 300 }}
 		class="scrollbar w-[245px] bg-white rounded-c border-gray-300 border-c max-h-[188px] overflow-y-scroll"
 	>
-		{#each filteredValues as v, i}
+		{#each filteredValues as v}
 			<div
 				class="p-[12px] w-[237px] flex justify-between items-center w-full truncate"
 				on:mousedown={() => {
@@ -127,9 +118,7 @@
 				}}
 			>
 				{#if multiselect}
-					<Checkbox bind:group={selected} value={v}>
-						<div class="w-[189px] truncate">{v}</div></Checkbox
-					>
+					<Checkbox bind:group={selected} value={v} />
 				{:else}
 					<div class="w-[189px] truncate">{v}</div>
 				{/if}

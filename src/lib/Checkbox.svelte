@@ -6,19 +6,31 @@
 	export let group = [];
 	export let value = '';
 	export let checked = false;
+	checked = false;
+
+	$: if (value) checkTheCheck();
+	function checkTheCheck() {
+		console.log(value, checked, group, group.length > 0);
+		if (group.length > 0) {
+			for (let i = 0; i < group.length; i++) {
+				if (group[i] === value) {
+					checked = true;
+					console.log(value, 'how');
+					break;
+				} else {
+					console.log(value, 'how2');
+					checked = false;
+				}
+			}
+		}
+	}
 
 	$: if (checked) {
 		if (!group.includes(value)) {
 			group = [...group, value];
 		}
-	} else {
+	} else if (value && !checked) {
 		group = group.filter((v) => v !== value);
-	}
-
-	if (group.length > 0) {
-		group.forEach((v) => {
-			if (v === value) checked = true;
-		});
 	}
 
 	//todo: fadeout
@@ -34,7 +46,7 @@
 				<div in:fade={{ duration: 100 }}>
 					<CheckboxChecked />
 				</div>
-			{:else}
+			{:else if !checked}
 				<div in:fade={{ duration: 100 }}>
 					<CheckboxUnchecked />
 				</div>

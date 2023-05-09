@@ -9,7 +9,7 @@
 	export let labelStyle = '';
 	export let disabled = false;
 	export let width = '100%';
-	export let height = '100%';
+	export let height = '';
 	export let style = '';
 	export let suffixSrc = '';
 	export let suffixSize = '';

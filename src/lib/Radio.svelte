@@ -14,7 +14,6 @@
 	$: if (selected) assignGroup();
 
 	function assignGroup() {
-		console.log(value);
 		group = value;
 	}
 

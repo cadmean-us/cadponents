@@ -67,13 +67,14 @@
 		'Evelyn',
 		'Abigail',
 	];
-
 	let groupChecked = ['George', 'Sophia'];
 
 	let checked;
 	let selectedDropdown = dropValues[0];
 	let selectedCombobox = 'Sophia';
 	let selectedRadio = 'George';
+
+	let inputValue = '';
 </script>
 
 <Sheet bind:this={sheet} />
@@ -91,11 +92,14 @@
 	<div class="p-10 flex flex-col gap-10">
 		<Cadmean class="underline" />
 
+		<Input bind:value={inputValue} />
+
 		Grouped Checkbox
 		{#each dropValues as v}
 			<Checkbox bind:group={groupChecked} value={v} />
 		{/each}
-		{JSON.stringify(groupChecked)}
+
+		<div class="h-80" />
 
 		{#each dropValues as v}
 			<Radio bind:group={selectedRadio} value={v} />
@@ -130,8 +134,6 @@
 			}}
 			prefix="/icons/Plus.svg">test</Button
 		>
-
-		<Input />
 
 		<Table {headers} on:onActionsClick={(e) => onActionsClick(e.detail)} {rows} sortable>
 			<svelte:fragment slot="panel">
