@@ -10,15 +10,12 @@
 
 	$: if (value) checkTheCheck();
 	function checkTheCheck() {
-		console.log(value, checked, group, group.length > 0);
 		if (group.length > 0) {
 			for (let i = 0; i < group.length; i++) {
 				if (group[i] === value) {
 					checked = true;
-					console.log(value, 'how');
 					break;
 				} else {
-					console.log(value, 'how2');
 					checked = false;
 				}
 			}
