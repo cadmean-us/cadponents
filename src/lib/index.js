@@ -7,6 +7,7 @@ import Table from '$lib/table/Table.svelte';
 import Sort from '$lib/table/Sort.svelte';
 import SideMenu from '$lib/menu/SideMenu.svelte';
 import IconButton from '$lib/IconButton.svelte';
+import Toggle from '$lib/Toggle.svelte';
 
 export { Cadmean };
 export { Button };
@@ -17,3 +18,4 @@ export { Table };
 export { Sort };
 export { SideMenu };
 export { IconButton };
+export { Toggle };
