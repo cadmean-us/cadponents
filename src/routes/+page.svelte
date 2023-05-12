@@ -13,6 +13,7 @@
 	import Checkbox from '$lib/Checkbox.svelte';
 	import Combobox from '$lib/Combobox.svelte';
 	import Radio from '$lib/Radio.svelte';
+	import Toggle from '$lib/Toggle.svelte';
 
 	let headers = [
 		{ key: 'name', sort: false, value: 'Name' },
@@ -91,6 +92,8 @@
 
 	<div class="p-10 flex flex-col gap-10">
 		<Cadmean class="underline" />
+
+		<Toggle />
 
 		<Input bind:value={inputValue} />
 
