@@ -12,7 +12,12 @@
 		visible = !visible;
 	}
 
-	export function open() {}
+	export function open() {
+		visible = true;
+	}
+	export function hide() {
+		visible = false;
+	}
 
 	// todo: do other directions & other stuff
 </script>
@@ -28,7 +33,7 @@
 	<div
 		in:fly={{ x: 300, duration: 500 }}
 		out:fly={{ x: 300, duration: 300 }}
-		class="fixed top-0 right-0 h-full w-[489px] z-50 bg-white"
+		class="fixed top-0 right-0 h-full w-[489px] z-50 bg-white {$$props.class}"
 	>
 		<slot>test</slot>
 	</div>

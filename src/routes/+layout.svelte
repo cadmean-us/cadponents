@@ -1,5 +1,37 @@
 <script>
 	import '../main.css';
+	import SideMenu from '$lib/menu/SideMenu.svelte';
+	import Student from '$lib/Student.svelte';
+
+	let tabs = [
+		{
+			name: 'Main',
+			href: '/',
+			icon: Student,
+		},
+		{
+			name: 'Modal',
+			href: '/modal',
+			icon: Student,
+		},
+		{
+			name: 'Textarea',
+			href: '/textarea',
+			icon: Student,
+		},
+	];
 </script>
 
-<slot />
+<div class="flex h-full">
+	<SideMenu {tabs}>
+		<svelte:fragment slot="title">
+			<div class="text-white mb-3">Cadponents</div>
+		</svelte:fragment>
+		<svelte:fragment slot="footer">
+			<div class="text-white mb-3">Need help?</div>
+		</svelte:fragment>
+	</SideMenu>
+	<div class="w-full p-10">
+		<slot />
+	</div>
+</div>

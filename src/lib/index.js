@@ -8,6 +8,8 @@ import Sort from '$lib/table/Sort.svelte';
 import SideMenu from '$lib/menu/SideMenu.svelte';
 import IconButton from '$lib/IconButton.svelte';
 import Toggle from '$lib/Toggle.svelte';
+import Modal from '$lib/Modal.svelte';
+import Textarea from '$lib/Textarea.svelte';
 
 export { Cadmean };
 export { Button };
@@ -19,3 +21,5 @@ export { Sort };
 export { SideMenu };
 export { IconButton };
 export { Toggle };
+export { Modal };
+export { Textarea };

@@ -36,24 +36,6 @@
 
 	const onActionsClick = (row) => {};
 
-	let tabs = [
-		{
-			name: 'Schedule',
-			href: '/dashboard/schedule',
-			icon: Student,
-		},
-		{
-			name: 'Lessons',
-			href: '/dashboard/lessons',
-			icon: Student,
-		},
-		{
-			name: 'Students',
-			href: '/dashboard/students',
-			icon: Student,
-		},
-	];
-
 	let dropValues = [
 		'George',
 		'EmmaEmmaEmmaEmmaEmmaEmmaEmmaEmma',
@@ -80,82 +62,71 @@
 
 <Sheet bind:this={sheet} />
 
-<div class="flex">
-	<SideMenu {tabs}>
-		<svelte:fragment slot="title">
-			<div class="text-white mb-3">Cadponents</div>
-		</svelte:fragment>
-		<svelte:fragment slot="footer">
-			<div class="text-white mb-3">Need help?</div>
-		</svelte:fragment>
-	</SideMenu>
+<div class="p-10 flex flex-col gap-10">
+	<Cadmean class="underline" />
 
-	<div class="p-10 flex flex-col gap-10">
-		<Cadmean class="underline" />
+	<Toggle />
 
-		<Toggle />
+	<Input bind:value={inputValue} />
 
-		<Input bind:value={inputValue} />
+	Grouped Checkbox
+	{#each dropValues as v}
+		<Checkbox bind:group={groupChecked} value={v} />
+	{/each}
 
-		Grouped Checkbox
-		{#each dropValues as v}
-			<Checkbox bind:group={groupChecked} value={v} />
-		{/each}
+	<div class="h-80" />
 
-		<div class="h-80" />
-
-		{#each dropValues as v}
-			<Radio bind:group={selectedRadio} value={v} />
-		{/each}
-		<div>
-			{selectedRadio}
-		</div>
-
-		<div>Single Checkbox</div>
-		<div>
-			<Checkbox bind:checked class="w-20">Something</Checkbox>
-			{checked}
-		</div>
-
-		<Combobox
-			values={dropValues}
-			label="Multiselect Combobox"
-			multiselect
-			selected={['George', 'Sophia']}
-		/>
-
-		<Combobox values={dropValues} selected={selectedCombobox} label="Combobox" />
-
-		<Dropdown values={dropValues} bind:selected={selectedDropdown} />
-		{selectedDropdown}
-
-		<Chips bind:data={chipsData} class="w-[300px] " />
-
-		<Button
-			on:click={() => {
-				sheet.toggleVisibility();
-			}}
-			prefix="/icons/Plus.svg">test</Button
-		>
-
-		<Table {headers} on:onActionsClick={(e) => onActionsClick(e.detail)} {rows} sortable>
-			<svelte:fragment slot="panel">
-				<div class="flex">
-					<div class="flex">
-						<div class="mr-4">{title}</div>
-						<div class="">{totalAmount}</div>
-					</div>
-				</div>
-			</svelte:fragment>
-
-			<svelte:fragment let:header slot="header">
-				{#if header.key === 'big'}
-					<h2>{header.value} test</h2>
-				{:else}
-					{header.value}
-				{/if}
-			</svelte:fragment>
-		</Table>
-		<div class="h-[1200px]">long content</div>
+	{#each dropValues as v}
+		<Radio bind:group={selectedRadio} value={v} />
+	{/each}
+	<div>
+		{selectedRadio}
 	</div>
+
+	<div>Single Checkbox</div>
+	<div>
+		<Checkbox bind:checked class="w-20">Something</Checkbox>
+		{checked}
+	</div>
+
+	<Combobox
+		values={dropValues}
+		label="Multiselect Combobox"
+		multiselect
+		selected={['George', 'Sophia']}
+	/>
+
+	<Combobox values={dropValues} selected={selectedCombobox} label="Combobox" />
+
+	<Dropdown values={dropValues} bind:selected={selectedDropdown} />
+	{selectedDropdown}
+
+	<Chips bind:data={chipsData} class="w-[300px] " />
+
+	<Button
+		on:click={() => {
+			sheet.toggleVisibility();
+		}}
+		prefix="/icons/Plus.svg">test</Button
+	>
+
+	<Table {headers} on:onActionsClick={(e) => onActionsClick(e.detail)} {rows} sortable>
+		<svelte:fragment slot="panel">
+			<div class="flex">
+				<div class="flex">
+					<div class="mr-4">{title}</div>
+					<div class="">{totalAmount}</div>
+				</div>
+			</div>
+		</svelte:fragment>
+
+		<svelte:fragment let:header slot="header">
+			{#if header.key === 'big'}
+				<h2>{header.value} test</h2>
+			{:else}
+				{header.value}
+			{/if}
+		</svelte:fragment>
+	</Table>
+	<div class="h-[1200px]">long content</div>
 </div>
