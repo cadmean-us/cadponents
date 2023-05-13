@@ -7,17 +7,18 @@
 		{
 			name: 'Main',
 			href: '/',
-			icon: Student,
 		},
 		{
 			name: 'Modal',
 			href: '/modal',
-			icon: Student,
 		},
 		{
 			name: 'Textarea',
 			href: '/textarea',
-			icon: Student,
+		},
+		{
+			name: 'Button',
+			href: '/button',
 		},
 	];
 </script>

@@ -6,13 +6,16 @@
 	 */
 	export let size = 'md';
 	export let secondary = false;
+	export let outlined = false;
 
 	export let prefix = '';
 	export let suffix = '';
 
-	let defaultClass =
-		'rounded-lg flex items-center justify-center text-white ' +
-		(!secondary ? 'bg-primary' : 'bg-secondary');
+	let background = 'bg-primary';
+	if (secondary) background = 'bg-secondary';
+	if (outlined) background = 'bg-transparent border-primary border-c !text-primary';
+
+	let defaultClass = 'rounded-lg flex items-center justify-center text-white ' + background;
 
 	switch (size) {
 		case 'lg':
