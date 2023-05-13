@@ -23,9 +23,9 @@
 		style="background-color: rgb(0 0 0 / .5) !important;"
 		in:fade
 		out:fade
-		on:click={hide}
+		on:click|self={hide}
 	>
-		<div class="bg-white rounded-c z-50 {$$props.class}">
+		<div class="px-[20px] py-[12px] bg-white rounded-c z-50 {$$props.class}">
 			<slot />
 		</div>
 	</div>
