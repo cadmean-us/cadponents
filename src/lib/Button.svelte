@@ -8,12 +8,9 @@
 	export let secondary = false;
 	export let outlined = false;
 
-	export let prefix = '';
-	export let suffix = '';
-
-	let background = 'bg-primary';
-	if (secondary) background = 'bg-secondary';
-	if (outlined) background = 'bg-transparent border-primary border-c !text-primary';
+	let background = 'bg-primary ';
+	if (secondary) background = 'bg-secondary ';
+	if (outlined) background = 'bg-transparent border-primary border-c !text-primary ';
 
 	let defaultClass = 'rounded-lg flex items-center justify-center text-white ' + background;
 
@@ -33,30 +30,14 @@
 	// todo: text button, icon button, no bg, generally different variants
 </script>
 
-{#if href !== ''}
+{#if href === ''}
+	<button on:click class={defaultClass + ' ' + $$props.class ?? ''}>
+		<slot />
+	</button>
+{:else}
 	<a {href} {target}>
-		<button on:click {...$$restProps} class={defaultClass + ' ' + $$props.class}>
-			{#if prefix !== ''}
-				<img src={prefix} alt="pre" />
-			{/if}
-
+		<button on:click {...$$restProps} class={defaultClass + ' ' + $$props.class ?? ''}>
 			<slot />
-
-			{#if suffix !== ''}
-				<img src={suffix} alt="suf" />
-			{/if}
 		</button>
 	</a>
-{:else}
-	<button on:click {...$$restProps} class={defaultClass + ' ' + $$props.class}>
-		{#if prefix !== ''}
-			<img src={prefix} alt="pre" />
-		{/if}
-
-		<slot />
-
-		{#if suffix !== ''}
-			<img src={suffix} alt="suf" />
-		{/if}
-	</button>
 {/if}
