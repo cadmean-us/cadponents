@@ -6,7 +6,7 @@
 </script>
 
 <label class="switch">
-	<input type="checkbox" bind:checked />
+	<input bind:checked on:change type="checkbox" />
 	<span class="slider" />
 </label>
 
