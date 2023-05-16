@@ -20,6 +20,10 @@
 			name: 'Button',
 			href: '/button',
 		},
+		{
+			name: 'Input',
+			href: '/input',
+		},
 	];
 </script>
 

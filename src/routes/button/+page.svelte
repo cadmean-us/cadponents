@@ -13,7 +13,7 @@
 		Icon
 	</Button>
 
-	<Button class="!rounded-[10000px]">
+	<Button class=" !rounded-[10000px]">
 		<Check size="16" color="white" />
 	</Button>
 </div>

@@ -2,25 +2,10 @@
 	import { createEventDispatcher } from 'svelte';
 
 	export let value = '';
-	export let id = '';
 	export let placeholder = '';
-	export let type = 'text';
 	export let label = '';
 	export let labelStyle = '';
 	export let disabled = false;
-	export let width = '100%';
-	export let height = '';
-	export let style = '';
-	export let suffixSrc = '';
-	export let suffixSize = '';
-	export let suffixText = '';
-	export let prefixSrc = '';
-	export let prefixSize = '';
-	export let prefixText = '';
-	export let inputStyle = '';
-	export let iconLeftMargin = '22px';
-	export let iconRightMargin = '20px';
-	export let maxWidth = '100%';
 
 	let dispatch = createEventDispatcher();
 
@@ -32,89 +17,28 @@
 	}
 </script>
 
-<div
-	class={disabled ? 'disabled' : ''}
-	style="width: {width}; max-width:{maxWidth}; height: {height};"
->
+<div class={disabled ? 'disabled' : ''}>
 	{#if label !== ''}
-		<label style={labelStyle} for={id}>{label}</label>
+		<label style={labelStyle}>{label}</label>
 		<div class="h-[4px]" />
 	{/if}
-	{#if prefixText !== ''}
-		<span style="margin-left: {iconLeftMargin};" class="prefix">{prefixText}</span>
-	{:else if prefixSrc !== ''}
-		<span style="margin-left: {iconLeftMargin};" class="prefix">
-			<img src={prefixSrc} width={prefixSize} alt="prefix" />
-		</span>
-	{/if}
-	{#if type === 'text'}
-		<input
-			bind:value
-			{disabled}
-			{id}
-			on:blur
-			on:click
-			on:copy
-			on:focus
-			on:input
-			on:keydown={(e) => {
-				handleKeyDown(e);
-			}}
-			on:paste
-			on:select
-			on:submit
-			{placeholder}
-			type="text"
-			style="padding: 14px 20px; {inputStyle}"
-		/>
-	{:else if type === 'email'}
-		<input
-			bind:value
-			{disabled}
-			{id}
-			on:blur
-			on:click
-			on:copy
-			on:focus
-			on:input
-			on:keydown={(e) => {
-				handleKeyDown(e);
-			}}
-			on:paste
-			on:select
-			on:submit
-			{placeholder}
-			type="email"
-			style="padding: 14px 20px; {inputStyle}"
-		/>
-	{:else if type === 'password'}
-		<input
-			bind:value
-			{disabled}
-			{id}
-			on:blur
-			on:click
-			on:copy
-			on:focus
-			on:input
-			on:keydown={(e) => {
-				handleKeyDown(e);
-			}}
-			on:paste
-			on:select
-			on:submit
-			{placeholder}
-			type="password"
-			style="padding: 14px 20px; {inputStyle}"
-		/>
-	{/if}
-	{#if suffixText !== ''}
-		<span style="margin-right: {iconRightMargin};" class="suffix">{suffixText}</span>
-	{:else if suffixSrc !== ''}
-		<span style="margin-right: {iconRightMargin};" class="suffix">
-			<img src={suffixSrc} width={suffixSize} alt="suffix" />
-		</span>
-	{/if}
+
+	<input
+		bind:value
+		on:blur
+		on:click
+		on:copy
+		on:focus
+		on:input
+		on:keydown={(e) => {
+			handleKeyDown(e);
+		}}
+		on:paste
+		on:select
+		on:submit
+		{placeholder}
+		type="text"
+	/>
 </div>
 
 <style>
