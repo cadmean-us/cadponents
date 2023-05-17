@@ -25,6 +25,7 @@
 
 	<input
 		bind:value
+		{disabled}
 		on:blur
 		on:click
 		on:copy

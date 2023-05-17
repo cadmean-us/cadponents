@@ -1,5 +1,5 @@
 <script>
-    let defaultClass = "text-3xl font-bold "
+	let defaultClass = 'text-3xl font-bold ';
 </script>
 
-<div {...$$restProps} class={defaultClass + $$props.class} >CADMEAN</div>
+<div {...$$restProps} class={defaultClass + $$props.class}>CADMEAN</div>
