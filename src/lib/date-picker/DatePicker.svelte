@@ -3,6 +3,8 @@
 	import Arrow from '$lib/date-picker/Arrow.svelte';
 	import Close from '$lib/date-picker/Close.svelte';
 
+	export let width = '300px';
+
 	// Value of the selected date
 	export let value: Date | null = null;
 
@@ -122,10 +124,10 @@
 			week = [],
 			weeks = [week];
 
+		let viewMonth = viewDate.getMonth();
+
 		let valueIso = value ? iso(value) : '';
 		while (d.getTime() <= last.getTime()) {
-			d.getMonth();
-			d.getFullYear();
 			let dd = d.getDate(),
 				val = iso(d);
 			week.push({
@@ -135,6 +137,7 @@
 					showToday && val === iso(today) && val != valueIso ? 'today' : '',
 					val === valueIso ? 'selected' : '',
 					isBlocked(val) ? 'blocked' : '',
+					viewMonth != d.getMonth() ? 'unmonth' : '',
 				].join(' '),
 			});
 
@@ -225,8 +228,11 @@
 
 {#if show || !modal}
 	<div
-		class="datepicker-container"
-		style="z-index: 10; {modal ? `position: absolute; top: ${y + 40}px; left: ${x}px` : ''};"
+		{...$$restProps}
+		class="datepicker-container {$$restProps.class}"
+		style="z-index: 10; width: {width}; height: calc({width} * 0.9365); {modal
+			? `position: absolute; top: ${y + 40}px; left: ${x}px`
+			: ''};"
 	>
 		{#if modal}
 			<div class="dp-row" style="justify-content: end">
@@ -234,14 +240,16 @@
 			</div>
 		{/if}
 		<div class="dp-row" style="justify-content: space-between; align-items: center">
-			<Arrow on:click={leftClick} width="24px" transform="rotate(180deg)" />
-			<div class="h6" style="height: 20px;">
+			<div class="t16" style="height: 20px;">
 				{months[viewDate.getMonth()]}, {viewDate.getFullYear()}
 			</div>
-			<Arrow on:click={rightClick} width="24px" />
+			<div class="flex flex-row gap-[10px]">
+				<Arrow on:click={leftClick} width="24px" transform="rotate(180deg)" />
+				<Arrow on:click={rightClick} width="24px" />
+			</div>
 		</div>
 		<table>
-			<tr class="b1" style="color: #7166EC">
+			<tr>
 				{#each days as day}
 					<th>{day}</th>
 				{/each}
@@ -250,13 +258,17 @@
 				<tr>
 					{#each week as day}
 						<td
-							class="b1 btn {day.class}"
+							class="btn {day.class}"
 							style={getStyle(day)}
 							on:click={() => {
 								selectDate(day);
 							}}
 						>
-							{day.date}
+							<div class="flex justify-center items-center">
+								<div class="flex justify-center items-center td">
+									{day.date}
+								</div>
+							</div>
 						</td>
 					{/each}
 				</tr>
@@ -267,9 +279,8 @@
 
 <style>
 	.datepicker-container {
-		padding: 5px 10px 10px 10px;
+		padding: 10px;
 		border-radius: 10px;
-		width: 420px;
 		box-shadow: 0 2px 4px rgba(187, 187, 187, 0.2);
 		background: white;
 		box-sizing: border-box;
@@ -282,8 +293,8 @@
 	}
 
 	table {
-		width: auto;
-		height: auto;
+		width: 100%;
+		height: 89%;
 		background: #ffffff;
 		border-spacing: 18px;
 		border-collapse: separate;
@@ -291,8 +302,6 @@
 
 	td,
 	th {
-		width: 35px;
-		height: 35px;
 		text-align: center;
 		margin: 0;
 		border-radius: 100px;
@@ -304,8 +313,13 @@
 	}
 
 	.btn:hover {
-		background: #7166ec;
+		background: #192c6a;
 		color: white;
+	}
+
+	.td {
+		width: 26px;
+		height: 26px;
 	}
 
 	td.blocked {
@@ -327,23 +341,51 @@
 	td.today:hover {
 		cursor: pointer;
 		color: #ffffff;
-		background-color: rgba(113, 102, 236, 0.5);
+		background-color: #192c6a;
 	}
 
 	td.selected {
 		color: #ffffff;
-		background-color: #7166ec;
+		background-color: #192c6a;
 	}
 
-	.h6 {
-		font-style: normal;
+	td.unmonth {
+		color: #91908a;
+	}
+
+	.t14,
+	td {
+		font-family: Inter;
+		font-size: 14px;
 		font-weight: 400;
-		font-size: 20px;
+		line-height: 20px;
+		letter-spacing: -0.1px;
+		text-align: center;
+		color: #080807;
+	}
+
+	.t14m,
+	th {
+		font-family: Inter;
+		font-size: 14px;
+		font-weight: 500;
+		line-height: 20px;
+		letter-spacing: -0.1px;
+		text-align: center;
+		color: #192c6a;
+	}
+
+	.t16 {
+		font-family: Inter;
+		font-size: 16px;
+		font-weight: 400;
 		line-height: 24px;
-		color: #231f20;
+		letter-spacing: -0.6px;
+		text-align: center;
 	}
 
 	.dp-row {
+		padding: 0 15px;
 		display: flex;
 		flex-direction: row;
 	}
@@ -351,23 +393,6 @@
 	@media (max-width: 1201px) {
 		table {
 			border-spacing: 12px;
-		}
-
-		.datepicker-container {
-			width: 290px;
-		}
-
-		.h6 {
-			font-weight: 400;
-			font-size: 16px;
-			line-height: 20px;
-		}
-
-		td,
-		th {
-			width: 26px;
-			height: 26px;
-			font-size: 12px;
 		}
 	}
 </style>
