@@ -296,7 +296,7 @@
 		width: 100%;
 		height: 89%;
 		background: #ffffff;
-		border-spacing: 18px;
+		border-spacing: 12px;
 		border-collapse: separate;
 	}
 
@@ -388,11 +388,5 @@
 		padding: 0 15px;
 		display: flex;
 		flex-direction: row;
-	}
-
-	@media (max-width: 1201px) {
-		table {
-			border-spacing: 12px;
-		}
 	}
 </style>
