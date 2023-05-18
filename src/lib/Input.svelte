@@ -11,8 +11,8 @@
 
 	let dispatch = createEventDispatcher();
 
-	let defaultClass = 'flex w-fit flex-col';
-	let defaultInputClass = 'flex w-fit items-center input-box px-[20px] py-[14px]';
+	let defaultClass = 'flex w-fit flex-col ';
+	let defaultInputClass = 'flex w-fit items-center input-box px-[20px] py-[14px] ';
 
 	function handleKeyDown(e: any) {
 		dispatch('keydown', e);
@@ -22,12 +22,12 @@
 	}
 </script>
 
-<div class={defaultClass + (disabled ? 'disabled' : '')}>
+<div class={defaultClass + (disabled ? 'disabled' : '') + ($$props.class ?? '')}>
 	{#if label !== ''}
 		<label class="input-label text-secondary mb-1" style={labelStyle}>{label}</label>
 	{/if}
 
-	<div class={defaultInputClass + ' ' + $$props.class ?? ''}>
+	<div class={defaultInputClass + ($$props.class ?? '')}>
 		{#if $$slots['prefix']}
 			<div class="mr-3">
 				<slot name="prefix" />
