@@ -4,10 +4,15 @@
 	export let value = '';
 	export let placeholder = '';
 	export let label = '';
+	export let helperText = '';
 	export let labelStyle = '';
+	export let helperStyle = '';
 	export let disabled = false;
 
 	let dispatch = createEventDispatcher();
+
+	let defaultClass = 'flex w-fit flex-col';
+	let defaultInputClass = 'flex w-fit items-center input-box px-[20px] py-[14px]';
 
 	function handleKeyDown(e: any) {
 		dispatch('keydown', e);
@@ -17,87 +22,79 @@
 	}
 </script>
 
-<div class={disabled ? 'disabled' : ''}>
+<div class={defaultClass + (disabled ? 'disabled' : '')}>
 	{#if label !== ''}
-		<label style={labelStyle}>{label}</label>
-		<div class="h-[4px]" />
+		<label class="input-label text-secondary mb-1" style={labelStyle}>{label}</label>
 	{/if}
 
-	<input
-		bind:value
-		{disabled}
-		on:blur
-		on:click
-		on:copy
-		on:focus
-		on:input
-		on:keydown={(e) => {
-			handleKeyDown(e);
-		}}
-		on:paste
-		on:select
-		on:submit
-		{placeholder}
-		type="text"
-	/>
+	<div class={defaultInputClass + ' ' + $$props.class ?? ''}>
+		{#if $$slots['prefix']}
+			<div class="mr-3">
+				<slot name="prefix" />
+			</div>
+		{/if}
+		<input
+			bind:value
+			{disabled}
+			on:blur
+			on:click
+			on:copy
+			on:focus
+			on:input
+			on:keydown={(e) => {
+				handleKeyDown(e);
+			}}
+			on:paste
+			on:select
+			on:submit
+			{placeholder}
+			type="text"
+		/>
+		{#if $$slots['suffix']}
+			<div class="ml-3">
+				<slot name="suffix" />
+			</div>
+		{/if}
+	</div>
+	{#if helperText !== ''}
+		<label class="input-helper text-secondary mt-1" style={helperStyle}>{helperText}</label>
+	{/if}
 </div>
 
 <style>
-	input[type='text'],
-	input[type='email'],
-	input[type='password'] {
-		font-family: 'Inter';
-		flex-grow: 1;
-		color: #000000;
-		background-color: #ffffff;
-		outline: none;
-		padding: 14px 20px;
-		border: 1px solid #f0f0f0;
+	.input-box {
+		display: flex;
+		align-items: center;
+		background: #fff;
+		outline: 1px solid #d7d7d7;
 		border-radius: 8px;
-		font-style: normal;
-		font-weight: 400;
-		font-size: 16px;
-		line-height: 24px;
-		letter-spacing: -0.6px;
-		width: 100%;
-		height: 52px;
-		box-sizing: border-box;
-		transition: 0.3s;
+		overflow: hidden;
 	}
 
-	input:focus-within,
-	input:hover {
-		border: 1px solid #ababab;
+	.input-box input {
+		flex-grow: 1;
+		background: transparent;
+		border: none;
+		outline: none;
 	}
 
-	label {
-		font-family: 'Inter';
+	.input-box:focus-within {
+		border-color: #192c6a;
+	}
+
+	.input-label {
 		font-style: normal;
 		font-weight: 400;
 		font-size: 12px;
 		line-height: 16px;
 		letter-spacing: 0.3px;
-		color: #717171;
 	}
 
-	.disabled > input {
-		color: #e3e3e3;
-		border: 1px solid #f2f2f2;
-	}
-
-	input::placeholder {
-		color: #dadada;
-	}
-
-	.disabled > label {
-		color: #e3e3e3;
-	}
-
-	.prefix,
-	.suffix {
-		font-size: 16px;
-		line-height: 24px;
+	.input-helper {
+		font-style: normal;
 		font-weight: 400;
-		color: #717171;
+		font-size: 10px;
+		line-height: 12px;
+		letter-spacing: 0.3px;
 	}
 </style>

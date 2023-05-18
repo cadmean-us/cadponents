@@ -3,11 +3,11 @@
 	import Check from '$lib/icons/Check.svelte';
 </script>
 
-<Input>
-	<slot name="prefix">
+<Input helperText="helper text" label="First Name">
+	<svelte:fragment slot="prefix">
 		<Check />
-	</slot>
-	<slot name="suffix">
+	</svelte:fragment>
+	<svelte:fragment slot="suffix">
 		<Check />
-	</slot>
+	</svelte:fragment>
 </Input>
