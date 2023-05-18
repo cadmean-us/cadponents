@@ -24,6 +24,10 @@
 			name: 'Input',
 			href: '/input',
 		},
+		{
+			name: 'DatePicker',
+			href: '/datepicker',
+		},
 	];
 </script>
 

@@ -10,6 +10,7 @@ import IconButton from '$lib/IconButton.svelte';
 import Toggle from '$lib/Toggle.svelte';
 import Modal from '$lib/Modal.svelte';
 import Textarea from '$lib/Textarea.svelte';
+import DatePicker from '$lib/date-picker/DatePicker.svelte';
 
 export { Cadmean };
 export { Button };
@@ -23,3 +24,4 @@ export { IconButton };
 export { Toggle };
 export { Modal };
 export { Textarea };
+export { DatePicker };
