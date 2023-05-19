@@ -3,7 +3,7 @@
 	import Check from '$lib/icons/Check.svelte';
 </script>
 
-<Input helperText="helper text" label="First Name">
+<Input class="w-[200px]" helperText="helper text" label="First Name">
 	<svelte:fragment slot="prefix">
 		<Check />
 	</svelte:fragment>
@@ -11,3 +11,6 @@
 		<Check />
 	</svelte:fragment>
 </Input>
+
+<Input class="h-[32px] w-[128px]" helperText="helper text" label="First Name" />
+<Input disabled helperText="helper text" label="First Name" placeholder="Disabled" />

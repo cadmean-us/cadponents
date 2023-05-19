@@ -22,12 +22,12 @@
 	}
 </script>
 
-<div class={defaultClass + (disabled ? 'disabled' : '') + ($$props.class ?? '')}>
+<div class={defaultClass}>
 	{#if label !== ''}
 		<label class="input-label text-secondary mb-1" style={labelStyle}>{label}</label>
 	{/if}
 
-	<div class={defaultInputClass + ($$props.class ?? '')}>
+	<div class={defaultInputClass + (disabled ? 'disabled' : '') + ($$props.class ?? '')}>
 		{#if $$slots['prefix']}
 			<div class="mr-3">
 				<slot name="prefix" />
@@ -35,6 +35,7 @@
 		{/if}
 		<input
 			bind:value
+			class="w-full"
 			{disabled}
 			on:blur
 			on:click
@@ -62,6 +63,11 @@
 </div>
 
 <style>
+	.disabled {
+		color: #e3e3e3;
+		border: 1px solid #f2f2f2;
+	}
+
 	.input-box {
 		display: flex;
 		align-items: center;
