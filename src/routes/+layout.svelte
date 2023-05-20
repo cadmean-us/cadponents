@@ -28,6 +28,10 @@
 			name: 'DatePicker',
 			href: '/datepicker',
 		},
+		{
+			name: 'FileUploader',
+			href: '/fileuploader',
+		},
 	];
 </script>
 

@@ -1,12 +1,12 @@
 <script>
-	export let size = 20;
-	export let color = '#282945';
+	export let size = 24;
+	export let color = '#000';
 </script>
 
 <svg
 	width={size}
 	height={size}
-	viewBox="0 0 20 20"
+	viewBox="0 0 24 24"
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"
 	on:click
