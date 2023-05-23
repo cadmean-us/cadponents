@@ -29,12 +29,8 @@
 
 	let chipsData = ['test1', 'test8', 'test7', 'test2', 'test6', 'test4', 'test9'];
 
-	let title = 'Instructors';
-	let totalAmount = '100';
 	let visible = false;
 	let sheet;
-
-	const onActionsClick = (row) => {};
 
 	let dropValues = [
 		'George',
@@ -110,23 +106,5 @@
 		prefix="/icons/Plus.svg">test</Button
 	>
 
-	<Table {headers} on:onActionsClick={(e) => onActionsClick(e.detail)} {rows} sortable>
-		<svelte:fragment slot="panel">
-			<div class="flex">
-				<div class="flex">
-					<div class="mr-4">{title}</div>
-					<div class="">{totalAmount}</div>
-				</div>
-			</div>
-		</svelte:fragment>
-
-		<svelte:fragment let:header slot="header">
-			{#if header.key === 'big'}
-				<h2>{header.value} test</h2>
-			{:else}
-				{header.value}
-			{/if}
-		</svelte:fragment>
-	</Table>
 	<div class="h-[1200px]">long content</div>
 </div>

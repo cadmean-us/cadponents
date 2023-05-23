@@ -32,6 +32,14 @@
 			name: 'FileUploader',
 			href: '/fileuploader',
 		},
+		{
+			name: 'Table',
+			href: '/table',
+		},
+		{
+			name: 'Timeline',
+			href: '/timeline',
+		},
 	];
 </script>
 
@@ -44,7 +52,7 @@
 			<div class="text-white mb-3">Need help?</div>
 		</svelte:fragment>
 	</SideMenu>
-	<div class="w-full p-10">
+	<div class="w-full p-10 overflow-x-hidden">
 		<slot />
 	</div>
 </div>
