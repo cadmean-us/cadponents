@@ -8,15 +8,15 @@
 	};
 	let files;
 
-	$: if (files) {
-		// Note that `files` is of type `FileList`, not an Array:
-		// https://developer.mozilla.org/en-US/docs/Web/API/FileList
-		console.log(files);
-
-		for (const file of files) {
-			console.log(`${file.name}: ${file.size} bytes`);
-		}
-	}
+	// $: if (files) {
+	// 	// Note that `files` is of type `FileList`, not an Array:
+	// 	// https://developer.mozilla.org/en-US/docs/Web/API/FileList
+	// 	console.log(files);
+	//
+	// 	for (const file of files) {
+	// 		console.log(`${file.name}: ${file.size} bytes`);
+	// 	}
+	// }
 	let label = 'Drop files you want your students to download.';
 </script>
 

@@ -1,6 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
-
 	export let headers = [];
 	export let rows = [];
 	export let start = 0;
@@ -49,18 +47,9 @@
 		// Replace the existing schedule with the new one
 		row.schedule = newSchedule;
 	});
-
-	console.log(rows);
-
-	// function getResource(time, resource) {
-	// 	for (let i = 0; i < resource.length; i++) {
-	// 		if (resource[i].start === time) return resource[i];
-	// 	}
-	// 	return null;
-	// }
 </script>
 
-<div class="h-full overflow-auto">
+<div class="h-fit overflow-auto">
 	<table class="rounded-[12px]">
 		<thead>
 			<tr>
