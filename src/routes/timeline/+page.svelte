@@ -1,5 +1,5 @@
 <script>
-	import Timeline from '$lib/Timeline.svelte';
+	import Timeline from '$lib/Schedule/Timeline.svelte';
 	import File from '$lib/icons/File.svelte';
 	import Check from '$lib/icons/Check.svelte';
 

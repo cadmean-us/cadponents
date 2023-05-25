@@ -40,6 +40,10 @@
 			name: 'Timeline',
 			href: '/timeline',
 		},
+		{
+			name: 'Weekly Schedule',
+			href: '/weeklyschedule',
+		},
 	];
 </script>
 
