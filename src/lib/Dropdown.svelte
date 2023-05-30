@@ -6,7 +6,7 @@
 	import { fly, fade } from 'svelte/transition';
 	import Check from '$lib/icons/Check.svelte';
 
-	export let values;
+	export let values = [];
 	export let selected = values[0];
 
 	export let label = '';
