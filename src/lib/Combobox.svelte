@@ -9,7 +9,7 @@
 	import Chips from '$lib/chips/Chips.svelte';
 
 	export let multiselect = false;
-	export let values;
+	export let values = [];
 	export let selected = !multiselect ? (values && values.length > 0 ? values[0] : '') : [];
 	export let label = '';
 
@@ -71,6 +71,7 @@
 	}
 
 	//todo: scroll down to first selected value
+	//todo: when click on chevron it should select the text
 </script>
 
 <div class="w-[245px]">
