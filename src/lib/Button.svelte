@@ -1,42 +1,71 @@
 <script lang="ts">
 	export let href = '';
 	export let target = '';
-	/**
-	 * @type {"sm" | "md" | "lg"}
-	 */
-	export let size = 'md';
-	export let secondary = false;
-	export let outlined = false;
+	export let size: 'sm' | 'md' | 'lg' = 'md';
+	export let type: 'filled' | 'outlined' | 'text' = 'filled';
+	export let disabled = false;
 
-	let background = 'bg-primary ';
-	if (secondary) background = 'bg-secondary ';
-	if (outlined) background = 'bg-transparent border-primary border-c !text-primary ';
+	let defaultClass = ' flex items-center justify-center gap-[10px] rounded-c ';
+	let typeClass = '';
+	let sizeClass = '';
+	let currentClass = '';
+	function setClass() {
+		currentClass = '';
+		switch (type) {
+			case 'filled':
+				typeClass = disabled
+					? ' bg-buttonDisabled text-textOnColorDisabled '
+					: ' bg-buttonPrimaryEnabled text-textOnColor hover:bg-buttonPrimaryHover active:bg-buttonAnimating';
+				break;
+			case 'outlined':
+				typeClass = disabled
+					? ' bg-transparent text-textOnColorDisabled border-c border-buttonDisabled '
+					: ' bg-transparent text-buttonPrimaryEnabled border-c border-buttonPrimaryEnabled ' +
+					  'hover:border-buttonPrimaryHover hover:text-buttonPrimaryHover ' +
+					  'active:text-buttonAnimating active:border-buttonAnimating ';
+				break;
+			case 'text':
+				typeClass = disabled
+					? ' bg-transparent text-textOnColorDisabled '
+					: ' bg-transparent text-buttonPrimaryEnabled ' +
+					  'hover:text-buttonPrimaryHover active:text-buttonAnimating ';
+				break;
+		}
 
-	let defaultClass = 'rounded-lg flex items-center justify-center text-white ' + background;
-
-	switch (size) {
-		case 'lg':
-			defaultClass += ' h-[48px] px-[20px] gap-[10px]';
-			break;
-		case 'md':
-			defaultClass += ' h-[40px] px-[16px] gap-[10px]';
-			break;
-		case 'sm':
-			defaultClass += ' h-[32px] px-[14px] gap-[8px]';
-			break;
+		switch (size) {
+			case 'lg':
+				sizeClass = ' h-[48px] min-w-[64px] px-[20px] ';
+				break;
+			case 'md':
+				sizeClass = ' h-[40px] min-w-[56px] px-[16px] ';
+				break;
+			case 'sm':
+				sizeClass = ' h-[32px] min-w-[48px] px-[14px] ';
+				break;
+		}
+		currentClass = defaultClass + typeClass + sizeClass;
 	}
 
-	// todo: this looks like horse heck
-	// todo: text button, icon button, no bg, generally different variants
+	setClass();
+	$: {
+		disabled;
+		size;
+		setClass();
+	}
 </script>
 
 {#if href === ''}
-	<button on:click class={defaultClass + ' ' + $$props.class ?? ''}>
+	<button on:click {disabled} {...$$restProps} class={currentClass + ' ' + $$props.class ?? ''}>
 		<slot />
 	</button>
 {:else}
 	<a {href} {target}>
-		<button on:click {...$$restProps} class={defaultClass + ' ' + $$props.class ?? ''}>
+		<button
+			on:click
+			{disabled}
+			{...$$restProps}
+			class={currentClass + ' ' + $$props.class ?? ''}
+		>
 			<slot />
 		</button>
 	</a>

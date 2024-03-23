@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Popover from '$lib/Popover.svelte';
 	import { tweened } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
