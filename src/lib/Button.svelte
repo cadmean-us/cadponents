@@ -15,22 +15,22 @@
 			case 'filled':
 				typeClass = disabled
 					? ' bg-buttonDisabled text-textOnColorDisabled '
-					: ' bg-buttonPrimaryEnabled text-textOnColor hover:bg-buttonPrimaryHover active:bg-buttonAnimating';
+					: ' bg-buttonPrimaryEnabled text-textOnColor hover:bg-buttonPrimaryHover';
 				break;
 			case 'outlined':
 				typeClass = disabled
 					? ' bg-transparent text-textOnColorDisabled border-c border-buttonDisabled '
 					: ' bg-transparent text-buttonPrimaryEnabled border-c border-buttonPrimaryEnabled ' +
-					  'hover:border-buttonPrimaryHover hover:text-buttonPrimaryHover ' +
-					  'active:text-buttonAnimating active:border-buttonAnimating ';
+					  'hover:border-buttonPrimaryHover hover:text-buttonPrimaryHover ';
 				break;
 			case 'text':
 				typeClass = disabled
 					? ' bg-transparent text-textOnColorDisabled '
 					: ' bg-transparent text-buttonPrimaryEnabled ' +
-					  'hover:text-buttonPrimaryHover active:text-buttonAnimating ';
+					  'hover:text-buttonPrimaryHover ';
 				break;
 		}
+		if (!disabled) typeClass += ' active:shadow-[0_0_0_5px_var(--button-animating)] ';
 
 		switch (size) {
 			case 'lg':

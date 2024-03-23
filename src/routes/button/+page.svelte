@@ -6,16 +6,15 @@
 	$: console.log(disabled);
 </script>
 
-<Button href="/">link</Button>
 <h1>Default</h1>
 
-<div class="flex gap-1">
+<div class="flex gap-2">
 	<div>
 		<br />
 		<h2>Large</h2>
 		<br />
 
-		<div class="flex gap-1">
+		<div class="flex gap-2">
 			<Button size="lg">Button</Button>
 			<Button size="lg" type="outlined" class="">Button</Button>
 			<Button size="lg" type="text">Button</Button>
@@ -26,7 +25,7 @@
 		<h2>Medium</h2>
 		<br />
 
-		<div class="flex gap-1">
+		<div class="flex gap-2">
 			<Button>Button</Button>
 			<Button type="outlined" class="">Button</Button>
 			<Button type="text">Button</Button>
@@ -37,7 +36,7 @@
 		<h2>Small</h2>
 		<br />
 
-		<div class="flex gap-1">
+		<div class="flex gap-2">
 			<Button size="sm">Button</Button>
 			<Button size="sm" type="outlined" class="">Button</Button>
 			<Button size="sm" type="text">Button</Button>
@@ -55,13 +54,13 @@
 >
 	{!disabled ? 'Disable' : 'Enable'}
 </Button>
-<div class="flex gap-1">
+<div class="flex gap-2">
 	<div>
 		<br />
 		<h2>Large</h2>
 		<br />
 
-		<div class="flex gap-1">
+		<div class="flex gap-2">
 			<Button {disabled} size="lg">Button</Button>
 			<Button {disabled} size="lg" type="outlined" class="">Button</Button>
 			<Button {disabled} size="lg" type="text">Button</Button>
@@ -72,7 +71,7 @@
 		<h2>Medium</h2>
 		<br />
 
-		<div class="flex gap-1">
+		<div class="flex gap-2">
 			<Button {disabled}>Button</Button>
 			<Button {disabled} type="outlined" class="">Button</Button>
 			<Button {disabled} type="text">Button</Button>
@@ -83,7 +82,7 @@
 		<h2>Small</h2>
 		<br />
 
-		<div class="flex gap-1">
+		<div class="flex gap-2">
 			<Button {disabled} size="sm">Button</Button>
 			<Button {disabled} size="sm" type="outlined" class="">Button</Button>
 			<Button {disabled} size="sm" type="text">Button</Button>
@@ -94,13 +93,13 @@
 <br />
 <br />
 <h1>Icons</h1>
-<div class="flex gap-1">
+<div class="flex gap-2">
 	<div>
 		<br />
 		<h2>Large</h2>
 		<br />
 
-		<div class="flex gap-1">
+		<div class="flex gap-2">
 			<Button size="lg"><Check />Button</Button>
 			<Button size="lg" type="outlined" class=""><Check />Button</Button>
 			<Button size="lg" type="text"><Check />Button</Button>
@@ -111,7 +110,7 @@
 		<h2>Medium</h2>
 		<br />
 
-		<div class="flex gap-1">
+		<div class="flex gap-2">
 			<Button><Check />Button</Button>
 			<Button type="outlined" class=""><Check />Button</Button>
 			<Button type="text"><Check />Button</Button>
@@ -122,7 +121,7 @@
 		<h2>Small</h2>
 		<br />
 
-		<div class="flex gap-1">
+		<div class="flex gap-2">
 			<Button size="sm"><Check />Button</Button>
 			<Button size="sm" type="outlined" class=""><Check />Button</Button>
 			<Button size="sm" type="text"><Check />Button</Button>
@@ -133,13 +132,13 @@
 <br />
 <br />
 <h1>only Icon</h1>
-<div class="flex gap-1">
+<div class="flex gap-2">
 	<div>
 		<br />
 		<h2>Large</h2>
 		<br />
 
-		<div class="flex gap-1">
+		<div class="flex gap-2">
 			<Button size="lg"><Check /></Button>
 			<Button size="lg" type="outlined" class=""><Check /></Button>
 			<Button size="lg" type="text"><Check /></Button>
@@ -150,7 +149,7 @@
 		<h2>Medium</h2>
 		<br />
 
-		<div class="flex gap-1">
+		<div class="flex gap-2">
 			<Button><Check /></Button>
 			<Button type="outlined" class=""><Check /></Button>
 			<Button type="text"><Check /></Button>
@@ -161,7 +160,7 @@
 		<h2>Small</h2>
 		<br />
 
-		<div class="flex gap-1">
+		<div class="flex gap-2">
 			<Button size="sm"><Check /></Button>
 			<Button size="sm" type="outlined" class=""><Check /></Button>
 			<Button size="sm" type="text"><Check /></Button>
