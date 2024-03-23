@@ -34,13 +34,13 @@
 
 		switch (size) {
 			case 'lg':
-				sizeClass = ' h-[48px] min-w-[64px] px-[20px] ';
+				sizeClass = ' h-[48px] w-fit min-w-[64px] px-[20px] ';
 				break;
 			case 'md':
-				sizeClass = ' h-[40px] min-w-[56px] px-[16px] ';
+				sizeClass = ' h-[40px] w-fit min-w-[56px] px-[16px] ';
 				break;
 			case 'sm':
-				sizeClass = ' h-[32px] min-w-[48px] px-[14px] ';
+				sizeClass = ' h-[32px] w-fit min-w-[48px] px-[14px] ';
 				break;
 		}
 		currentClass = defaultClass + typeClass + sizeClass;
@@ -59,14 +59,14 @@
 		<slot />
 	</button>
 {:else}
-	<a {href} {target}>
-		<button
-			on:click
-			{disabled}
-			{...$$restProps}
-			class={currentClass + ' ' + $$props.class ?? ''}
-		>
-			<slot />
-		</button>
+	<a
+		{href}
+		{target}
+		on:click
+		{disabled}
+		{...$$restProps}
+		class={currentClass + ' ' + $$props.class ?? ''}
+	>
+		<slot />
 	</a>
 {/if}

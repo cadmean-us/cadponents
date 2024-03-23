@@ -6,6 +6,7 @@
 	$: console.log(disabled);
 </script>
 
+<Button href="/">link</Button>
 <h1>Default</h1>
 
 <div class="flex gap-1">
