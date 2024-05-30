@@ -1,0 +1,90 @@
+<script lang="ts">
+	export let type: 'accent' | 'muted' | 'neutral' | 'border' = 'accent';
+	export let disabled = false;
+</script>
+
+<button {...$$restProps} class="tag tag--{type}" disabled={disabled}>
+	<slot />
+</button>
+
+<style lang="scss">
+.tag {
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: 0.3px;
+	padding: 6px 10px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	border-radius: 60px;
+
+	transition: var(--transition-duration) var(--transition-timing-function);
+	
+	:global(path[fill]), :global(rect[fill]), :global(circle[fill]), :global(polygon[fill]) {
+		transition: var(--transition-duration) var(--transition-timing-function);
+		fill: currentColor;
+	}
+
+	:global(path[stroke]), :global(rect[stroke]), :global(circle[stroke]), :global(polygon[stroke]) {
+		transition: var(--transition-duration) var(--transition-timing-function);
+		stroke: currentColor;
+	}
+	
+	&--muted {
+		background: var(--button-secondary-enabled);
+		color: var(--text-accent);
+		@media (hover: hover) {
+			&:hover {
+				background: var(--button-secondary-hover);
+			}
+		}
+		&:active {
+			background: var(--button-secondary-active);
+		}
+	}
+	&--accent {
+		background: var(--button-primary-enabled);
+		color: var(--text-on-color);
+		@media (hover: hover) {
+			&:hover {
+				background: var(--button-primary-hover);
+			}
+		}
+		&:active {
+			background: var(--button-primary-active);
+		}
+	}
+	&--neutral {
+		background: var(--layer-02);
+		color: var(--text-primary);
+		@media (hover: hover) {
+			&:hover {
+				background: var(--layer-02-hover);
+			}
+		}
+		&:active {
+			background: var(--layer-02-active);
+		}
+	}
+	&--border {
+		background: transparent;
+		color: var(--text-accent);
+		border: 2px solid var(--button-secondary-enabled);
+		@media (hover: hover) {
+			&:hover {
+				border-color: var(--button-secondary-hover);
+			}
+		}
+		&:active {
+			border-color: var(--button-secondary-active);
+		}
+	}
+
+	&:disabled {
+		border-color: var(--layer-disabled);
+		background-color: var(--layer-disabled);
+		color: var(--text-on-color-disabled);
+	}
+}
+</style>

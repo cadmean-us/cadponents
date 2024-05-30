@@ -1,0 +1,17 @@
+.ui-group {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+}
+.ui-group__row {
+	display: flex;
+	gap: 32px;
+	align-items: center;
+}
+.ui-group__title {
+	margin-bottom: 32px;
+}
+.ui-group__row-inner {
+	display: flex;
+	gap: 16px;
+}
