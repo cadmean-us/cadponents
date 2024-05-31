@@ -9,6 +9,6 @@ import Radio from "./Radio.svelte";
 import Tag from "./Tag.svelte";
 import Textarea from "./Textarea.svelte";
 import Toggle from "./Toggle.svelte";
-import Table from "./table/Table.svelte";
+import Table from "./Table.svelte";
 
 export { Breadcrumbs, Button, Checkbox, FileUploader, Input, NavLink, Select, Radio, Tag, Textarea, Toggle, Table }
