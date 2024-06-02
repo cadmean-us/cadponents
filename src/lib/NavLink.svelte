@@ -4,7 +4,6 @@
 	export let links: any[] = [];
 	export let children: Boolean = false;
 	export let open: Boolean = false;
-
 	let isOpen = [];
 </script>
 
@@ -12,13 +11,25 @@
 	{#each links as link, index}
 		{#if link.children}
 			<button class="nav__link nav__link--button {isOpen[index] ? 'nav__link--open' : ''}" on:click={() => isOpen[index] = !isOpen[index]}>
-				{#if !children} <span class="nav__chevron {isOpen[index] ? 'nav__chevron--open' : ''}"> <Chevron /> </span> {/if}
+				{#if link.iconSwitchChevron}
+					<span class="nav__icons">
+						{#if link.notification} <span class="nav__notification">{link.notification}</span> {/if}
+						{#if link.icon} <svelte:component this={link.icon} size="20"/> {/if}
+						{#if children} <span class="nav__chevron {isOpen[index] ? 'nav__chevron--open' : ''}"> <Chevron /> </span> {/if}
+					</span>
+				{:else}
+					{#if !children} <span class="nav__chevron {isOpen[index] ? 'nav__chevron--open' : ''}"> <Chevron /> </span> {/if}
+				{/if}
 				<span class="nav__title">{link.title}</span>
-				<span class="nav__icons">
-					{#if link.notification} <span class="nav__notification">{link.notification}</span> {/if}
-					{#if link.icon} <svelte:component this={link.icon} size="20"/> {/if}
-					{#if children} <span class="nav__chevron {isOpen[index] ? 'nav__chevron--open' : ''}"> <Chevron /> </span> {/if}
-				</span>
+				{#if link.iconSwitchChevron} 
+					{#if !children} <span class="nav__chevron {isOpen[index] ? 'nav__chevron--open' : ''}"> <Chevron /> </span> {/if}
+				{:else}
+					<span class="nav__icons">
+						{#if link.notification} <span class="nav__notification">{link.notification}</span> {/if}
+						{#if link.icon} <svelte:component this={link.icon} size="20"/> {/if}
+						{#if children} <span class="nav__chevron {isOpen[index] ? 'nav__chevron--open' : ''}"> <Chevron /> </span> {/if}
+					</span>
+				{/if}
 			</button>
 			<div class="nav__wrapper" class:nav__wrapper--open={isOpen[index]}>
 				<NavLink links={link.children} children open={isOpen[index]}/>
@@ -68,6 +79,8 @@
 		text-align: left;
 	}
 	&__chevron {
+		width: 20px;
+		height: 20px;
 		transform: rotate(-180deg);
 		transition: var(--transition-duration) var(--transition-timing-function);
 		&--open {
