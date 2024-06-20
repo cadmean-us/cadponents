@@ -48,13 +48,6 @@
 		input47: '',
 		input57: '',
 	}
-	const selectValue = {
-		select1: '',
-		select2: '',
-		select12: '',
-		select22: '',
-	}
-	const selectOptions = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon"]
 </script>
 
 <h1 class="ui-group__title">Input</h1>
@@ -130,23 +123,6 @@
 			<Input bind:value={inputsValue.input37} label="Label" placeholder="Text field" hint="Hint" status="enable" disabled lead={Placeholder}/>
 			<Input bind:value={inputsValue.input47} label="Label" placeholder="Text field" hint="Hint" status="enable" disabled trail="USD"/>
 			<Input bind:value={inputsValue.input57} label="Label" placeholder="Text field" hint="Hint" status="enable" disabled trail={Placeholder}/>
-		</div>
-	</div>
-</div>
-
-<h1 class="my-8">Select</h1>
-
-<div class="ui-group">
-	<div class="ui-group__row">
-		<div class="ui-group__row-inner">
-			<Select bind:value={selectValue.select1} options={selectOptions} label="Label" placeholder="Text field" hint="Hint" status="enabled"/>
-			<Select bind:value={selectValue.select2} options={selectOptions} label="Label" placeholder="Text field" hint="Hint" status="enabled"/>
-		</div>
-	</div>
-	<div class="ui-group__row">
-		<div class="ui-group__row-inner">
-			<Select bind:value={selectValue.textarea12} options={selectOptions} label="Label" placeholder="Text field" hint="Hint" status="enabled" disabled/>
-			<Select bind:value={selectValue.textarea22} options={selectOptions} label="Label" placeholder="Text field" hint="Hint" status="enabled" disabled/>
 		</div>
 	</div>
 </div>

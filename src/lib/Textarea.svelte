@@ -6,7 +6,6 @@
 
 	export let label: String = '';
 	export let placeholder: String = '';
-	export let type: String = 'text';
 	export let hint: String = '';
 	export let value: String = '';
 	export let disabled = false;
@@ -35,7 +34,7 @@
 		<span class="input__max">{value.length}/{maxlength}</span>
 	</p>
 	<div class="input__wrapper">
-		<textarea class="input__input" {type} {value} on:input={handleInput} {disabled} {placeholder} ></textarea>
+		<textarea class="input__input" {value} on:input={handleInput} {disabled} {placeholder} ></textarea>
 		<div class="input__controls">
 			{#if status === 'loading'}
 				<InputLoading/>

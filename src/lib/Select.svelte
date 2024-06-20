@@ -1,4 +1,6 @@
 <script lang="ts">
+	type Option = {value: any, label: any}
+
 	import { teleport } from './utils/teleport.js';
 	import { onMount } from 'svelte';
 	import { Svroller } from 'svrollbar'
@@ -10,6 +12,7 @@
 	import InputWarning from './icons/InputWarning.svelte';
 	import InputChevron from './icons/InputChevron.svelte';
 	import Check from './icons/Check.svelte';
+	import { isArray, isNumber, isObject, isString } from './utils/other.js';
 
 	export let label: String = '';
 	export let placeholder: String = '';
@@ -17,42 +20,92 @@
 	export let hint: String = '';
 	export let lead: String | Object | Function | undefined = undefined;
 	export let trail: String | Object | Function | undefined = undefined;
-	export let value: String = '';
+	export let value: any = '';
 	export let disabled = false;
 	export let status: 'enabled' | 'error' | 'success' | 'loading' | 'complete' | 'incomplete' | 'warning' | 'disabled' = 'enabled';
-	export let options: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	export let options: Option[] = [];
+	export let fetchOptions: Function | undefined;
+	export let fetchOptionsIndex: number | null = null;
+	export let transformFetchedOptionLabel: Function | undefined = undefined;
+	export let transformFetchedOptionValue: Function | undefined = undefined;
+	export let debounceTime: number = 500;
 
 	const MAX_HEIGHT_OPTIONS = 210
 	const GAP_BETWEEN_OPTIONS_AND_INPUT = 5
 
 	let isOpen = false 
 	let input: any = null
-	let optionsFiltered = options
-	let lastSelect = ''
+	let loading = false
+	let timer: any = null
 
-	function handleInput(e) {
+	onMount(() => {
+		if(fetchOptions) getOptions()
+	})
+
+	function transformValueToVisibleValue(value: any) {
+		if(isArray(value)) {
+			if(value.length === 0) return ''
+			if(isString(value[0])) return value[0]
+			return transformValueToVisibleValue(value[0])
+		}
+		if(isNumber(value)) return getOptionById(value)
+		if(isString(value)) return value
+		if(isObject(value)) return value.label
+	}
+
+	function getOptionById(id: number) {
+		return options[id]
+	}
+
+	const debounce = <T extends (...args: any[]) => void>(
+		fn: (...args: Parameters<T>) => void,
+		ms: number
+	) => {
+		return function (...args: any) {
+			clearTimeout(timer);
+			timer = setTimeout(() => {
+				fn.apply(this, args);
+			}, ms);
+		};
+	};
+
+	async function getOptions () {
+		if(fetchOptions === undefined) return
+		debounce(
+			async (visibleValue) => {
+				loading = true;
+				options = await fetchOptions(visibleValue ?? '', fetchOptionsIndex);
+				options = options.map((option) => {
+					let label = String(option)
+					let value = option?.id
+					if(transformFetchedOptionLabel) label = transformFetchedOptionLabel(option)
+					if(transformFetchedOptionValue) value = transformFetchedOptionValue(option)
+					return {value: value , label: label}
+				})
+				loading = false;
+			}
+		, debounceTime)(transformValueToVisibleValue(value))
+		;
+	}
+
+	function handleInput(e: any) {
 		value = e.target.value
+		if(fetchOptions) getOptions()
 		filterOptions(e)
 	}
 
-	function handleClick(e) {
+	function selectOption(e: string | object) {
+		value = e
 		isOpen = false
-		if(lastSelect === e) {
-			value = ''
-			lastSelect = ''
-		} else {
-			value = e
-			lastSelect = e
-		}
 	}
 
-	function handleOpen(e) {
+	function handleOpen(e: any) {
 		isOpen = true
 		filterOptions(e)
 	}
 
 	function filterOptions(e) {
-		optionsFiltered = options.filter((option) => String(option)?.toLowerCase().includes(e.target.value?.toLowerCase()))
+		optionsFiltered = options.filter((option) => String(option.label ?? option)?.toLowerCase().includes(e.target.value?.toLowerCase()))
 	}
 
 	const getStyle = () => {
@@ -61,7 +114,6 @@
 				html = document.documentElement;
 		let height = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight );
 		
-		console.log(height)
 		if (rect.y + rect.height + window.scrollY + MAX_HEIGHT_OPTIONS + GAP_BETWEEN_OPTIONS_AND_INPUT > height) {
 			return `
 				bottom: ${height - rect.y - window.scrollY + GAP_BETWEEN_OPTIONS_AND_INPUT}px;
@@ -77,6 +129,9 @@
 			max-height: ${MAX_HEIGHT_OPTIONS}px;
 		`
 	}
+
+	$: optionsFiltered = options
+	$: visibleValue = transformValueToVisibleValue(value)
 </script>
 
 <label class='input input--{status} {disabled ? 'disabled' : ''}' on:click={handleOpen}>
@@ -96,13 +151,13 @@
 			<span class="input__lead">{lead}</span>
 		{/if}
 
-		<input class="input__input" {value} {type} {disabled} {placeholder} on:input={handleInput} on:focus={handleOpen}/>
+		<input class="input__input" value={visibleValue} {type} {disabled} {placeholder} on:input={handleInput} on:focus={handleOpen}/>
 		
 		{#if status === 'complete'}
 			<InputComplete/>
 		{:else if status === 'warning'}
 			<InputWarning/>
-		{:else if status === 'loading'}
+		{:else if status === 'loading' || loading}
 			<InputLoading/>
 		{:else if status === 'incomplete'}
 			<InputIncomplete/>
@@ -143,13 +198,18 @@
 	<div class="input-options__wrapper">
 		<Svroller width="100%" height="100%">
 		{#each optionsFiltered as item}
-				<button class="input-options__item" type="button" class:input-options__item--active={item === lastSelect} on:click={() => handleClick(item)}>
-					{item}
-					<span>
-						<Check />
-					</span>
-				</button>
-			{/each}
+			<button 
+				class="input-options__item" 
+				type="button" 
+				class:input-options__item--active={item === value} 
+				on:click={() => selectOption(item)}
+			>
+				{item.label ? item.label : item}
+				<span>
+					<Check />
+				</span>
+			</button>
+		{/each}
 		</Svroller>
 	</div>
 </div>

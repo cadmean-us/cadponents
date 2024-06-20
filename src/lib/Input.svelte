@@ -6,7 +6,7 @@
 
 	export let label: String = '';
 	export let placeholder: String = '';
-	export let type: String = 'text';
+	export let type: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' = 'text';
 	export let hint: String = '';
 	export let lead: String | Object | Function | undefined = undefined;
 	export let trail: String | Object | Function | undefined = undefined;

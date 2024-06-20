@@ -30,6 +30,10 @@
 			href: '/input',
 		},
 		{
+			name: 'Select',
+			href: '/select',
+		},
+		{
 			name: 'FileUploader',
 			href: '/fileuploader',
 		},
