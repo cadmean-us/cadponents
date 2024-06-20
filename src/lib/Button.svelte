@@ -1,17 +1,14 @@
 <script lang="ts">
-	export let href = '';
-	export let target = '';
 	export let size: 'sm' | 'md' | 'lg' = 'md';
-	export let type: 'filled' | 'outlined' | 'ghosted' = 'filled';
-	export let disabled = false;
+	export let variant: 'filled' | 'outlined' | 'ghosted' = 'filled';
 </script>
 
-{#if href === ''}
-	<button {...$$restProps} class="button button--{type} button--{size}" {disabled}>
+{#if !$$restProps.href}
+	<button {...$$restProps} class="button button--{variant} button--{size}">
 		<slot />
 	</button>
 {:else}
-	<a {href} {target} {...$$restProps} class="button button--{type} button--{size}" {disabled}>
+	<a {...$$restProps} class="button button--{variant} button--{size}">
 		<slot />
 	</a>
 {/if}
