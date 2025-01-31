@@ -7,7 +7,7 @@
 
 <div class="ui-group">
 	<div class="ui-group__row">
-		<Tag variant="muted">Muted</Tag>
+		<Tag variant="muted" on:click={()=>{console.log('brah')}}>Muted</Tag>
 		<Tag variant="accent">Accent</Tag>
 		<Tag variant="neutral">Neutral</Tag>
 		<Tag variant="border">Border</Tag>

@@ -2,7 +2,7 @@
 	export let variant: 'accent' | 'muted' | 'neutral' | 'border' = 'accent';
 </script>
 
-<button {...$$restProps} class="tag tag--{variant} {$$restProps.class}">
+<button on:click {...$$restProps} class="tag tag--{variant} {$$restProps.class}">
 	<slot />
 </button>
 
