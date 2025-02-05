@@ -7,6 +7,12 @@
 
 <div class="ui-group">
 	<div class="ui-group__row">
+		<Tag variant="success">Success</Tag>
+		<Tag variant="warning" on:click={()=>{console.log('brah')}}>Warning</Tag>
+		<Tag variant="error">Neutral</Tag>
+	</div>
+
+	<div class="ui-group__row">
 		<Tag variant="muted" on:click={()=>{console.log('brah')}}>Muted</Tag>
 		<Tag variant="accent">Accent</Tag>
 		<Tag variant="neutral">Neutral</Tag>

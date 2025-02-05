@@ -56,9 +56,19 @@ body{
     --border-focus: #BFC1C3;
     --border-selected: #7EB3FF;
     --border-disabled: #EEEFEF;
+
     --support-error: #FF0000;
-    --support-success: #0E8345;
+    --support-error-hover: #e44b4b;
+    --support-error-active: #CC0000;
+
     --support-warning: #DCAE0C;
+    --support-warning-hover: #e1b82a;
+    --support-warning-active: #C09A0C;
+
+    --support-success: #0E8345;
+    --support-success-hover: #37784d;
+    --support-success-active: #0B6A32;
+
     --support-info: #0D97D2;
     --icon-primary: #1E2126;
     --icon-secondary: #A8AFB5;
