@@ -1,9 +1,9 @@
-# create-svelte
+# npm
 
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
-
-Read more about creating a library [in the docs](https://kit.svelte.dev/docs/packaging).
-
+npm login
+npm run build
+npm publish --access public
+npm info @cadmean-us/cadponents
 ## Creating a project
 
 If you're seeing this, you've probably already done this step. Congrats!
