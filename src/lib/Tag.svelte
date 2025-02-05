@@ -69,7 +69,7 @@
 	&--border {
 		background: transparent;
 		color: var(--text-accent);
-		border: 2px solid var(--button-secondary-enabled);
+    outline: 2px solid var(--button-secondary-enabled);
 		@media (hover: hover) {
 			&:hover {
 				border-color: var(--button-secondary-hover);

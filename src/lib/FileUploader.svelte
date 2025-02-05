@@ -97,7 +97,7 @@ const removeFile = (filename: any) => {
 		gap: 10px;
 		align-items: center;
 		border-radius: 10px;
-		border: 1px solid var(--border-default, #E1E2E3);
+    outline: 1px solid var(--border-default, #E1E2E3);
 		max-width: 250px;
 		&__col {
 			display: flex;

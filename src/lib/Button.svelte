@@ -66,7 +66,7 @@
 	&--outlined {
 		background: transparent;
 		color: var(--button-primary-enabled);
-		border: 2px solid var(--button-primary-enabled);
+		outline: 2px solid var(--button-primary-enabled);
 		@media (hover: hover) {
 			&:hover {
 				border-color: var(--button-primary-hover);
@@ -80,7 +80,7 @@
 	&--outlined {
 		background: transparent;
 		color: var(--button-primary-enabled);
-		border: 2px solid var(--button-primary-enabled);
+		outline: 2px solid var(--button-primary-enabled);
 		@media (hover: hover) {
 			&:hover {
 				border-color: var(--button-primary-hover);

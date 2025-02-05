@@ -77,7 +77,7 @@
 			height: 18px;
 			border-radius: 4px;
 			border-radius: 50%;
-			border: 2px solid var(--icon-secondary);
+      outline: 2px solid var(--icon-secondary);
 			transition: var(--transition-duration) var(--transition-timing-function);
 		}
 		&::after {
@@ -90,7 +90,7 @@
 			height: 8px;
 			border-radius: 50%;
 			opacity: 0;
-			border: 2px solid var(--icon-accent);
+      outline: 2px solid var(--icon-accent);
 			transition: var(--transition-duration) var(--transition-timing-function);
 		}
 	}

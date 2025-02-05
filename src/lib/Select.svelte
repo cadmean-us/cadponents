@@ -334,7 +334,7 @@
 			padding: 10px 16px;
 			gap: 15px;
 			transition: var(--transition-duration) var(--transition-timing-function);
-			border: 1px solid var(--border-default);
+      outline: 1px solid var(--border-default);
 			border-radius: 8px;
 			:global(svg) {
 				min-width: 20px;

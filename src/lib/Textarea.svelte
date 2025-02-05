@@ -121,7 +121,7 @@
 			overflow: auto;
 			gap: 15px;
 			transition: var(--transition-duration) var(--transition-timing-function), width 0s, height 0s;
-			border: 1px solid var(--border-default);
+      outline: 1px solid var(--border-default);
 			border-radius: 8px;
 			:global(svg) {
 				min-width: 20px;
