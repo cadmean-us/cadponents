@@ -2,6 +2,7 @@
 	import NavLink from '$lib/NavLink.svelte';
 	import Placeholder from '$lib/icons/Placeholder.svelte';
 
+
 	const links = [
 		{
 			title: 'Home',
@@ -49,7 +50,7 @@
 						},
 						{
 							title: 'Button',
-							href: '/button',
+							href: '/navlink/subnav',
 							notification: '2',
 							icon: Placeholder
 						}

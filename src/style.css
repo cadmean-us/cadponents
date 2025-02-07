@@ -15,3 +15,31 @@
 	display: flex;
 	gap: 16px;
 }
+
+.active-text {
+	color: #000;
+	animation: textColorBlink 1s ease-in-out infinite;
+}
+@keyframes textColorBlink {
+	0% {
+		color: #fff;
+	}
+	50% {
+		color: #51bde8;
+	}
+	100% {
+		color: #fff;
+	}
+}
+
+@keyframes colorBlink {
+	0% {
+		color: #fff;
+	}
+	50% {
+		color: #51bde8;
+	}
+	100% {
+		color: #fff;
+	}
+}

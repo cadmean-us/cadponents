@@ -5,10 +5,12 @@
 
 <h1 class="ui-group__title">Button</h1>
 
+<div class="active-text">tessssst</div>
+testest
 <div class="ui-group">
 	<div class="ui-group__row">
 		<div class="ui-group__row-inner">
-			<Button size="lg" variant="filled">Large</Button>
+			<Button size="lg" variant="filled" class="" on:click={()=>{console.log('resr')}}>Large</Button>
 			<Button size="lg" variant="outlined">Large</Button>
 			<Button size="lg" variant="ghosted">Large</Button>
 		</div>
@@ -149,3 +151,9 @@
 		</div>
 	</div>
 </div>
+
+<style>
+
+
+
+</style>

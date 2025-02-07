@@ -4,11 +4,11 @@
 </script>
 
 {#if !$$restProps.href}
-	<button {...$$restProps} class="button button--{variant} button--{size}">
+	<button on:click {...$$restProps} class="button button--{variant} button--{size} {$$props.class ?? ''}">
 		<slot />
 	</button>
 {:else}
-	<a {...$$restProps} class="button button--{variant} button--{size}">
+	<a {...$$restProps} class="button button--{variant} button--{size} {$$props.class ?? ''}">
 		<slot />
 	</a>
 {/if}

@@ -1,10 +1,46 @@
 <script lang="ts">
 	import NavLink from '$lib/NavLink.svelte';
 	import Chevron from '$lib/icons/Chevron.svelte';
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
+
 	export let links: any[] = [];
-	export let children: Boolean = false;
-	export let open: Boolean = false;
+	export let children = false;
+	export let open = false;
 	let isOpen = [];
+
+	let currentPath = '';
+
+	page.subscribe(($page) => {
+		currentPath = $page.url.pathname;
+		links.forEach((link, index) => {
+			if (link.children && isLinkSelected(link)) {
+				isOpen[index] = true;
+			}
+		});
+	});
+
+	function isLinkSelected(link): boolean {
+		// If your link.href values don’t include the base path,
+		// you might want to prepend base (e.g. `${base}${link.href}`) when comparing.
+		if (link.href && link.href === currentPath) {
+			return true;
+		}
+		// If the link has children, check them recursively.
+		if (link.children) {
+			return link.children.some(child => isLinkSelected(child));
+		}
+		return false;
+	}
+
+	// On mount, open any nav item whose child is selected.
+	onMount(() => {
+		links.forEach((link, index) => {
+			if (link.children && isLinkSelected(link)) {
+				isOpen[index] = true;
+			}
+		});
+	});
 </script>
 
 <div {...$$restProps} class="nav {open ? 'nav--open' : ''} {children ? 'nav--children' : ''}">
@@ -35,20 +71,30 @@
 				<NavLink links={link.children} children open={isOpen[index]}/>
 			</div>
 		{:else}
-			<a href="{link.href}" class="nav__link">{link.title}</a>
+			<a
+				href="{link.href}"
+			class:selected={isLinkSelected(link)}
+			class="nav__link {$$props.class ?? ''}"
+			>
+			{link.title}
+			</a>
 		{/if}
 	{/each}
 </div>
 
 <style lang="scss">
-.nav {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
+  .selected {
+    text-decoration: underline;
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 	&__link {
 		display: flex;
 		align-items: center;
