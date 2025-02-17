@@ -76,13 +76,19 @@
 			class:selected={isLinkSelected(link)}
 			class="nav__link {$$props.class ?? ''}"
 			>
-			{link.title}
+				{link.title}
+				<span class="nav__icons">
+					{#if link.notification} <span class="nav__notification">{link.notification}</span> {/if}
+					{#if link.icon} <svelte:component this={link.icon} size="20"/> {/if}
+				</span>
 			</a>
 		{/if}
 	{/each}
 </div>
 
 <style lang="scss">
+
+
   .selected {
     text-decoration: underline;
   }
@@ -98,6 +104,7 @@
 	&__link {
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 		padding: 5px 14px 5px 20px;
 		gap: 12px;
 		font-size: 14px;
@@ -140,6 +147,7 @@
 		justify-content: center;
 	}
 	&__notification {
+		text-decoration: none !important;
 		display: flex;
 		align-items: center;
 		justify-content: center;

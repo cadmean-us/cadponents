@@ -16,8 +16,6 @@
 						{
 							title: 'Button',
 							href: '/button',
-							notification: '2',
-							icon: Placeholder
 						},
 						{
 							title: 'Button',
@@ -73,12 +71,11 @@
 				{
 					title: 'Button',
 					href: '/button',
+					icon: Placeholder,
 					children: [
 						{
 							title: 'Button',
 							href: '/button',
-							notification: '2',
-							icon: Placeholder
 						},
 						{
 							title: 'Button',
@@ -91,10 +88,13 @@
 				{
 					title: 'Button',
 					href: '/button',
+					icon: Placeholder,
+
 				},
 				{
 					title: 'Button',
 					href: '/button',
+					icon: Placeholder,
 				},
 				{
 					title: 'Button',
@@ -123,6 +123,8 @@
 			href: '/button',
 		}
 	]
+
+	console.log(links);
 </script>
 
 <h1 class="ui-group__title">NavLink</h1>
