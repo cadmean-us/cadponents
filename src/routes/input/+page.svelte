@@ -55,7 +55,7 @@
 <div class="ui-group">
 	<div class="ui-group__row">
 		<div class="ui-group__row-inner">
-			<Input bind:value={inputsValue.input1} label="Label" placeholder="Text field" hint="Hint" status="enabled"/>
+			<Input class="mt" autocomplete="email"  bind:value={inputsValue.input1} label="Label" placeholder="Text field" hint="Hint" status="enabled"/>
 			<Input bind:value={inputsValue.input2} label="Label" placeholder="Text field" hint="Hint" status="enabled" lead="$"/>
 			<Input bind:value={inputsValue.input3} label="Label" placeholder="Text field" hint="Hint" status="enabled" lead={Placeholder}/>
 			<Input bind:value={inputsValue.input4} label="Label" placeholder="Text field" hint="Hint" status="enabled" trail="USD"/>
@@ -143,3 +143,9 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.mt{
+			margin-top: 40px;
+	}
+</style>

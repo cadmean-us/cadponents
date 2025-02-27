@@ -25,7 +25,7 @@ const removeFile = (filename: any) => {
 }
 </script>
 
-<div class="uploader-wrapper">
+<div class="uploader-wrapper {$$props.class}">
 	<label class="uploader" class:disabled={disabled} >
 		<p class="uploader__label">
 			{#if $$slots.label}

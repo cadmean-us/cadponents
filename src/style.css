@@ -16,6 +16,10 @@
 	gap: 16px;
 }
 
+.mt{
+	margin-top: 40px;
+}
+
 .active-text {
 	color: #000;
 	animation: textColorBlink 1s ease-in-out infinite;

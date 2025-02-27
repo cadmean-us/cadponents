@@ -4,22 +4,22 @@
 	import InputIncomplete from './icons/InputIncomplete.svelte';
 	import InputWarning from './icons/InputWarning.svelte';
 
-	export let label: String = '';
-	export let placeholder: String = '';
+	export let label: string = '';
+	export let placeholder: string = '';
 	export let type: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' = 'text';
-	export let hint: String = '';
-	export let lead: String | Object | Function | undefined = undefined;
-	export let trail: String | Object | Function | undefined = undefined;
-	export let value: String = '';
+	export let hint: string = '';
+	export let lead: string | object | Function | undefined = undefined;
+	export let trail: string | object | Function | undefined = undefined;
+	export let value: string = '';
 	export let disabled = false;
 	export let status: 'enabled' | 'error' | 'success' | 'loading' | 'complete' | 'incomplete' | 'warning' | 'disabled' = 'enabled';
-
+	export let autocomplete
 	const handleInput = (e) => {
 		value = e.target.value
 	}
 </script>
 
-<label class='input input--{status} {disabled ? 'disabled' : ''}'>
+<label class="input input--{status} {disabled ? 'disabled' : ''} {$$props.class}">
 	<p class="input__label">
 		{#if $$slots.label}
 			<slot name="label" />
@@ -35,7 +35,7 @@
 		{:else if typeof lead === 'string'}
 			<span class="input__lead">{lead}</span>
 		{/if}
-		<input class="input__input" {value} {type} {disabled} {placeholder} on:input={handleInput} />
+		<input class="input__input" {value}  {disabled} {placeholder} {autocomplete}  on:input={handleInput} />
 		{#if status === 'complete'}
 			<InputComplete/>
 		{:else if status === 'warning'}
@@ -74,6 +74,16 @@
 </label>
 
 <style lang="scss">
+  input[data-autocompleted] {
+    background-color: transparent !important;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:focus {
+    transition: background-color 0s 0s, color 0s 0s;
+    transition-delay: calc(infinity * 1s);
+  }
+
 	.input {
 		display: flex;
 		flex-direction: column;

@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Check from '$lib/icons/Check.svelte';
-	export let checked: Boolean = false;
-	export let name: String = '';
+	export let checked: boolean = false;
+	export let name: string = '';
 	export let disabled = false;
 </script>
 
-<label {...$$restProps} class="checkbox">
+<label {...$$restProps} class="checkbox {$$props.class}">
 	<input class="checkbox__input" type="checkbox" bind:checked name={name} disabled={disabled} />
 	<span class="checkbox__box">
 		<Check size="16"/>
@@ -36,8 +36,6 @@
 		font-size: 14px;
 		line-height: 20px;
 		letter-spacing: -0.1px;
-		display: flex;
-		flex-direction: column;
 		user-select: none;
 		margin: auto 0;
 		color: var(--text-primary);

@@ -2,12 +2,12 @@
 	import Check from '$lib/icons/Check.svelte';
 	import Cross from '$lib/icons/Cross.svelte';
 	import {fade} from 'svelte/transition';
-	export let checked: Boolean = false;
-	export let name: String = '';
+	export let checked: boolean = false;
+	export let name: string = '';
 	export let disabled = false;
 </script>
 
-<label {...$$restProps} class="checkbox">
+<label {...$$restProps} class="checkbox {$$props.class}">
 	<input class="checkbox__input" type="checkbox" bind:checked name={name} disabled={disabled} />
 	<p class="checkbox__text">Off</p>
 	<span class="checkbox__box">

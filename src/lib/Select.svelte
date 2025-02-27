@@ -134,7 +134,7 @@
 	$: visibleValue = transformValueToVisibleValue(value)
 </script>
 
-<label class='input input--{status} {disabled ? 'disabled' : ''}' on:click={handleOpen}>
+<label class='input input--{status} {disabled ? 'disabled' : ''} {$$props.class}' on:click={handleOpen}>
 	<p class="input__label">
 		{#if $$slots.label}
 			<slot name="label" />

@@ -1,6 +1,6 @@
 {
 	"name": "@cadmean-us/cadponents",
-	"version": "0.3.11",
+	"version": "0.3.18",
 	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
@@ -28,7 +28,7 @@
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
-		"svelte": "^4.2.18"
+		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",

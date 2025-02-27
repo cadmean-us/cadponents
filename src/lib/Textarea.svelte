@@ -24,7 +24,7 @@
 	}
 </script>
 
-<label class='input input--{status} {disabled ? 'disabled' : ''}'>
+<label class="input input--{status} {disabled ? 'disabled' : ''} {$$props.class}">
 	<p class="input__label">
 		{#if $$slots.label}
 			<slot name="label" />

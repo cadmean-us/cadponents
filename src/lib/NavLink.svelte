@@ -43,7 +43,7 @@
 	});
 </script>
 
-<div {...$$restProps} class="nav {open ? 'nav--open' : ''} {children ? 'nav--children' : ''}">
+<div {...$$restProps} class="nav {open ? 'nav--open' : ''} {children ? 'nav--children' : ''} {$$props.class}">
 	{#each links as link, index}
 		{#if link.children}
 			<button class="nav__link nav__link--button {isOpen[index] ? 'nav__link--open' : ''}" on:click={() => isOpen[index] = !isOpen[index]}>

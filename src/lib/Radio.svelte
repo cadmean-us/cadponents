@@ -7,7 +7,7 @@
 	export let selected = options[0].value;
 </script>
 
-<div {...$$restProps} class="radios">
+<div {...$$restProps} class="radios {$$props.class}">
 	{#each options as option}
 		<label class="radio">
 			<input class="radio__input" type="radio" bind:group={selected} value={option?.value || option} name={option.name || ''} disabled={option.disabled || false} />

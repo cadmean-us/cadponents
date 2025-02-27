@@ -49,7 +49,7 @@
 <div class="ui-group">
 	<div class="ui-group__row">
 		<Checkbox bind:checked={checkboxes.checkbox1}>
-			Checkbox
+			Checkbox <a href="">test</a>
 		</Checkbox>
 		<Checkbox bind:checked={checkboxes.checkbox2}>
 			Checkbox
