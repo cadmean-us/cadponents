@@ -8,25 +8,38 @@
 	export let placeholder: string = '';
 	export let type: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' = 'text';
 	export let hint: string = '';
-	export let lead: string | object | Function | undefined = undefined;
-	export let trail: string | object | Function | undefined = undefined;
+	export let lead: string | object | undefined = undefined;
+	export let trail: string | object | undefined = undefined;
 	export let value: string = '';
 	export let disabled = false;
-	export let status: 'enabled' | 'error' | 'success' | 'loading' | 'complete' | 'incomplete' | 'warning' | 'disabled' = 'enabled';
-	export let autocomplete
-	const handleInput = (e) => {
-		value = e.target.value
-	}
+	export let status:
+		| 'enabled'
+		| 'error'
+		| 'success'
+		| 'loading'
+		| 'complete'
+		| 'incomplete'
+		| 'warning'
+		| 'disabled' = 'enabled';
+	export let required = false;
+	export let autocomplete = '';
+
+	const handleInput = (e: Event) => {
+		value = (e.target as HTMLInputElement).value;
+	};
 </script>
 
 <label class="input input--{status} {disabled ? 'disabled' : ''} {$$props.class}">
-	<p class="input__label">
-		{#if $$slots.label}
+	{#if $$slots.label}
+		<p class="input__label">
 			<slot name="label" />
-		{:else}
+		</p>
+	{:else}
+		<p class="input__label">
 			{label}
-		{/if}
-	</p>
+		</p>
+	{/if}
+
 	<div class="input__wrapper">
 		{#if $$slots.lead}
 			<slot name="lead" />
@@ -35,15 +48,26 @@
 		{:else if typeof lead === 'string'}
 			<span class="input__lead">{lead}</span>
 		{/if}
-		<input class="input__input" {value}  {disabled} {placeholder} {autocomplete}  on:input={handleInput} />
+		<input
+			class="input__input"
+			{value}
+			{disabled}
+			{placeholder}
+			{autocomplete}
+			{type}
+			{required}
+			id={$$props.id}
+			name={$$props.name || $$props.id}
+			on:input={handleInput}
+		/>
 		{#if status === 'complete'}
-			<InputComplete/>
+			<InputComplete />
 		{:else if status === 'warning'}
-			<InputWarning/>
+			<InputWarning />
 		{:else if status === 'loading'}
-			<InputLoading/>
+			<InputLoading />
 		{:else if status === 'incomplete'}
-			<InputIncomplete/>
+			<InputIncomplete />
 		{:else if $$slots.trail}
 			<slot name="trail" />
 		{:else if typeof trail === 'function' || typeof trail === 'object'}
@@ -57,13 +81,13 @@
 			{#if $$slots.error}
 				<slot name="error" />
 			{:else}
-				<InputIncomplete size="16"/> You're doing it wrong!
+				<InputIncomplete size="16" /> You're doing it wrong!
 			{/if}
 		{:else if status === 'success'}
 			{#if $$slots.success}
 				<slot name="success" />
 			{:else}
-				<InputComplete size="16"/> Success!
+				<InputComplete size="16" /> Success!
 			{/if}
 		{:else if $$slots.hint}
 			<slot name="hint" />
@@ -74,15 +98,17 @@
 </label>
 
 <style lang="scss">
-  input[data-autocompleted] {
-    background-color: transparent !important;
-  }
+	input[data-autocompleted] {
+		background-color: transparent !important;
+	}
 
-  input:-webkit-autofill,
-  input:-webkit-autofill:focus {
-    transition: background-color 0s 0s, color 0s 0s;
-    transition-delay: calc(infinity * 1s);
-  }
+	input:-webkit-autofill,
+	input:-webkit-autofill:focus {
+		transition:
+			background-color 0s 0s,
+			color 0s 0s;
+		transition-delay: calc(infinity * 1s);
+	}
 
 	.input {
 		display: flex;
@@ -141,7 +167,8 @@
 		&__icon {
 			color: var(--icon-secondary);
 		}
-		&__lead, &__trail {
+		&__lead,
+		&__trail {
 			font-size: 14px;
 			font-weight: 600;
 			line-height: 20px;
@@ -150,7 +177,8 @@
 		}
 		&.disabled {
 			.input {
-				&__label, &__hint {
+				&__label,
+				&__hint {
 					color: var(--text-disabled);
 				}
 				&__wrapper {
@@ -161,7 +189,8 @@
 					background-color: transparent;
 					color: var(--text-on-color-disabled);
 				}
-				&__lead, &__trail {
+				&__lead,
+				&__trail {
 					color: var(--text-on-color-disabled);
 				}
 				&__icon {

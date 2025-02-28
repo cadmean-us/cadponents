@@ -1,9 +1,9 @@
 <script lang="ts">
-	type Option = {value: any, label: any}
+	type Option = { value: any; label: any };
 
 	import { teleport } from './utils/teleport.js';
 	import { onMount } from 'svelte';
-	import { Svroller } from 'svrollbar'
+	import { Svroller } from 'svrollbar';
 	import { clickOutside } from './scripts/clickOutside';
 
 	import InputLoading from './icons/InputLoading.svelte';
@@ -14,47 +14,55 @@
 	import Check from './icons/Check.svelte';
 	import { isArray, isNumber, isObject, isString } from './utils/other.js';
 
-	export let label: String = '';
-	export let placeholder: String = '';
-	export let type: String = 'text';
-	export let hint: String = '';
-	export let lead: String | Object | Function | undefined = undefined;
-	export let trail: String | Object | Function | undefined = undefined;
+	export let label: string = '';
+	export let placeholder: string = '';
+	export let type: string = 'text';
+	export let hint: string = '';
+	export let lead: string | object | Function | undefined = undefined;
+	export let trail: string | object | Function | undefined = undefined;
 	export let value: any = '';
 	export let disabled = false;
-	export let status: 'enabled' | 'error' | 'success' | 'loading' | 'complete' | 'incomplete' | 'warning' | 'disabled' = 'enabled';
+	export let status:
+		| 'enabled'
+		| 'error'
+		| 'success'
+		| 'loading'
+		| 'complete'
+		| 'incomplete'
+		| 'warning'
+		| 'disabled' = 'enabled';
 	export let options: Option[] = [];
-	export let fetchOptions: Function | undefined;
+	export let fetchOptions: Function | undefined = undefined;
 	export let fetchOptionsIndex: number | null = null;
 	export let transformFetchedOptionLabel: Function | undefined = undefined;
 	export let transformFetchedOptionValue: Function | undefined = undefined;
 	export let debounceTime: number = 500;
 
-	const MAX_HEIGHT_OPTIONS = 210
-	const GAP_BETWEEN_OPTIONS_AND_INPUT = 5
+	const MAX_HEIGHT_OPTIONS = 210;
+	const GAP_BETWEEN_OPTIONS_AND_INPUT = 5;
 
-	let isOpen = false 
-	let input: any = null
-	let loading = false
-	let timer: any = null
+	let isOpen = false;
+	let input: any = null;
+	let loading = false;
+	let timer: any = null;
 
 	onMount(() => {
-		if(fetchOptions) getOptions()
-	})
+		if (fetchOptions) getOptions();
+	});
 
 	function transformValueToVisibleValue(value: any) {
-		if(isArray(value)) {
-			if(value.length === 0) return ''
-			if(isString(value[0])) return value[0]
-			return transformValueToVisibleValue(value[0])
+		if (isArray(value)) {
+			if (value.length === 0) return '';
+			if (isString(value[0])) return value[0];
+			return transformValueToVisibleValue(value[0]);
 		}
-		if(isNumber(value)) return getOptionById(value)
-		if(isString(value)) return value
-		if(isObject(value)) return value.label
+		if (isNumber(value)) return getOptionById(value);
+		if (isString(value)) return value;
+		if (isObject(value)) return value.label;
 	}
 
 	function getOptionById(id: number) {
-		return options[id]
+		return options[id];
 	}
 
 	const debounce = <T extends (...args: any[]) => void>(
@@ -69,72 +77,85 @@
 		};
 	};
 
-	async function getOptions () {
-		if(fetchOptions === undefined) return
-		debounce(
-			async (visibleValue) => {
-				loading = true;
-				options = await fetchOptions(visibleValue ?? '', fetchOptionsIndex);
-				options = options.map((option) => {
-					let label = String(option)
-					let value = option?.id
-					if(transformFetchedOptionLabel) label = transformFetchedOptionLabel(option)
-					if(transformFetchedOptionValue) value = transformFetchedOptionValue(option)
-					return {value: value , label: label}
-				})
-				loading = false;
-			}
-		, debounceTime)(transformValueToVisibleValue(value))
-		;
+	async function getOptions() {
+		if (fetchOptions === undefined) return;
+		debounce(async (visibleValue) => {
+			loading = true;
+			options = await fetchOptions(visibleValue ?? '', fetchOptionsIndex);
+			options = options.map((option) => {
+				let label = String(option);
+				let value = option?.id;
+				if (transformFetchedOptionLabel) label = transformFetchedOptionLabel(option);
+				if (transformFetchedOptionValue) value = transformFetchedOptionValue(option);
+				return { value: value, label: label };
+			});
+			loading = false;
+		}, debounceTime)(transformValueToVisibleValue(value));
 	}
 
 	function handleInput(e: any) {
-		value = e.target.value
-		if(fetchOptions) getOptions()
-		filterOptions(e)
+		value = e.target.value;
+		if (fetchOptions) getOptions();
+		filterOptions(e);
 	}
 
 	function selectOption(e: string | object) {
-		value = e
-		isOpen = false
+		value = e;
+		isOpen = false;
 	}
 
 	function handleOpen(e: any) {
-		isOpen = true
-		filterOptions(e)
+		isOpen = true;
+		filterOptions(e);
 	}
 
 	function filterOptions(e) {
-		optionsFiltered = options.filter((option) => String(option.label ?? option)?.toLowerCase().includes(e.target.value?.toLowerCase()))
+		optionsFiltered = options.filter((option) =>
+			String(option.label ?? option)
+				?.toLowerCase()
+				.includes(e.target.value?.toLowerCase())
+		);
 	}
 
 	const getStyle = () => {
 		const rect = input.getBoundingClientRect();
 		let body = document.body,
-				html = document.documentElement;
-		let height = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight );
-		
-		if (rect.y + rect.height + window.scrollY + MAX_HEIGHT_OPTIONS + GAP_BETWEEN_OPTIONS_AND_INPUT > height) {
+			html = document.documentElement;
+		let height = Math.max(
+			body.scrollHeight,
+			body.offsetHeight,
+			html.clientHeight,
+			html.scrollHeight,
+			html.offsetHeight
+		);
+
+		if (
+			rect.y + rect.height + window.scrollY + MAX_HEIGHT_OPTIONS + GAP_BETWEEN_OPTIONS_AND_INPUT >
+			height
+		) {
 			return `
 				bottom: ${height - rect.y - window.scrollY + GAP_BETWEEN_OPTIONS_AND_INPUT}px;
 				left: ${rect.x}px;
 				width: ${rect.width}px;
 				max-height: ${MAX_HEIGHT_OPTIONS}px;
-			`
+			`;
 		}
 		return `
 			top: ${rect.y + rect.height + window.scrollY + GAP_BETWEEN_OPTIONS_AND_INPUT}px; 
 			left: ${rect.x}px; 
 			width: ${rect.width}px; 
 			max-height: ${MAX_HEIGHT_OPTIONS}px;
-		`
-	}
+		`;
+	};
 
-	$: optionsFiltered = options
-	$: visibleValue = transformValueToVisibleValue(value)
+	$: optionsFiltered = options;
+	$: visibleValue = transformValueToVisibleValue(value);
 </script>
 
-<label class='input input--{status} {disabled ? 'disabled' : ''} {$$props.class}' on:click={handleOpen}>
+<label
+	class="input input--{status} {disabled ? 'disabled' : ''} {$$props.class}"
+	on:click={handleOpen}
+>
 	<p class="input__label">
 		{#if $$slots.label}
 			<slot name="label" />
@@ -151,16 +172,24 @@
 			<span class="input__lead">{lead}</span>
 		{/if}
 
-		<input class="input__input" value={visibleValue} {type} {disabled} {placeholder} on:input={handleInput} on:focus={handleOpen}/>
-		
+		<input
+			class="input__input"
+			value={visibleValue}
+			{type}
+			{disabled}
+			{placeholder}
+			on:input={handleInput}
+			on:focus={handleOpen}
+		/>
+
 		{#if status === 'complete'}
-			<InputComplete/>
+			<InputComplete />
 		{:else if status === 'warning'}
-			<InputWarning/>
+			<InputWarning />
 		{:else if status === 'loading' || loading}
-			<InputLoading/>
+			<InputLoading />
 		{:else if status === 'incomplete'}
-			<InputIncomplete/>
+			<InputIncomplete />
 		{:else if $$slots.trail}
 			<slot name="trail" />
 		{:else if typeof trail === 'function' || typeof trail === 'object'}
@@ -168,7 +197,7 @@
 		{:else if typeof trail === 'string'}
 			<span class="input__trail">{trail}</span>
 		{/if}
-		
+
 		<span class="input__chevron">
 			<InputChevron />
 		</span>
@@ -178,13 +207,13 @@
 			{#if $$slots.error}
 				<slot name="error" />
 			{:else}
-				<InputIncomplete size="16"/> You're doing it wrong!
+				<InputIncomplete size="16" /> You're doing it wrong!
 			{/if}
 		{:else if status === 'success'}
 			{#if $$slots.success}
 				<slot name="success" />
 			{:else}
-				<InputComplete size="16"/> Success!
+				<InputComplete size="16" /> Success!
 			{/if}
 		{:else if $$slots.hint}
 			<slot name="hint" />
@@ -194,22 +223,29 @@
 	</p>
 </label>
 
-<div use:teleport={'body'} use:clickOutside on:click_outside={() => isOpen = false} class="input-options" class:input-options--open={isOpen && optionsFiltered.length > 0} style={isOpen ? getStyle() : 'width: 0; height: 0; opacity: 0'}>
+<div
+	use:teleport={'body'}
+	use:clickOutside
+	on:click_outside={() => (isOpen = false)}
+	class="input-options"
+	class:input-options--open={isOpen && optionsFiltered.length > 0}
+	style={isOpen ? getStyle() : 'width: 0; height: 0; opacity: 0'}
+>
 	<div class="input-options__wrapper">
 		<Svroller width="100%" height="100%">
-		{#each optionsFiltered as item}
-			<button 
-				class="input-options__item" 
-				type="button" 
-				class:input-options__item--active={item === value} 
-				on:click={() => selectOption(item)}
-			>
-				{item.label ? item.label : item}
-				<span>
-					<Check />
-				</span>
-			</button>
-		{/each}
+			{#each optionsFiltered as item}
+				<button
+					class="input-options__item"
+					type="button"
+					class:input-options__item--active={item === value}
+					on:click={() => selectOption(item)}
+				>
+					{item.label ? item.label : item}
+					<span>
+						<Check />
+					</span>
+				</button>
+			{/each}
 		</Svroller>
 	</div>
 </div>
@@ -227,10 +263,16 @@
 		overflow: auto;
 		background: #000;
 		border-radius: 8px;
-		background: var(--Layer-01, #FFF);
+		background: var(--Layer-01, #fff);
 		grid-template-rows: 0fr;
 		pointer-events: none;
-		transition: var(--transition-duration) var(--transition-timing-function), width 0s, top 0s, left 0s, bottom 0s, right 0s;
+		transition:
+			var(--transition-duration) var(--transition-timing-function),
+			width 0s,
+			top 0s,
+			left 0s,
+			bottom 0s,
+			right 0s;
 		&__wrapper {
 			overflow: hidden;
 			display: flex;
@@ -280,7 +322,6 @@
 			}
 		}
 	}
-
 
 	.input {
 		display: flex;
@@ -334,7 +375,7 @@
 			padding: 10px 16px;
 			gap: 15px;
 			transition: var(--transition-duration) var(--transition-timing-function);
-      outline: 1px solid var(--border-default);
+			outline: 1px solid var(--border-default);
 			border-radius: 8px;
 			:global(svg) {
 				min-width: 20px;
@@ -344,7 +385,8 @@
 		&__icon {
 			color: var(--icon-secondary);
 		}
-		&__lead, &__trail {
+		&__lead,
+		&__trail {
 			font-size: 14px;
 			font-weight: 600;
 			line-height: 20px;
@@ -353,7 +395,8 @@
 		}
 		&.disabled {
 			.input {
-				&__label, &__hint {
+				&__label,
+				&__hint {
 					color: var(--text-disabled);
 				}
 				&__wrapper {
@@ -364,7 +407,8 @@
 					background-color: transparent;
 					color: var(--text-on-color-disabled);
 				}
-				&__lead, &__trail {
+				&__lead,
+				&__trail {
 					color: var(--text-on-color-disabled);
 				}
 				&__icon {

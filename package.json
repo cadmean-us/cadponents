@@ -1,6 +1,6 @@
 {
 	"name": "@cadmean-us/cadponents",
-	"version": "0.3.18",
+	"version": "0.3.20",
 	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",

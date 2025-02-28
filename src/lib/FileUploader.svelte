@@ -1,32 +1,33 @@
 <script lang="ts">
-import Button from "./Button.svelte";
-import UploaderIcon from "./icons/UploaderIcon.svelte";
-import Trash from "./icons/Trash.svelte";
+	import Button from './Button.svelte';
+	import UploaderIcon from './icons/UploaderIcon.svelte';
+	import Trash from './icons/Trash.svelte';
 
-export let status: 'enabled' | 'error' | 'success' = 'enabled';
-export let label: string = '';
-export let hint: string = '';
-export let disabled: boolean = false;
-export let accept: string = '*';
-export let multiple: boolean = false;
-export let placeholder: string = 'Drop files here to upload...';
+	export let status: 'enabled' | 'error' | 'success' = 'enabled';
+	export let label: string = '';
+	export let hint: string = '';
+	export let disabled: boolean = false;
+	export let accept: string = '*';
+	export let multiple: boolean = false;
+	export let placeholder: string = 'Drop files here to upload...';
+	export let required: boolean = false;
 
-let input: HTMLInputElement;
-let files: FileList | null = null;
-$: visibleFiles = files ? Array.from(files) : []; 
+	let input: HTMLInputElement;
+	let files: FileList | null = null;
+	$: visibleFiles = files ? Array.from(files) : [];
 
-const removeFile = (filename: any) => {
-	visibleFiles = [...visibleFiles].filter((file: any) => {
-		return file.name !== filename
-	})
-	if(visibleFiles.length === 0) {
-		input.value = '';
-	}
-}
+	const removeFile = (filename: any) => {
+		visibleFiles = [...visibleFiles].filter((file: any) => {
+			return file.name !== filename;
+		});
+		if (visibleFiles.length === 0) {
+			input.value = '';
+		}
+	};
 </script>
 
 <div class="uploader-wrapper {$$props.class}">
-	<label class="uploader" class:disabled={disabled} >
+	<label class="uploader" class:disabled>
 		<p class="uploader__label">
 			{#if $$slots.label}
 				<slot name="label" />
@@ -34,18 +35,31 @@ const removeFile = (filename: any) => {
 				{label}
 			{/if}
 		</p>
-	
+
 		<div class="uploader__wrapper">
-			<input type="file" {accept} bind:files bind:this={input} {multiple} class="uploader__input" {disabled}>
+			<input
+				type="file"
+				{required}
+				{accept}
+				bind:files
+				bind:this={input}
+				{multiple}
+				id={$$props.id}
+				name={$$props.name || $$props.id}
+				class="uploader__input"
+				{disabled}
+			/>
 			<p class="uploader__placeholder">
 				<span>
-					<UploaderIcon size={24}/>
+					<UploaderIcon size={24} />
 				</span>
 				{placeholder}
 			</p>
-			<Button class="uploader__button" size="lg" {disabled} on:click={() => input.click()}>Browse files</Button>
+			<Button class="uploader__button" size="lg" {disabled} on:click={() => input.click()}
+				>Browse files</Button
+			>
 		</div>
-	
+
 		<p class="uploader__hint uploader__hint--{status}">
 			{#if status === 'error'}
 				{#if $$slots.error}
@@ -66,18 +80,20 @@ const removeFile = (filename: any) => {
 			{/if}
 		</p>
 	</label>
-	
-	{#if visibleFiles} 
+
+	{#if visibleFiles}
 		<div class="files">
 			{#each visibleFiles as file}
 				<div class="file">
 					<div class="file__col">
 						<p class="file__name">{file.name}</p>
 						<p class="file__size">
-							<span class="file__status file__status--{status}">Upload success</span> {(file.size / 1024).toFixed(2)} kb </p>
+							<span class="file__status file__status--{status}">Upload success</span>
+							{(file.size / 1024).toFixed(2)} kb
+						</p>
 					</div>
 					<button class="file__delete" on:click={() => removeFile(file.name)}>
-						<Trash size={24}/>
+						<Trash size={24} />
 					</button>
 				</div>
 			{/each}
@@ -97,7 +113,7 @@ const removeFile = (filename: any) => {
 		gap: 10px;
 		align-items: center;
 		border-radius: 10px;
-    outline: 1px solid var(--border-default, #E1E2E3);
+		outline: 1px solid var(--border-default, #e1e2e3);
 		max-width: 250px;
 		&__col {
 			display: flex;
@@ -106,7 +122,7 @@ const removeFile = (filename: any) => {
 		}
 		&__name {
 			overflow: hidden;
-			color: var(--text-primary, #071A2B);
+			color: var(--text-primary, #071a2b);
 			text-overflow: ellipsis;
 			font-size: 14px;
 			white-space: nowrap;
@@ -118,14 +134,14 @@ const removeFile = (filename: any) => {
 		&__size {
 			display: flex;
 			gap: 10px;
-			color: var(--text-secondary, #838D95);
+			color: var(--text-secondary, #838d95);
 			font-size: 12px;
 			font-weight: 400;
 			line-height: 16px;
 			letter-spacing: 0.3px;
 		}
 		&__status {
-			color: var(--support-success, #0E8345);
+			color: var(--support-success, #0e8345);
 			font-size: 12px;
 			font-weight: 400;
 			line-height: 16px;
@@ -214,19 +230,20 @@ const removeFile = (filename: any) => {
 			display: flex;
 			align-items: center;
 			gap: 10px;
-			color: var(--text-placeholder, #C1C6CA);
+			color: var(--text-placeholder, #c1c6ca);
 			font-size: 14px;
 			font-weight: 400;
 			line-height: 20px; /* 142.857% */
 			letter-spacing: -0.1px;
 			span {
-				color: var(--icon-secondary)
+				color: var(--icon-secondary);
 			}
 		}
 		&.disabled {
 			pointer-events: none;
 			.uploader {
-				&__label, &__hint {
+				&__label,
+				&__hint {
 					color: var(--text-disabled);
 				}
 				&__wrapper {
