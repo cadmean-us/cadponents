@@ -1,26 +1,16 @@
 <script lang="ts">
-	type Option = { value: any; label: any };
-
-	import { teleport } from './utils/teleport.js';
+	import { teleport } from '../../utils/teleport';
 	import { onMount } from 'svelte';
 	import { Svroller } from 'svrollbar';
-	import { clickOutside } from './scripts/clickOutside.js';
-
-	import InputLoading from './icons/InputLoading.svelte';
-	import InputComplete from './icons/InputComplete.svelte';
-	import InputIncomplete from './icons/InputIncomplete.svelte';
-	import InputWarning from './icons/InputWarning.svelte';
-	import InputChevron from './icons/InputChevron.svelte';
-	import Check from './icons/Check.svelte';
-	import { isArray, isNumber, isObject, isString } from './utils/other.js';
+	import { clickOutside } from '../../scripts/clickOutside';
 
 	export let label: string = '';
 	export let placeholder: string = '';
 	export let type: string = 'text';
 	export let hint: string = '';
-	export let lead: string | object | Function | undefined = undefined;
-	export let trail: string | object | Function | undefined = undefined;
-	export let value: any = '';
+	export let lead: string | Object | Function | undefined = undefined;
+	export let trail: string | Object | Function | undefined = undefined;
+	export let value: string = '';
 	export let disabled = false;
 	export let status:
 		| 'enabled'
@@ -31,12 +21,8 @@
 		| 'incomplete'
 		| 'warning'
 		| 'disabled' = 'enabled';
-	export let options: Option[] = [];
-	export let fetchOptions: Function | undefined = undefined;
-	export let fetchOptionsIndex: number | null = null;
-	export let transformFetchedOptionLabel: Function | undefined = undefined;
-	export let transformFetchedOptionValue: Function | undefined = undefined;
-	export let debounceTime: number = 500;
+	export let options: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	export let hiddenChevron: boolean = false;
 	export let required: boolean = false;
 
 	const MAX_HEIGHT_OPTIONS = 210;
@@ -44,78 +30,53 @@
 
 	let isOpen = false;
 	let input: any = null;
-	let loading = false;
-	let timer: any = null;
-
-	onMount(() => {
-		if (fetchOptions) getOptions();
-	});
-
-	function transformValueToVisibleValue(value: any) {
-		if (isArray(value)) {
-			if (value.length === 0) return '';
-			if (isString(value[0])) return value[0];
-			return transformValueToVisibleValue(value[0]);
-		}
-		if (isNumber(value)) return getOptionById(value);
-		if (isString(value)) return value;
-		if (isObject(value)) return value.label;
-	}
-
-	function getOptionById(id: number) {
-		return options[id];
-	}
-
-	const debounce = <T extends (...args: any[]) => void>(
-		fn: (...args: Parameters<T>) => void,
-		ms: number
-	) => {
-		return function (...args: any) {
-			clearTimeout(timer);
-			timer = setTimeout(() => {
-				fn.apply(this, args);
-			}, ms);
-		};
-	};
-
-	async function getOptions() {
-		if (fetchOptions === undefined) return;
-		debounce(async (visibleValue) => {
-			loading = true;
-			options = await fetchOptions(visibleValue ?? '', fetchOptionsIndex);
-			options = options.map((option) => {
-				let label = String(option);
-				let value = option?.id;
-				if (transformFetchedOptionLabel) label = transformFetchedOptionLabel(option);
-				if (transformFetchedOptionValue) value = transformFetchedOptionValue(option);
-				return { value: value, label: label };
-			});
-			loading = false;
-		}, debounceTime)(transformValueToVisibleValue(value));
-	}
-
-	function handleInput(e: any) {
-		value = e.target.value;
-		if (fetchOptions) getOptions();
+	let inputField: any = null;
+	let optionsComputed = options.map((option) =>
+		option instanceof Object
+			? { label: option.label, value: option.value }
+			: { label: option, value: option }
+	);
+	let optionsFiltered = optionsComputed;
+	let lastSelect = { label: '', value: '' };
+	let focusedIndex = 0;
+	function handleInput(e: Event) {
+		value = (e.target as HTMLInputElement).value;
+		focusedIndex = 0;
 		filterOptions(e);
 	}
 
-	function selectOption(e: string | object) {
-		value = e;
+	function handleClick(e: any) {
 		isOpen = false;
+		if (lastSelect === e) {
+			value = '';
+			lastSelect = { label: '', value: '' };
+		} else {
+			value = e.label;
+			lastSelect = e;
+		}
+		inputField.value = value;
+		inputField.dispatchEvent(new Event('input', { bubbles: true }));
 	}
 
-	function handleOpen(e: any) {
+	function handleOpen(e: Event) {
 		isOpen = true;
 		filterOptions(e);
 	}
 
-	function filterOptions(e) {
-		optionsFiltered = options.filter((option) =>
-			String(option.label ?? option)
-				?.toLowerCase()
-				.includes(e.target.value?.toLowerCase())
+	function filterOptions(e: Event) {
+		optionsFiltered = optionsComputed.filter((option) =>
+			String(option.label)
+				.toLowerCase()
+				.includes((e.target as HTMLInputElement).value.toLowerCase())
 		);
+	}
+
+	function handleClickOutside() {
+		isOpen = false;
+		if (optionsComputed.find((element) => element.label === value)) {
+			lastSelect = optionsComputed.find((element) => element.label === value);
+		}
+		value = lastSelect.label;
 	}
 
 	const getStyle = () => {
@@ -130,6 +91,7 @@
 			html.offsetHeight
 		);
 
+		console.log(height);
 		if (
 			rect.y + rect.height + window.scrollY + MAX_HEIGHT_OPTIONS + GAP_BETWEEN_OPTIONS_AND_INPUT >
 			height
@@ -148,9 +110,6 @@
 			max-height: ${MAX_HEIGHT_OPTIONS}px;
 		`;
 	};
-
-	$: optionsFiltered = options;
-	$: visibleValue = transformValueToVisibleValue(value);
 </script>
 
 <label class="input input--{status} {disabled ? 'disabled' : ''} {$$props.class}">
@@ -164,58 +123,65 @@
 	<div class="input__wrapper" bind:this={input}>
 		{#if $$slots.lead}
 			<slot name="lead" />
-		{:else if typeof lead === 'function' || typeof lead === 'object'}
-			<span class="input__icon"><svelte:component this={lead} /></span>
 		{:else if typeof lead === 'string'}
-			<span class="input__lead">{lead}</span>
+			{#if lead.indexOf('ci') !== -1}
+				<i class="input__icon {lead}"></i>
+			{:else}
+				<span class="input__lead">{lead}</span>
+			{/if}
 		{/if}
 
 		<input
 			class="input__input"
-			value={visibleValue}
+			bind:this={inputField}
+			{required}
+			{value}
 			{type}
 			{disabled}
 			{placeholder}
-			{required}
 			id={$$props.id}
-			name={$$props.name}
+			name={$$props.name || $$props.id}
 			on:input={handleInput}
-			on:focus={handleOpen}
 			on:click={handleOpen}
 		/>
 
 		{#if status === 'complete'}
-			<InputComplete />
+			<i class="input__icon input__icon--success ci-Circle_Check"></i>
 		{:else if status === 'warning'}
-			<InputWarning />
-		{:else if status === 'loading' || loading}
-			<InputLoading />
+			<i class="input__icon input__icon--warning ci-Triangle_Warning"></i>
+		{:else if status === 'loading'}
+			<i class="input__icon ci-Loading"></i>
 		{:else if status === 'incomplete'}
-			<InputIncomplete />
+			<i class="input__icon input__icon--incomplete ci-Circle_Warning"></i>
 		{:else if $$slots.trail}
 			<slot name="trail" />
-		{:else if typeof trail === 'function' || typeof trail === 'object'}
-			<span class="input__icon"><svelte:component this={trail} /></span>
 		{:else if typeof trail === 'string'}
-			<span class="input__trail">{trail}</span>
+			{#if trail.indexOf('ci') !== -1}
+				<i class="input__icon {trail}"></i>
+			{:else}
+				<span class="input__trail">{trail}</span>
+			{/if}
 		{/if}
 
-		<span class="input__chevron">
-			<InputChevron />
-		</span>
+		{#if !hiddenChevron}
+			<span class="input__chevron">
+				<i class="input__icon ci-Chevron_Down"></i>
+			</span>
+		{/if}
 	</div>
 	<p class="input__hint input__hint--{status}">
 		{#if status === 'error'}
 			{#if $$slots.error}
 				<slot name="error" />
 			{:else}
-				<InputIncomplete size="16" /> You're doing it wrong!
+				<i class="input__icon input__icon--incomplete ci-Circle_Warning" style="font-size: 16px;"
+				></i> You're doing it wrong!
 			{/if}
 		{:else if status === 'success'}
 			{#if $$slots.success}
 				<slot name="success" />
 			{:else}
-				<InputComplete size="16" /> Success!
+				<i class="input__icon input__icon--success ci-Circle_Check" style="font-size: 16px;"></i> Success
 			{/if}
 		{:else if $$slots.hint}
 			<slot name="hint" />
@@ -228,7 +194,7 @@
 <div
 	use:teleport={'body'}
 	use:clickOutside
-	on:click_outside={() => (isOpen = false)}
+	on:clickOutside={() => handleClickOutside()}
 	class="input-options"
 	class:input-options--open={isOpen && optionsFiltered.length > 0}
 	style={isOpen ? getStyle() : 'width: 0; height: 0; opacity: 0'}
@@ -239,12 +205,12 @@
 				<button
 					class="input-options__item"
 					type="button"
-					class:input-options__item--active={item === value}
-					on:click={() => selectOption(item)}
+					class:input-options__item--active={item.value === lastSelect.value}
+					on:click={() => handleClick(item)}
 				>
-					{item.label ? item.label : item}
+					{item.label}
 					<span>
-						<Check />
+						<i class="input__icon ci-Check"></i>
 					</span>
 				</button>
 			{/each}
@@ -296,7 +262,6 @@
 			justify-content: space-between;
 			gap: 15px;
 			color: var(--text-secondary);
-			background: var(--Layer-01);
 			transition: var(--transition-duration) var(--transition-timing-function);
 			span {
 				display: none;
@@ -377,15 +342,27 @@
 			padding: 10px 16px;
 			gap: 15px;
 			transition: var(--transition-duration) var(--transition-timing-function);
-			outline: 1px solid var(--border-default);
-			border-radius: 8px;
+			border: 1px solid var(--border-default);
+			border-radius: 2px;
 			:global(svg) {
 				min-width: 20px;
 				min-height: 20px;
 			}
+			&:has(.input__input.invalid) {
+				border-color: var(--support-error);
+			}
 		}
 		&__icon {
 			color: var(--icon-secondary);
+			&--incomplete {
+				color: var(--support-error);
+			}
+			&--success {
+				color: var(--support-success);
+			}
+			&--warning {
+				color: var(--support-warning);
+			}
 		}
 		&__lead,
 		&__trail {

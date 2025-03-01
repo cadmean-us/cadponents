@@ -12,7 +12,7 @@
 		bind:checked
 		{disabled}
 		id={$$props.id}
-		name={$$props.name || $$props.id}
+		name={$$props.name}
 	/>
 	<span class="checkbox__box">
 		<Check size="16" />

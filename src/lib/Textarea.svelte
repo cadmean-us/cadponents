@@ -4,24 +4,24 @@
 	import InputIncomplete from './icons/InputIncomplete.svelte';
 	import InputClear from './icons/InputClear.svelte';
 
-	export let label: String = '';
-	export let placeholder: String = '';
-	export let hint: String = '';
-	export let value: String = '';
+	export let label: string = '';
+	export let placeholder: string = '';
+	export let hint: string = '';
+	export let value: string = '';
 	export let disabled = false;
 	export let status: 'enabled' | 'error' | 'success' | 'loading' | 'disabled' = 'enabled';
 	export let maxlength: number = 100;
-	
-	const establishedStatus = status
-	
+
+	const establishedStatus = status;
+
 	const handleInput = (e) => {
-		value = e.target.value
-		if(value.length > maxlength) {
-			status = 'error'
+		value = e.target.value;
+		if (value.length > maxlength) {
+			status = 'error';
 		} else {
-			status = establishedStatus
+			status = establishedStatus;
 		}
-	}
+	};
 </script>
 
 <label class="input input--{status} {disabled ? 'disabled' : ''} {$$props.class}">
@@ -34,12 +34,20 @@
 		<span class="input__max">{value.length}/{maxlength}</span>
 	</p>
 	<div class="input__wrapper">
-		<textarea class="input__input" {value} on:input={handleInput} {disabled} {placeholder} ></textarea>
+		<textarea
+			class="input__input"
+			{value}
+			on:input={handleInput}
+			{disabled}
+			{placeholder}
+			id={$$props.id}
+			name={$$props.name}
+		/>
 		<div class="input__controls">
 			{#if status === 'loading'}
-				<InputLoading/>
+				<InputLoading />
 			{:else if value.length > 0}
-				<button on:click={() => value = ''}><InputClear/></button>
+				<button on:click={() => (value = '')}><InputClear /></button>
 			{/if}
 		</div>
 	</div>
@@ -48,13 +56,13 @@
 			{#if $$slots.error}
 				<slot name="error" />
 			{:else}
-				<InputIncomplete size="16"/> You're doing it wrong!
+				<InputIncomplete size="16" /> You're doing it wrong!
 			{/if}
 		{:else if status === 'success'}
 			{#if $$slots.success}
 				<slot name="success" />
 			{:else}
-				<InputComplete size="16"/> Success!
+				<InputComplete size="16" /> Success!
 			{/if}
 		{:else if $$slots.hint}
 			<slot name="hint" />
@@ -120,8 +128,11 @@
 			min-width: 250px;
 			overflow: auto;
 			gap: 15px;
-			transition: var(--transition-duration) var(--transition-timing-function), width 0s, height 0s;
-      outline: 1px solid var(--border-default);
+			transition:
+				var(--transition-duration) var(--transition-timing-function),
+				width 0s,
+				height 0s;
+			outline: 1px solid var(--border-default);
 			border-radius: 8px;
 			:global(svg) {
 				min-width: 20px;
@@ -133,7 +144,8 @@
 		}
 		&.disabled {
 			.input {
-				&__label, &__hint {
+				&__label,
+				&__hint {
 					color: var(--text-disabled);
 				}
 				&__wrapper {
@@ -144,7 +156,8 @@
 					background-color: transparent;
 					color: var(--text-on-color-disabled);
 				}
-				&__lead, &__trail {
+				&__lead,
+				&__trail {
 					color: var(--text-on-color-disabled);
 				}
 				&__icon {

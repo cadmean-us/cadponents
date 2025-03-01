@@ -57,7 +57,7 @@
 			{type}
 			{required}
 			id={$$props.id}
-			name={$$props.name || $$props.id}
+			name={$$props.name}
 			on:input={handleInput}
 		/>
 		{#if status === 'complete'}

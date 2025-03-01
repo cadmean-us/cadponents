@@ -45,7 +45,7 @@
 				bind:this={input}
 				{multiple}
 				id={$$props.id}
-				name={$$props.name || $$props.id}
+				name={$$props.name}
 				class="uploader__input"
 				{disabled}
 			/>
@@ -55,9 +55,9 @@
 				</span>
 				{placeholder}
 			</p>
-			<Button class="uploader__button" size="lg" {disabled} on:click={() => input.click()}
-				>Browse files</Button
-			>
+			<Button class="uploader__button" size="lg" {disabled} on:click={() => input.click()}>
+				Browse files
+			</Button>
 		</div>
 
 		<p class="uploader__hint uploader__hint--{status}">

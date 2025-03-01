@@ -26,7 +26,8 @@
 					type="checkbox"
 					bind:group={selected}
 					value={option[result]}
-					name={$$props.id}
+					name={$$props.name}
+					id={$$props.id}
 					disabled={option.disabled || false}
 				/>
 				<span class="checkbox__box">
