@@ -2,7 +2,7 @@
 	import Check from '$lib/icons/Check.svelte';
 
 	export let options: any[] = [];
-	export let selected = options[0].value;
+	export let selected = [];
 	export let variant: 'ROW' | 'COLUMN' = 'COLUMN';
 	export let label: string = '';
 	export let result: 'value' | 'text' = 'value';

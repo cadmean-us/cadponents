@@ -46,9 +46,14 @@
 	let input: any = null;
 	let loading = false;
 	let timer: any = null;
+	let userInput = '';
 
 	onMount(() => {
 		if (fetchOptions) getOptions();
+		// Initialize options array with proper format if it's an array of strings
+		if (options.length > 0 && typeof options[0] === 'string') {
+			options = options.map((opt) => (typeof opt === 'string' ? { value: opt, label: opt } : opt));
+		}
 	});
 
 	function transformValueToVisibleValue(value: any) {
@@ -95,30 +100,45 @@
 	}
 
 	function handleInput(e: any) {
-		value = e.target.value;
+		userInput = e.target.value;
+		value = userInput;
 		if (fetchOptions) getOptions();
-		filterOptions(e);
+		filterOptions();
 	}
 
-	function selectOption(e: string | object) {
-		value = e;
+	function selectOption(item: any) {
+		value = item;
+		userInput = ''; // Clear user input when an option is selected
 		isOpen = false;
 	}
 
-	function handleOpen(e: any) {
+	function handleOpen() {
 		isOpen = true;
-		filterOptions(e);
+		// Show all options when dropdown is opened
+		if (value) {
+			optionsFiltered = [...options];
+		} else {
+			filterOptions();
+		}
 	}
 
-	function filterOptions(e) {
-		optionsFiltered = options.filter((option) =>
-			String(option.label ?? option)
-				?.toLowerCase()
-				.includes(e.target.value?.toLowerCase())
-		);
+	function filterOptions() {
+		if (!userInput) {
+			// If no user input, show all options
+			optionsFiltered = [...options];
+		} else {
+			// Otherwise filter by user input
+			optionsFiltered = options.filter((option) =>
+				String(option.label ?? option)
+					?.toLowerCase()
+					.includes(userInput.toLowerCase())
+			);
+		}
 	}
 
 	const getStyle = () => {
+		if (!input) return '';
+
 		const rect = input.getBoundingClientRect();
 		let body = document.body,
 			html = document.documentElement;
@@ -149,7 +169,14 @@
 		`;
 	};
 
-	$: optionsFiltered = options;
+	// Format string array options into proper format
+	$: {
+		if (options.length > 0 && typeof options[0] === 'string') {
+			options = options.map((opt) => (typeof opt === 'string' ? { value: opt, label: opt } : opt));
+		}
+	}
+
+	$: optionsFiltered = [...options];
 	$: visibleValue = transformValueToVisibleValue(value);
 </script>
 
@@ -239,7 +266,9 @@
 				<button
 					class="input-options__item"
 					type="button"
-					class:input-options__item--active={item === value}
+					class:input-options__item--active={item.value === value?.value ||
+						item.value === value ||
+						item === value}
 					on:click={() => selectOption(item)}
 				>
 					{item.label ? item.label : item}
