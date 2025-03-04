@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LoadingDots from '$lib/icons/LoadingDots.svelte';
-	import { fly } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 	export let variant: 'filled' | 'outlined' | 'ghosted' = 'filled';
 	export let href: string | undefined = undefined;
@@ -17,11 +17,7 @@
 			<slot />
 		</span>
 		{#if loading}
-			<span
-				in:fly={{ x: -10, duration: 500 }}
-				out:fly={{ x: -10, duration: 500 }}
-				class="mr-[10px] relative w-0"
-			>
+			<span transition:fade class="mr-[10px] relative w-0">
 				<LoadingDots />
 			</span>
 		{/if}
