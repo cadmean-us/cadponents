@@ -1,5 +1,5 @@
 <script lang="ts">
-	import InputLoading from './icons/InputLoading.svelte';
+	import LoadingDots from './icons/LoadingDots.svelte';
 	import InputComplete from './icons/InputComplete.svelte';
 	import InputIncomplete from './icons/InputIncomplete.svelte';
 	import InputClear from './icons/InputClear.svelte';

@@ -1,7 +1,10 @@
 <script lang="ts">
+	import LoadingDots from '$lib/icons/LoadingDots.svelte';
+	import { fly } from 'svelte/transition';
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 	export let variant: 'filled' | 'outlined' | 'ghosted' = 'filled';
 	export let href: string | undefined = undefined;
+	export let loading = false;
 </script>
 
 {#if !$$restProps.href}
@@ -10,7 +13,18 @@
 		{...$$restProps}
 		class="button button--{variant} button--{size} {$$props.class ?? ''}"
 	>
-		<slot />
+		<span class="flex gap-[10px]">
+			<slot />
+		</span>
+		{#if loading}
+			<span
+				in:fly={{ x: -10, duration: 500 }}
+				out:fly={{ x: -10, duration: 500 }}
+				class="mr-[10px] relative w-0"
+			>
+				<LoadingDots />
+			</span>
+		{/if}
 	</button>
 {:else}
 	<a {href} {...$$restProps} class="button button--{variant} button--{size} {$$props.class ?? ''}">
@@ -23,7 +37,6 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		gap: 10px;
 		border-radius: 8px;
 
 		font-size: 14px;

@@ -6,7 +6,7 @@
 	import { Svroller } from 'svrollbar';
 	import { clickOutside } from './scripts/clickOutside.js';
 
-	import InputLoading from './icons/InputLoading.svelte';
+	import LoadingDots from './icons/LoadingDots.svelte';
 	import InputComplete from './icons/InputComplete.svelte';
 	import InputIncomplete from './icons/InputIncomplete.svelte';
 	import InputWarning from './icons/InputWarning.svelte';

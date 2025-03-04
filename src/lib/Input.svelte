@@ -1,5 +1,5 @@
 <script lang="ts">
-	import InputLoading from './icons/InputLoading.svelte';
+	import LoadingDots from './icons/LoadingDots.svelte';
 	import InputComplete from './icons/InputComplete.svelte';
 	import InputIncomplete from './icons/InputIncomplete.svelte';
 	import InputWarning from './icons/InputWarning.svelte';
@@ -65,7 +65,7 @@
 		{:else if status === 'warning'}
 			<InputWarning />
 		{:else if status === 'loading'}
-			<InputLoading />
+			<LoadingDots />
 		{:else if status === 'incomplete'}
 			<InputIncomplete />
 		{:else if $$slots.trail}

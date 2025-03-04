@@ -1,3 +1,6 @@
+@import "tailwindcss";
+
+
 .ui-group {
 	display: flex;
 	flex-direction: column;
