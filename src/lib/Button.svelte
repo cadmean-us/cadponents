@@ -17,7 +17,7 @@
 			<slot />
 		</span>
 		{#if loading}
-			<span transition:fade class="mr-[10px] relative w-0">
+			<span transition:fade class=" relative w-0">
 				<LoadingDots />
 			</span>
 		{/if}
