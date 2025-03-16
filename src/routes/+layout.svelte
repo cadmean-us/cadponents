@@ -1,43 +1,47 @@
 <script>
 	import '../assets/style.css';
-	import '../style.css'
+	import '../style.css';
 	import SideMenu from '$lib/menu/SideMenu.svelte';
 	// import Student from '$lib/Student.svelte';
 
 	let tabs = [
 		{
+			name: 'Form',
+			href: '/form'
+		},
+		{
 			name: 'Button',
-			href: '/button',
+			href: '/button'
 		},
 		{
 			name: 'Tag',
-			href: '/tag',
+			href: '/tag'
 		},
 		{
 			name: 'Breadcrumb',
-			href: '/breadcrumb',
+			href: '/breadcrumb'
 		},
 		{
 			name: 'Control',
-			href: '/control',
+			href: '/control'
 		},
 		{
 			name: 'NavLink',
-			href: '/navlink',
+			href: '/navlink'
 		},
 		{
 			name: 'Input',
-			href: '/input',
+			href: '/input'
 		},
 		{
 			name: 'Select',
-			href: '/select',
+			href: '/select'
 		},
 		{
 			name: 'FileUploader',
-			href: '/fileuploader',
+			href: '/fileuploader'
 		},
-		
+
 		// {
 		// 	name: 'Main',
 		// 	href: '/',
@@ -56,8 +60,8 @@
 		// },
 		{
 			name: 'Table',
-			href: '/table',
-		},
+			href: '/table'
+		}
 		// {
 		// 	name: 'Timeline',
 		// 	href: '/timeline',

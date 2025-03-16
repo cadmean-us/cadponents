@@ -1,8 +1,8 @@
 <script lang="ts">
-	import LoadingDots from './icons/LoadingDots.svelte';
-	import InputComplete from './icons/InputComplete.svelte';
-	import InputIncomplete from './icons/InputIncomplete.svelte';
-	import InputWarning from './icons/InputWarning.svelte';
+	import InputComplete from '$lib/icons/InputComplete.svelte';
+	import InputWarning from '$lib/icons/InputWarning.svelte';
+	import LoadingDots from '$lib/icons/LoadingDots.svelte';
+	import InputIncomplete from '$lib/icons/InputIncomplete.svelte';
 
 	export let label: string = '';
 	export let placeholder: string = '';
@@ -14,7 +14,7 @@
 	export let disabled = false;
 	export let status:
 		| 'enabled'
-		| 'error'
+		| 'invalid'
 		| 'success'
 		| 'loading'
 		| 'complete'
@@ -23,10 +23,6 @@
 		| 'disabled' = 'enabled';
 	export let required = false;
 	export let autocomplete = '';
-
-	const handleInput = (e: Event) => {
-		value = (e.target as HTMLInputElement).value;
-	};
 </script>
 
 <label class="input input--{status} {disabled ? 'disabled' : ''} {$$props.class}">
@@ -40,7 +36,7 @@
 		</p>
 	{/if}
 
-	<div class="input__wrapper">
+	<div class="input__wrapper {status}">
 		{#if $$slots.lead}
 			<slot name="lead" />
 		{:else if typeof lead === 'function' || typeof lead === 'object'}
@@ -58,7 +54,10 @@
 			{required}
 			id={$$props.id}
 			name={$$props.name}
-			on:input={handleInput}
+			on:focus
+			on:click
+			on:input
+			on:invalid
 		/>
 		{#if status === 'complete'}
 			<InputComplete />
@@ -77,17 +76,17 @@
 		{/if}
 	</div>
 	<p class="input__hint input__hint--{status}">
-		{#if status === 'error'}
-			{#if $$slots.error}
-				<slot name="error" />
+		{#if status === 'invalid'}
+			{#if $$slots.invalid}
+				<slot name="invalid" />
 			{:else}
-				<InputIncomplete size="16" /> You're doing it wrong!
+				<InputIncomplete size={16} /> You're doing it wrong!
 			{/if}
 		{:else if status === 'success'}
 			{#if $$slots.success}
 				<slot name="success" />
 			{:else}
-				<InputComplete size="16" /> Success!
+				<InputComplete size={16} /> Success!
 			{/if}
 		{:else if $$slots.hint}
 			<slot name="hint" />
@@ -145,7 +144,7 @@
 			display: flex;
 			gap: 5px;
 			align-items: center;
-			&--error {
+			&--invalid {
 				color: var(--support-error);
 			}
 			&--success {
@@ -176,42 +175,39 @@
 			color: var(--text-secondary);
 		}
 		&.disabled {
-			.input {
-				&__label,
-				&__hint {
-					color: var(--text-disabled);
-				}
-				&__wrapper {
-					border-color: var(--border-disabled);
-					background-color: var(--layer-disabled);
-				}
-				&__input {
-					background-color: transparent;
-					color: var(--text-on-color-disabled);
-				}
-				&__lead,
-				&__trail {
-					color: var(--text-on-color-disabled);
-				}
-				&__icon {
-					color: var(--icon-on-color-disabled);
-				}
+			&__label,
+			&__hint {
+				color: var(--text-disabled);
+			}
+			&__wrapper {
+				border-color: var(--border-disabled);
+				background-color: var(--layer-disabled);
+			}
+			&__input {
+				background-color: transparent;
+				color: var(--text-on-color-disabled);
+			}
+			&__lead,
+			&__trail {
+				color: var(--text-on-color-disabled);
+			}
+			&__icon {
+				color: var(--icon-on-color-disabled);
 			}
 		}
 		&:focus-within {
 			.input__wrapper {
-				border-color: var(--border-selected);
+				outline-color: var(--border-selected);
+			}
+			.input__chevron {
+				transform: rotate(-180deg);
 			}
 		}
-		&--error:focus-within {
-			.input__wrapper {
-				border-color: var(--support-error);
-			}
+		&--invalid .input__wrapper {
+			outline-color: var(--support-error);
 		}
-		&--success:focus-within {
-			.input__wrapper {
-				border-color: var(--support-success);
-			}
+		&--success .input__wrapper {
+			outline-color: var(--support-success);
 		}
 	}
 </style>

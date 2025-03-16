@@ -6,7 +6,7 @@ import CheckboxGroup from './CheckboxGroup.svelte';
 import FileUploader from './FileUploader.svelte';
 import Input from './Input.svelte';
 import NavLink from './NavLink.svelte';
-import Select from './Select.svelte';
+import RichSelect from './RichSelect.svelte';
 import Radio from './Radio.svelte';
 import RadioGroup from './RadioGroup.svelte';
 import Tag from './Tag.svelte';
@@ -22,7 +22,7 @@ export {
 	FileUploader,
 	Input,
 	NavLink,
-	Select,
+	RichSelect,
 	Radio,
 	RadioGroup,
 	Tag,
