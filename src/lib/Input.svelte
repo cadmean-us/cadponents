@@ -3,6 +3,7 @@
 	import InputWarning from '$lib/icons/InputWarning.svelte';
 	import LoadingDots from '$lib/icons/LoadingDots.svelte';
 	import InputIncomplete from '$lib/icons/InputIncomplete.svelte';
+	import { validator } from '@exodus/schemasafe';
 
 	export let label: string = '';
 	export let placeholder: string = '';
@@ -23,9 +24,27 @@
 		| 'disabled' = 'enabled';
 	export let required = false;
 	export let autocomplete = '';
+	export let validationSchema: object | undefined;
+	export let hasValidationError;
+
+	let validateFn;
+	$: if (validationSchema) {
+		validateFn = validator(validationSchema);
+	}
+
+	export function handleValidate() {
+		console.log('validate', hint);
+		// Run validation on blur.
+		console.log(value, validateFn(value));
+		hasValidationError = !validateFn(value);
+		return !hasValidationError; // Returns true if validation passes, false otherwise
+	}
 </script>
 
-<label class="input input--{status} {disabled ? 'disabled' : ''} {$$props.class}">
+<label
+	on:blur={handleValidate}
+	class="input input--{status} {disabled ? 'disabled' : ''} {$$props.class}"
+>
 	{#if $$slots.label}
 		<p class="input__label">
 			<slot name="label" />
