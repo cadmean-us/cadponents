@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Check from '$lib/icons/Check.svelte';
 	import Cross from '$lib/icons/Cross.svelte';
-	import { fade } from 'svelte/transition';
 	export let checked: boolean = false;
 	export let disabled = false;
 </script>
