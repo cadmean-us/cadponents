@@ -1,6 +1,6 @@
 {
 	"name": "@cadmean-us/cadponents",
-	"version": "0.4.7",
+	"version": "0.4.14",
 	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
@@ -59,7 +59,10 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
+		"@popperjs/core": "^2.11.8",
 		"@tailwindcss/vite": "^4.0.9",
+		"@woden/svelte-simplebar": "^1.0.0",
+		"iconify-icon": "^2.3.0",
 		"svrollbar": "^0.12.0",
 		"tailwindcss": "^4.0.9"
 	}

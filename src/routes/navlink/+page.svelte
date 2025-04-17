@@ -1,13 +1,14 @@
 <script>
 	import NavLink from '$lib/NavLink.svelte';
-	import Placeholder from '$lib/icons/Placeholder.svelte';
+
+	let foobar = 'nothing';
 
 	const links = [
 		{
 			title: 'Home',
 			href: '/',
-			notification: '2',
-			icon: Placeholder,
+			notification: '1',
+			icon: 'ci:folders',
 			children: [
 				{
 					title: 'Button',
@@ -15,41 +16,41 @@
 					children: [
 						{
 							title: 'Button',
-							href: '/button',
+							href: '/button'
 						},
 						{
 							title: 'Button',
 							href: '/navlink',
 							notification: '2',
-							icon: Placeholder
+							icon: 'ci:main-component'
 						}
 					]
 				},
 				{
 					title: 'Button',
-					href: '/button',
+					href: '/button'
+				},
+				{
+					title: 'Button',
+					href: '/button'
 				},
 				{
 					title: 'Button',
 					href: '/button',
-				},
-				{
-					title: 'Button',
-					href: '/button',
-					notification: '2',
-					icon: Placeholder,
+					notification: '3',
+					icon: 'ci:main-component',
 					children: [
 						{
 							title: 'Button',
 							href: '/button',
 							notification: '2',
-							icon: Placeholder
+							icon: 'ci:main-component'
 						},
 						{
 							title: 'Button',
 							href: '/button',
 							notification: '2',
-							icon: Placeholder
+							icon: 'ci:main-component'
 						}
 					]
 				}
@@ -57,62 +58,64 @@
 		},
 		{
 			title: 'Button',
-			href: '/button',
+			href: '/button'
 		}
-	]
+	];
 	const linksTwo = [
 		{
 			title: 'Home',
 			href: '/',
 			notification: '2',
-			icon: Placeholder,
+			icon: 'ci:main-component',
 			iconSwitchChevron: true,
 			children: [
 				{
-					title: 'Button',
-					href: '/button',
-					icon: Placeholder,
+					title: 'Button1',
+					icon: 'ci:main-component',
 					children: [
 						{
 							title: 'Button',
-							href: '/button',
+							href: '/button'
 						},
 						{
 							title: 'Button',
-							href: '/button',
-							notification: '2',
-							icon: Placeholder
+							href: '/navlink',
+							notification: '3',
+							icon: 'ci:main-component'
 						}
 					]
 				},
 				{
-					title: 'Button',
-					href: '/button',
-					icon: Placeholder,
-
+					title: 'foobar',
+					onclick: () => {
+						foobar = 'interior';
+					},
+					icon: 'ci:main-component'
 				},
 				{
-					title: 'Button',
-					href: '/button',
-					icon: Placeholder,
+					title: 'foobar2',
+					onclick: () => {
+						foobar = 'foobar2';
+					},
+					icon: 'ci:main-component'
 				},
 				{
 					title: 'Button',
 					href: '/button',
 					notification: '2',
-					icon: Placeholder,
+					icon: 'ci:main-component',
 					children: [
 						{
 							title: 'Button',
 							href: '/button',
 							notification: '2',
-							icon: Placeholder
+							icon: 'ci:add-column'
 						},
 						{
 							title: 'Button',
 							href: '/button',
 							notification: '2',
-							icon: Placeholder
+							icon: 'ci:main-component'
 						}
 					]
 				}
@@ -120,9 +123,9 @@
 		},
 		{
 			title: 'Button',
-			href: '/button',
+			href: '/button'
 		}
-	]
+	];
 
 	console.log(links);
 </script>
@@ -130,10 +133,11 @@
 <h1 class="ui-group__title">NavLink</h1>
 
 <div class="ui-group">
+	foobar: {foobar}
 	<div style="width: 300px;">
-		<NavLink links={links} />
+		<NavLink {links} />
 	</div>
 	<div style="width: 300px;">
-		<NavLink links={linksTwo}/>
+		<NavLink links={linksTwo} />
 	</div>
 </div>

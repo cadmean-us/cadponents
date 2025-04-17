@@ -24,8 +24,8 @@
 		| 'disabled' = 'enabled';
 	export let required = false;
 	export let autocomplete = '';
-	export let validationSchema: object | undefined;
-	export let hasValidationError;
+	export let validationSchema: object | undefined = undefined;
+	export let hasValidationError: boolean = false;
 
 	let validateFn;
 	$: if (validationSchema) {

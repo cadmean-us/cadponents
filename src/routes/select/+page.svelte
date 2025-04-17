@@ -2,14 +2,6 @@
 	import Button from '$lib/Button.svelte';
 	import Select from '$lib/RichSelect.svelte';
 	import { onMount } from 'svelte';
-	const selectValue = {
-		select1: '',
-		select2: [0],
-		select3: { value: 0, label: 'apple' },
-		select4: [{ value: 0, label: 'apple' }],
-		select12: '',
-		select22: ''
-	};
 	const selectOptions = [
 		'apple',
 		'banana',
@@ -22,6 +14,14 @@
 		'kiwi',
 		'lemon'
 	];
+	const selectValue = {
+		select1: selectOptions,
+		select2: [0, 1, 2, 3],
+		select3: [
+			{ value: 0, label: 'apple' },
+			{ value: 1, label: 'apples' }
+		]
+	};
 
 	const getContactsByName = async (name) => {
 		console.log(name);
@@ -48,36 +48,21 @@
 		<div class="ui-group__row">
 			<div class="ui-group__row-inner">
 				<Select
-					fetchOptions={getContactsByName}
-					transformFetchedOptionLabel={(contact) =>
-						`${contact.first_name} ${contact.last_name} (${contact.company_name})`}
-					transformFetchedOptionValue={(contact) =>
-						`${contact.first_name} (${contact.company_name})`}
-					bind:value={selectValue.select1}
+					options={selectValue.select1}
 					label="Label"
 					placeholder="Text field"
 					hint="Hint"
 					status="enabled"
 				/>
 				<Select
-					value={selectValue.select2}
-					options={selectOptions}
+					options={selectValue.select2}
 					label="Label"
 					placeholder="Text field"
 					hint="Hint"
 					status="enabled"
 				/>
 				<Select
-					value={selectValue.select3}
-					options={selectOptions}
-					label="Label"
-					placeholder="Text field"
-					hint="Hint"
-					status="enabled"
-				/>
-				<Select
-					value={selectValue.select4}
-					options={selectOptions}
+					options={selectValue.select3}
 					label="Label"
 					placeholder="Text field"
 					hint="Hint"
@@ -86,24 +71,31 @@
 			</div>
 		</div>
 		<div class="ui-group__row">
+			Multiple
 			<div class="ui-group__row-inner">
 				<Select
-					bind:value={selectValue.textarea12}
-					options={selectOptions}
+					multiple
+					options={selectValue.select1}
 					label="Label"
 					placeholder="Text field"
 					hint="Hint"
 					status="enabled"
-					disabled
 				/>
 				<Select
-					bind:value={selectValue.textarea22}
-					options={selectOptions}
+					multiple
+					options={selectValue.select2}
 					label="Label"
 					placeholder="Text field"
 					hint="Hint"
 					status="enabled"
-					disabled
+				/>
+				<Select
+					multiple
+					options={selectValue.select3}
+					label="Label"
+					placeholder="Text field"
+					hint="Hint"
+					status="enabled"
 				/>
 			</div>
 		</div>

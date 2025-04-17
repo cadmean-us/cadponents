@@ -1,73 +1,80 @@
-<script>
+<script lang="ts">
 	import '../assets/style.css';
 	import '../style.css';
 	import SideMenu from '$lib/menu/SideMenu.svelte';
 	// import Student from '$lib/Student.svelte';
+	import 'iconify-icon';
 
 	let tabs = [
 		{
-			name: 'Form',
-			href: '/form'
-		},
-		{
-			name: 'Button',
-			href: '/button'
-		},
-		{
-			name: 'Tag',
-			href: '/tag'
-		},
-		{
-			name: 'Breadcrumb',
-			href: '/breadcrumb'
-		},
-		{
-			name: 'Control',
-			href: '/control'
-		},
-		{
-			name: 'NavLink',
-			href: '/navlink'
-		},
-		{
-			name: 'Input',
-			href: '/input'
-		},
-		{
-			name: 'Select',
-			href: '/select'
-		},
-		{
-			name: 'FileUploader',
-			href: '/fileuploader'
+			title: 'Cadponents',
+			icon: 'ci:folders',
+			children: [
+				{
+					title: 'Form',
+					href: '/form'
+				},
+				{
+					title: 'Button',
+					href: '/button'
+				},
+				{
+					title: 'Tag',
+					href: '/tag'
+				},
+				{
+					title: 'Breadcrumb',
+					href: '/breadcrumb'
+				},
+				{
+					title: 'Control',
+					href: '/control'
+				},
+				{
+					title: 'NavLink',
+					href: '/navlink'
+				},
+				{
+					title: 'Input',
+					href: '/input'
+				},
+				{
+					title: 'Select',
+					href: '/select'
+				},
+				{
+					title: 'FileUploader',
+					href: '/fileuploader'
+				}
+			]
 		},
 
 		// {
-		// 	name: 'Main',
+		// 	title: 'Main',
 		// 	href: '/',
 		// },
 		// {
-		// 	name: 'Modal',
+		// 	title: 'Modal',
 		// 	href: '/modal',
 		// },
 		// {
-		// 	name: 'Textarea',
+		// 	title: 'Textarea',
 		// 	href: '/textarea',
 		// },
 		// {
-		// 	name: 'DatePicker',
+		// 	title: 'DatePicker',
 		// 	href: '/datepicker',
 		// },
 		{
-			name: 'Table',
+			title: 'Table',
 			href: '/table'
 		}
 		// {
-		// 	name: 'Timeline',
+		// 	title: 'Timeline',
 		// 	href: '/timeline',
 		// },
 		// {
-		// 	name: 'Weekly Schedule',
+		// 	title: 'Weekly Schedule',
 		// 	href: '/weeklyschedule',
 		// },
 	];

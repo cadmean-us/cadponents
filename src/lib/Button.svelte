@@ -13,7 +13,7 @@
 		{...$$restProps}
 		class="button button--{variant} button--{size} {$$props.class ?? ''}"
 	>
-		<span class="flex gap-[10px]">
+		<span class="flex items-center gap-[10px]">
 			<slot />
 		</span>
 		{#if loading}
