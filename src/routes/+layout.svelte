@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '../assets/style.css';
 	import '../style.css';
 	import SideMenu from '$lib/menu/SideMenu.svelte';
 	// import Student from '$lib/Student.svelte';
@@ -68,6 +67,10 @@
 		{
 			title: 'Table',
 			href: '/table'
+		},
+		{
+			title: 'Drawer',
+			href: '/drawer'
 		}
 		// {
 		// 	title: 'Timeline',
